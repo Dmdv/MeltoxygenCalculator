@@ -145,11 +145,7 @@
 				<TextBlock TextWrapping="Wrap" Text="Данную операцию желательно производить 1 раз в 100 плавок для идентификации ряда величин, характеризующих процесс, которые оказывают значительное влияние на результаты расчета" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			</Grid>
 		</GroupBox>
-		<Button Content="Назад ..." HorizontalAlignment="Left" Width="200" Grid.Row="4" Command="NavigationCommands.PreviousPage" >
-			<Button.Margin>
-				<Thickness>5,5,5,8</Thickness>
-			</Button.Margin>
-		</Button>
+		<Button Content="Назад ..." HorizontalAlignment="Left" Width="200" Grid.Row="4" Command="NavigationCommands.PreviousPage" Margin="{DynamicResource ButtonMargin}" />
 		<Button Content="Далее ..." HorizontalAlignment="Right" Width="200" Grid.Row="4" Command="NavigationCommands.NextPage" Grid.Column="1" >
 			<Button.Margin>
 				<Thickness>5,5,5,8</Thickness>

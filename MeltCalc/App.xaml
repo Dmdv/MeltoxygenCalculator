@@ -5,6 +5,7 @@
     <Application.Resources>
          
     	<Thickness x:Key="GroupboxMargin">5</Thickness>
+    	<Thickness x:Key="ButtonMargin">5,5,5,8</Thickness>
          
     </Application.Resources>
 </Application>
