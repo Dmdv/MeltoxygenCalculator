@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MeltCalc.Pages
 {
@@ -22,6 +12,17 @@ namespace MeltCalc.Pages
 		public Step1()
 		{
 			InitializeComponent();
+		}
+
+		private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			if (_option1.IsChecked != null) e.CanExecute = (bool) _option1.IsChecked;
+		}
+
+		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (NavigationService != null && _option1.IsChecked.HasValue && _option1.IsChecked.Value)
+				NavigationService.Navigate(new Uri(@"Pages\Step11.xaml", UriKind.Relative));
 		}
 	}
 }

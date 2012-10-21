@@ -4,5 +4,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
+    	<Thickness x:Key="GroupboxMargin">5</Thickness>
+         
     </Application.Resources>
 </Application>
