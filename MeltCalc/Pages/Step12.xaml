@@ -2,7 +2,7 @@
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Model="clr-namespace:MeltCalc.Model"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="249" d:DesignWidth="540" Title="Step12" WindowTitle="Шаг 2: Выбор используемых сыпучих материалов" Margin="{DynamicResource GroupboxMargin}" Width="540" Height="250">
 	<Page.Resources>
@@ -16,8 +16,7 @@
 		<CommandBinding Command="PreviousPage" CanExecute="CommandBinding_CanPrevious" Executed="CommandBinding_PreviousPage"/>
 	</Page.CommandBindings>
 
-
-	<Grid>
+	<Grid x:Name="_parent" x:FieldModifier="private">
 		<GroupBox Header="Отметьте материалы, которые предполагается присаживать в конвертер"/>
 		<Grid>
 			<Grid.RowDefinitions>
@@ -30,20 +29,20 @@
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 				<StackPanel>
-					<CheckBox Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True"/>
-					<CheckBox Content="Известняк" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Доломит" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Сырой доломит" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Известково-магнитный флюс (ИМФ)" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Кокс" Margin="{DynamicResource checkboxframe}"/>
+					<CheckBox Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True" Tag="{x:Static Model:Materials.Известь}"/>
+					<CheckBox Content="Известняк" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Известняк}"/>
+					<CheckBox Content="Доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Доломит}"/>
+					<CheckBox Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.СыройДоломит}"/>
+					<CheckBox Content="Известково-магнитный флюс (ИМФ)" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ИзвестковоМагнитныйФлюс}"/>
+					<CheckBox Content="Кокс" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Кокс}"/>
 				</StackPanel>
 				<StackPanel Grid.Column="1" Margin="{DynamicResource GroupboxMargin}">
-					<CheckBox Content="Песок" Margin="{DynamicResource topcheckboxframe}"/>
-					<CheckBox Content="Окатыши" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Руда" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Окалина" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Агломерат" Margin="{DynamicResource checkboxframe}"/>
-					<CheckBox Content="Плавиковый шпат" Margin="{DynamicResource checkboxframe}"/>
+					<CheckBox Content="Песок" Margin="{DynamicResource topcheckboxframe}" Tag="{x:Static Model:Materials.Песок}"/>
+					<CheckBox Content="Окатыши" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Окатыши}"/>
+					<CheckBox Content="Руда" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Руда}"/>
+					<CheckBox Content="Окалина" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Окалина}"/>
+					<CheckBox Content="Агломерат" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Агломерат}"/>
+					<CheckBox Content="Плавиковый шпат" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ПлавиковыйШпат}"/>
 				</StackPanel>
 			</Grid>
 			<Button Content="Назад ..." HorizontalAlignment="Left" Width="200" Grid.Row="1" Command="NavigationCommands.PreviousPage" Height="32.82" VerticalAlignment="Bottom" Margin="{DynamicResource ButtonMargin}" />
