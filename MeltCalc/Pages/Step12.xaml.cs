@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Linq;
-using System.Windows.Media;
+using MeltCalc.Helpers;
 
 namespace MeltCalc.Pages
 {
@@ -24,7 +23,7 @@ namespace MeltCalc.Pages
 
 		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			// CheckBox[] checkBoxs = _parent.Children.OfType<CheckBox>().ToArray();
+			var checkBoxs = _grid.FindVisualChild<CheckBox>().ToList();
 			if (NavigationService != null)
 				NavigationService.Navigate(new Uri(@"Pages\Step13.xaml", UriKind.Relative));
 		}
