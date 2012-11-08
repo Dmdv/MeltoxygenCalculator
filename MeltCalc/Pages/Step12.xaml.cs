@@ -23,9 +23,9 @@ namespace MeltCalc.Pages
 
 		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			var checkBoxs = _grid.FindVisualChild<CheckBox>().ToList();
+			var checkBoxs = _grid.FindVisualChild<CheckBox>().Where(x=>x.IsChecked.HasValue && x.IsChecked.Value).ToList();
 			if (NavigationService != null)
-				NavigationService.Navigate(new Uri(@"Pages\Step13.xaml", UriKind.Relative));
+				NavigationService.Navigate(new Uri(@"Pages\Step13.xaml", UriKind.Relative), checkBoxs);
 		}
 
 		private void CommandBinding_CanPrevious(object sender, CanExecuteRoutedEventArgs e)
