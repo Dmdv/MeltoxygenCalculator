@@ -26,13 +26,13 @@
 				<RowDefinition Height="0.815*"/>
 				<RowDefinition Height="0.185*"/>
 			</Grid.RowDefinitions>
-			<Grid>
+			<Grid x:Name="_grid">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 				<StackPanel>
-					<RadioButton Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True" Tag="{x:Static Model:Materials.Известь}"/>
+					<RadioButton Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True" Tag="{x:Static Model:Materials.Известь}" />
 					<RadioButton Content="Известняк" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Известняк}"/>
 					<RadioButton Content="Доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Доломит}"/>
 					<RadioButton Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.СыройДоломит}"/>

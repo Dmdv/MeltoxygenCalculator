@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MeltCalc.Helpers;
+using MeltCalc.Model;
 
 namespace MeltCalc.Pages
 {
@@ -23,9 +24,15 @@ namespace MeltCalc.Pages
 
 		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			var checkBoxs = _grid.FindVisualChild<CheckBox>().Where(x=>x.IsChecked.HasValue && x.IsChecked.Value).ToList();
+			var checkBoxs = _grid
+				.FindVisualChild<CheckBox>()
+				.Where(x=>x.IsChecked.HasValue && x.IsChecked.Value)
+				.Select(x=>x.Tag).OfType<Materials>().ToList();
+
 			if (NavigationService != null)
-				NavigationService.Navigate(new Uri(@"Pages\Step13.xaml", UriKind.Relative), checkBoxs);
+			{
+				NavigationService.Navigate(new Step13(checkBoxs));
+			}
 		}
 
 		private void CommandBinding_CanPrevious(object sender, CanExecuteRoutedEventArgs e)
