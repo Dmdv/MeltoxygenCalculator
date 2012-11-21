@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
 using MeltCalc.Providers;
+using MeltCalc.Tables;
 
 namespace MeltCalc
 {
@@ -11,11 +11,13 @@ namespace MeltCalc
 	{
 		public MainWindow()
 		{
-			var tables = new TablesProvider(@"h:\Projects\Coursach\Database\Loose.mdb");
+			var tables = new TablesSchema(@"h:\Projects\Coursach\Database\Loose.mdb");
 			var tableNames = tables.GetTableNames();
-			var tableFactory = new TableFactory(@"h:\Projects\Coursach\Database\Loose.mdb", "VlDol");
-			var executeTable = tableFactory.ExecuteTable();
+			var tableFactory = new TableReader(@"h:\Projects\Coursach\Database\Loose.mdb");
+			var executeTable = tableFactory.FetchTable("VlDol");
 			var o = executeTable.Rows[0]["CaO"];
+
+			var mdb = new LooseMdb();
 
 			InitializeComponent();
 		}

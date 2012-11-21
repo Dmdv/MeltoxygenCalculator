@@ -4,16 +4,16 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 
-namespace MeltCalc
+namespace MeltCalc.Providers
 {
-	public class TablesProvider
+	public class TablesSchema
 	{
 		private const string Pattern = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
 		private static readonly DbProviderFactory _factory = DbProviderFactories.GetFactory("System.Data.OleDb");
 
 		private readonly string _file;
 
-		public TablesProvider(string file)
+		public TablesSchema(string file)
 		{
 			_file = file;
 		}

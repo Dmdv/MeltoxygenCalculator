@@ -4,35 +4,37 @@ using System.Data.OleDb;
 
 namespace MeltCalc.Providers
 {
-	public class TableFactory
+	public class TableReader
 	{
 		private const string ConnStr = "Provider=Microsoft.JET.OLEDB.4.0;data source={0};";
 		private readonly string _file;
-		private readonly string _table;
 
-		public TableFactory(string file, string table)
+		public TableReader(string file)
 		{
 			_file = file;
-			_table = table;
 		}
 
-		public DataTable ExecuteTable()
+		public DataTable FetchTable(string table)
 		{
 			using (var conn = new OleDbConnection(string.Format(ConnStr, _file)))
 			{
-				var cmd = new OleDbCommand(string.Format("select * from {0}", _table)) {Connection = conn};
 				conn.Open();
 
-				using (var oleDbDataReader = cmd.ExecuteReader())
+				using (var cmd = new OleDbCommand(string.Format("select * from {0}", table)) {Connection = conn})
 				{
-					if (oleDbDataReader == null)
+					using (var oleDbDataReader = cmd.ExecuteReader())
 					{
-						throw new ApplicationException(string.Format("Reader is null for 'select * from {0}'", _table));
-					}
+						if (oleDbDataReader == null)
+						{
+							throw new ApplicationException(string.Format("Reader is null for 'select * from {0}'", table));
+						}
 
-					var dt = new DataTable();
-					dt.Load(oleDbDataReader);
-					return dt;
+						using (var dt = new DataTable())
+						{
+							dt.Load(oleDbDataReader);
+							return dt;
+						}
+					}
 				}
 			}
 		}
