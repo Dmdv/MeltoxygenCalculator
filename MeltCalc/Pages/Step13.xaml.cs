@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,27 +14,28 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Step13
 	{
-		private readonly List<Materials> _checkBoxes;
 		private readonly List<Materials> _disabled = new List<Materials>
 		                                             	{
 		                                             		Materials.Кокс,
-															Materials.Песок,
-															Materials.Окатыши,
-															Materials.Руда,
-															Materials.Окалина,
-															Materials.Агломерат,
-															Materials.ПлавиковыйШпат
+		                                             		Materials.Песок,
+		                                             		Materials.Окатыши,
+		                                             		Materials.Руда,
+		                                             		Materials.Окалина,
+		                                             		Materials.Агломерат,
+		                                             		Materials.ПлавиковыйШпат
 		                                             	};
+
+		private readonly List<Materials> _selectedMaterials;
+
 		public Step13()
 		{
 			InitializeComponent();
-			Loaded += OnLoaded;
 		}
 
-		public Step13(List<Materials> checkBoxes)
+		public Step13(List<Materials> selectedMaterials)
 		{
 			InitializeComponent();
-			_checkBoxes = checkBoxes;
+			_selectedMaterials = selectedMaterials;
 			Loaded += OnLoaded;
 		}
 
@@ -42,44 +43,25 @@ namespace MeltCalc.Pages
 		{
 			Loaded -= OnLoaded;
 
-			var buttons = _grid.FindVisualChild<RadioButton>().ToList();
+			var controls = _grid.FindVisualChild<RadioButton>().ToList();
 
-			UpdateVisibility(buttons);
-			EnableOrNot(buttons);
-			Default(buttons);
+			VisualHelper.UpdateVisibility(controls, _selectedMaterials);
+			VisualHelper.UpdateEnabled(controls, _disabled);
+
+			DefaultValues(controls);
 		}
 
-		private void Default(IEnumerable<RadioButton> buttons)
+		private void DefaultValues(IEnumerable<RadioButton> buttons)
 		{
-			if (_checkBoxes.Contains(Materials.Известь))
+			if (_selectedMaterials.Contains(Materials.Известь))
 			{
-				buttons.FindByMaterial(Materials.Известь).IsChecked = true;
+				var checkBox = (RadioButton) buttons.FindByMaterial(Materials.Известь);
+				checkBox.IsChecked = true;
 			}
-			else if (_checkBoxes.Contains(Materials.Доломит))
+			else if (_selectedMaterials.Contains(Materials.Доломит))
 			{
-				buttons.FindByMaterial(Materials.Доломит).IsChecked = true;
-			}
-		}
-
-		private void EnableOrNot(IEnumerable<RadioButton> buttons)
-		{
-			foreach (var button in buttons)
-			{
-				var materials = button.Material();
-				if (materials != null && _disabled.Contains(materials.Value))
-				{
-					button.IsEnabled = false;
-				}
-			}
-		}
-
-		private void UpdateVisibility(IEnumerable<RadioButton> buttons)
-		{
-			var radioButtons = buttons.Where(x => !_checkBoxes.Contains((Materials) x.Tag));
-
-			foreach (var radioButton in radioButtons)
-			{
-				radioButton.Visibility = Visibility.Collapsed;
+				var checkBox = (RadioButton) buttons.FindByMaterial(Materials.Доломит);
+				checkBox.IsChecked = true;
 			}
 		}
 
@@ -91,7 +73,9 @@ namespace MeltCalc.Pages
 		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (NavigationService != null)
-				NavigationService.Navigate(new Uri(@"Pages\Step14.xaml", UriKind.Relative));
+			{
+				NavigationService.Navigate(new Step14(_selectedMaterials));
+			}
 		}
 
 		private void CommandBinding_CanPrevious(object sender, CanExecuteRoutedEventArgs e)

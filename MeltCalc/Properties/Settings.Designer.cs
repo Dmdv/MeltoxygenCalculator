@@ -31,5 +31,14 @@ namespace MeltCalc.Properties {
                 return ((string)(this["LooseMdb"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\Database")]
+        public string DatabaseRelativePath {
+            get {
+                return ((string)(this["DatabaseRelativePath"]));
+            }
+        }
     }
 }

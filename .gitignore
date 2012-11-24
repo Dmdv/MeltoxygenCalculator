@@ -2,5 +2,6 @@
 bin
 obj
 *.suo
+Database
 # mstest test results
 TestResults

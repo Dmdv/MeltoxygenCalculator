@@ -1,4 +1,5 @@
 using System.IO;
+using MeltCalc.Properties;
 
 namespace MeltCalc.Providers
 {
@@ -8,6 +9,7 @@ namespace MeltCalc.Providers
 
 		protected MdbReader(string path)
 		{
+			path = Path.Combine(System.Environment.CurrentDirectory, Settings.Default.DatabaseRelativePath, path);
 			ValidatePath(path);
 			_reader = new TableReader(path);
 		}
