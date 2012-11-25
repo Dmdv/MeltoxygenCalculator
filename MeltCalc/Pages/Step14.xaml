@@ -3,16 +3,12 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Model="clr-namespace:MeltCalc.Model"
-	  xmlns:MeltCalc_ViewModel="clr-namespace:MeltCalc.ViewModel" xmlns:Helpers="clr-namespace:MeltCalc.Helpers"
 	  x:Class="MeltCalc.Pages.Step14"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="664" d:DesignWidth="1106"
 	Title="Шаг 4" WindowTitle="Шаг 4" VerticalAlignment="Top">
 
-	<Page.Resources>
-		<MeltCalc_ViewModel:Step14Model x:Key="Step14ModelDataSource" d:IsDataSource="True"/>
-		<Helpers:MaterialTableConverter x:Key="DefaultConverter"/>
-	</Page.Resources>
+	<Page.Resources></Page.Resources>
 
 	<Grid x:Name="_grid" VerticalAlignment="Top">
 		<Grid.RowDefinitions>
@@ -41,7 +37,8 @@
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
-					<ColumnDefinition Width="136.85"/>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="137"/>
 				</Grid.ColumnDefinitions>
 				<Grid d:LayoutOverrides="Width" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
@@ -106,7 +103,7 @@
 					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
@@ -122,6 +119,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -189,7 +187,7 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
@@ -206,6 +204,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -275,7 +274,7 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
@@ -292,6 +291,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -372,6 +372,15 @@
 					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
+				<Grid VerticalAlignment="Top" Grid.Column="8" d:LayoutOverrides="Width">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+				
+				</Grid>
 				
 			</Grid>
 		</GroupBox>
@@ -380,6 +389,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -447,12 +457,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -464,6 +474,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -527,12 +538,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -544,6 +555,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -605,12 +617,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -622,6 +634,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -687,12 +700,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -704,6 +717,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -773,12 +787,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -790,6 +804,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -859,12 +874,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -876,6 +891,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -941,12 +957,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>
@@ -958,6 +974,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="137"/>
+					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -1021,12 +1038,12 @@
 					</Grid.ColumnDefinitions>
 				
 				</Grid>
-				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
+				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="8">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Text="Усвоение" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
+					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
 					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
 				
 				</Grid>

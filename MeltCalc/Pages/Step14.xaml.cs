@@ -30,10 +30,6 @@ namespace MeltCalc.Pages
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			var mdb = new LooseMdb();
-			var table = mdb.Reader.FetchTable("Save");
-			var uu = table.Rows[0][Materials.Известь.ToName()];
-
 			Loaded -= OnLoaded;
 			InitializeGroupContainers();
 		}
