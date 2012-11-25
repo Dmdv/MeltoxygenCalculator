@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
+using MeltCalc.ViewModel;
 
 namespace MeltCalc.Pages
 {
@@ -13,6 +14,7 @@ namespace MeltCalc.Pages
 	public partial class Step14
 	{
 		private readonly List<Materials> _selectedMaterials;
+		private List<GroupBox> _controls = new List<GroupBox>();
 
 		public Step14()
 		{
@@ -32,15 +34,22 @@ namespace MeltCalc.Pages
 			var table = mdb.Reader.FetchTable("Save");
 			var uu = table.Rows[0][Materials.Известь.ToName()];
 
-
 			Loaded -= OnLoaded;
-			var controls = _grid.FindVisualChild<GroupBox>().ToList();
-			VisualHelper.UpdateVisibility(controls, _selectedMaterials);
+			InitializeGroupContainers();
 		}
 
-		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void InitializeGroupContainers()
 		{
+			_controls.Clear();
+			_controls = _grid.FindVisualChild<GroupBox>().ToList();
+			VisualHelper.UpdateVisibility(_controls, _selectedMaterials);
 
+			InitializeDataContext();
+		}
+
+		private void InitializeDataContext()
+		{
+			_controls.ForEach(x => x.DataContext = new Step14Model(x));
 		}
 	}
 }

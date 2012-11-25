@@ -4,10 +4,6 @@ using System.Windows.Threading;
 
 namespace MeltCalc.ViewModel
 {
-	public class Step12Model : BaseViewModel
-	{
-	}
-
 	public abstract class BaseViewModel : INotifyPropertyChanged
 	{
 		private static bool? _isInDesignMode;

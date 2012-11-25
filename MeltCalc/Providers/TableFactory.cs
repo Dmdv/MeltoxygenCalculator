@@ -14,6 +14,7 @@ namespace MeltCalc.Providers
 			_file = file;
 		}
 
+		// TODO: Cache ?
 		public DataTable FetchTable(string table)
 		{
 			using (var conn = new OleDbConnection(string.Format(ConnStr, _file)))
