@@ -28,9 +28,19 @@ namespace MeltCalc.Pages
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
+			var mdb = new LooseMdb();
+			var table = mdb.Reader.FetchTable("Save");
+			var uu = table.Rows[0][Materials.Известь.ToName()];
+
+
 			Loaded -= OnLoaded;
 			var controls = _grid.FindVisualChild<GroupBox>().ToList();
 			VisualHelper.UpdateVisibility(controls, _selectedMaterials);
+		}
+
+		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }

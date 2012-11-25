@@ -14,7 +14,7 @@ namespace MeltCalc.Providers
 			_reader = new TableReader(path);
 		}
 
-		protected TableReader Reader
+		public TableReader Reader
 		{
 			get { return _reader; }
 		}

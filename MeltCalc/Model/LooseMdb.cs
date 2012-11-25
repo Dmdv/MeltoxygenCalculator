@@ -1,7 +1,7 @@
 ﻿using MeltCalc.Properties;
 using MeltCalc.Providers;
 
-namespace MeltCalc.Tables
+namespace MeltCalc.Model
 {
 	public class LooseMdb : MdbReader
 	{

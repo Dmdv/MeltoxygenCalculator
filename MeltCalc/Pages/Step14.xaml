@@ -105,12 +105,12 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0" SelectionChanged="ComboBox_SelectionChanged"/>
 				</Grid>
 				
 			</Grid>
 		</GroupBox>
-		<GroupBox VerticalAlignment="Top" Grid.Row="1" Tag="{x:Static Model:Materials.Известняк}">
+		<GroupBox VerticalAlignment="Top" Grid.Row="1" Tag="{x:Static Model:Materials.Известняк}" DataContext="2">
 			<GroupBox.Header>Известняк</GroupBox.Header>
 			<Grid>
 				<Grid.ColumnDefinitions>
@@ -188,7 +188,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Вариант" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<ComboBox Grid.Column="1" Width="60" Margin="0,0,1,0" SelectionChanged="ComboBox_SelectionChanged"/>
 				
 				</Grid>
 				

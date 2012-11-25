@@ -57,10 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Mapper.cs" />
     <Compile Include="Providers\MdbReader.cs" />
     <Compile Include="Providers\TableFactory.cs" />
-    <Compile Include="Tables\LooseMdb.cs" />
+    <Compile Include="Model\LooseMdb.cs" />
     <Compile Include="Providers\TablesProvider.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
