@@ -5,7 +5,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Model="clr-namespace:MeltCalc.Model"
 	  x:Class="MeltCalc.Pages.Step14"
 	  mc:Ignorable="d" 
-	  d:DesignHeight="664" d:DesignWidth="1106"
+	  d:DesignHeight="812" d:DesignWidth="1106"
 	Title="Шаг 4" WindowTitle="Шаг 4" VerticalAlignment="Top">
 
 	<Page.Resources></Page.Resources>
@@ -24,7 +24,7 @@
 			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
-			<RowDefinition/>
+			<RowDefinition Height="80"/>
 		</Grid.RowDefinitions>
 		<GroupBox VerticalAlignment="Top" Tag="{x:Static Model:Materials.Известь}">
 			<GroupBox.Header>Известь</GroupBox.Header>
@@ -1048,6 +1048,12 @@
 				
 				</Grid>
 				
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="12" VerticalAlignment="Top" Header="Управление">
+			<Grid>
+				<Button Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32.82" VerticalAlignment="Bottom" Margin="{DynamicResource ButtonMargin}" />
+				<Button Content="Вперед ..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.PreviousPage" Height="32.82" VerticalAlignment="Bottom" Margin="{DynamicResource ButtonMargin}" />
 			</Grid>
 		</GroupBox>
 	</Grid>
