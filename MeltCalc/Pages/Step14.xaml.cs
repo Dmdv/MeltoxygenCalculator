@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
 using MeltCalc.ViewModel;
@@ -24,6 +25,8 @@ namespace MeltCalc.Pages
 		public Step14(List<Materials> selectedMaterials)
 		{
 			_selectedMaterials = selectedMaterials;
+			_selectedMaterials.Add(Materials.Неопределенный);
+
 			InitializeComponent();
 			Loaded += OnLoaded;
 		}
@@ -46,6 +49,24 @@ namespace MeltCalc.Pages
 		private void InitializeDataContext()
 		{
 			_controls.ForEach(x => x.DataContext = new Step14Model(x));
+		}
+
+		private void CommandBindingCanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = false;
+		}
+
+		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+		}
+
+		private void CommandBindingCanPrevious(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void CommandBindingPreviousPage(object sender, ExecutedRoutedEventArgs e)
+		{
 		}
 	}
 }

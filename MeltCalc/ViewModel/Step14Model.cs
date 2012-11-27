@@ -20,10 +20,6 @@ namespace MeltCalc.ViewModel
 		private readonly Materials _material;
 		private readonly DataTable _table;
 
-		public Step14Model()
-		{
-		}
-
 		public Step14Model(ContentControl groupBox)
 		{
 			_material = groupBox.Material();

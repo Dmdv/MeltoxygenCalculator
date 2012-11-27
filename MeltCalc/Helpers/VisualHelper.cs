@@ -15,6 +15,7 @@ namespace MeltCalc.Helpers
 
 		public static Materials Material(this ContentControl button)
 		{
+			if (!(button.Tag is Materials)) return Materials.Неопределенный;
 			return (Materials) button.Tag;
 		}
 

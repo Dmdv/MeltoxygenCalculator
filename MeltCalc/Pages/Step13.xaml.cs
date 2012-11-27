@@ -65,12 +65,12 @@ namespace MeltCalc.Pages
 			}
 		}
 
-		private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		private void CommandBindingCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = true;
 		}
 
-		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (NavigationService != null)
 			{
@@ -78,12 +78,12 @@ namespace MeltCalc.Pages
 			}
 		}
 
-		private void CommandBinding_CanPrevious(object sender, CanExecuteRoutedEventArgs e)
+		private void CommandBindingCanPrevious(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = true;
 		}
 
-		private void CommandBinding_PreviousPage(object sender, ExecutedRoutedEventArgs e)
+		private void CommandBindingPreviousPage(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (NavigationService != null)
 				NavigationService.Navigate(new Uri(@"Pages\Step12.xaml", UriKind.Relative));
