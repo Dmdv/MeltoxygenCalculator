@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using MeltCalc.Model;
 
 namespace MeltCalc.Helpers
 {
@@ -13,8 +10,10 @@ namespace MeltCalc.Helpers
 			for (var i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(obj); i++)
 			{
 				var child = System.Windows.Media.VisualTreeHelper.GetChild(obj, i);
-				if (child != null && child is TItem)
+				if (child is TItem)
+				{
 					yield return (TItem) child;
+				}
 
 				foreach (var item in FindVisualChild<TItem>(child))
 				{

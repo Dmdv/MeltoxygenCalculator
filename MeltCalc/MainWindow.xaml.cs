@@ -1,4 +1,5 @@
-﻿using System.Windows.Navigation;
+﻿using System.Threading.Tasks;
+using MeltCalc.Providers;
 
 namespace MeltCalc
 {
@@ -9,7 +10,13 @@ namespace MeltCalc
 	{
 		public MainWindow()
 		{
+			InitializeDatabases();
 			InitializeComponent();
+		}
+
+		private static void InitializeDatabases()
+		{
+			Task.Factory.StartNew(TableCache.Refresh);
 		}
 	}
 }

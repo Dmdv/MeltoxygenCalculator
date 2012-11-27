@@ -41,9 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -57,12 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\MaterialTableConverter.cs" />
     <Compile Include="Model\Mapper.cs" />
     <Compile Include="Providers\MdbReader.cs" />
-    <Compile Include="Providers\TableFactory.cs" />
+    <Compile Include="Providers\TableCache.cs" />
+    <Compile Include="Providers\TableCacheReader.cs" />
     <Compile Include="Model\LooseMdb.cs" />
-    <Compile Include="Providers\TablesProvider.cs" />
+    <Compile Include="Providers\TableReader.cs" />
+    <Compile Include="Providers\TablesSchema.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Step14Model.cs" />
     <Page Include="MainWindow.xaml">

@@ -5,21 +5,21 @@ namespace MeltCalc.Providers
 {
 	public abstract class MdbReader
 	{
-		private readonly TableReader _reader;
+		private readonly TableCacheReader _cacheReader;
 
 		protected MdbReader(string path)
 		{
 			path = Path.Combine(System.Environment.CurrentDirectory, Settings.Default.DatabaseRelativePath, path);
 			ValidatePath(path);
-			_reader = new TableReader(path);
+			_cacheReader = new TableCacheReader(path);
 		}
 
-		public TableReader Reader
+		public TableCacheReader Reader
 		{
-			get { return _reader; }
+			get { return _cacheReader; }
 		}
 
-		private void ValidatePath(string path)
+		private static void ValidatePath(string path)
 		{
 			if (!File.Exists(path))
 			{

@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace MeltCalc.Providers
 {
+	/// <summary>
+	/// Ñץולא ÁÄ.
+	/// </summary>
 	public class TablesSchema
 	{
 		private const string Pattern = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
@@ -18,7 +21,7 @@ namespace MeltCalc.Providers
 			_file = file;
 		}
 
-		public List<string> GetTableNames()
+		public IEnumerable<string> GetTableNames()
 		{
 			DataTable userTables;
 

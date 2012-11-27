@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 
 namespace MeltCalc.Providers
 {
@@ -12,10 +13,13 @@ namespace MeltCalc.Providers
 		public TableReader(string file)
 		{
 			_file = file;
+			if (!File.Exists(_file))
+			{
+				throw new FileNotFoundException(string.Format("File not found: '{0}'", _file));
+			}
 		}
 
-		// TODO: Cache ?
-		public DataTable FetchTable(string table)
+		public virtual DataTable FetchTable(string table)
 		{
 			using (var conn = new OleDbConnection(string.Format(ConnStr, _file)))
 			{
