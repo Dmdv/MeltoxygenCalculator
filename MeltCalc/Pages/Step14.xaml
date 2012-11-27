@@ -1054,7 +1054,7 @@
 				
 			</Grid>
 		</GroupBox>
-		<GroupBox Grid.Row="12" VerticalAlignment="Top" Header="Управление" Tag="{x:Static Model:Materials.Неопределенный}">
+		<GroupBox Grid.Row="12" VerticalAlignment="Top" Header="Управление">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>

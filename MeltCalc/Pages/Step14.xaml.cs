@@ -25,8 +25,6 @@ namespace MeltCalc.Pages
 		public Step14(List<Materials> selectedMaterials)
 		{
 			_selectedMaterials = selectedMaterials;
-			_selectedMaterials.Add(Materials.Неопределенный);
-
 			InitializeComponent();
 			Loaded += OnLoaded;
 		}
@@ -34,6 +32,7 @@ namespace MeltCalc.Pages
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
 			Loaded -= OnLoaded;
+			// TODO: Сделать инициализацию из диспатчера.
 			InitializeGroupContainers();
 		}
 
@@ -41,9 +40,14 @@ namespace MeltCalc.Pages
 		{
 			_controls.Clear();
 			_controls = _grid.FindVisualChild<GroupBox>().ToList();
+			UpdateNavigationGroupBox();
 			VisualHelper.UpdateVisibility(_controls, _selectedMaterials);
-
 			InitializeDataContext();
+		}
+
+		private void UpdateNavigationGroupBox()
+		{
+			_controls.Remove(_controls.Single(x => x.Tag == null));
 		}
 
 		private void InitializeDataContext()
