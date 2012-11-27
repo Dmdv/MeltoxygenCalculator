@@ -55,12 +55,18 @@ namespace MeltCalc.Pages
 			_controls.ForEach(x => x.DataContext = new Step14Model(x));
 		}
 
+		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			SaveChoice();
+			РассчётИзвестняка();
+		}
+
 		private void CommandBindingCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
 		}
 
-		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
+		private void CommandBindingPreviousPage(object sender, ExecutedRoutedEventArgs e)
 		{
 		}
 
@@ -69,7 +75,14 @@ namespace MeltCalc.Pages
 			e.CanExecute = true;
 		}
 
-		private void CommandBindingPreviousPage(object sender, ExecutedRoutedEventArgs e)
+		private void РассчётИзвестняка()
+		{
+		}
+
+		/// <summary>
+		/// Save variants to Save table in loose.mdb.
+		/// </summary>
+		private void SaveChoice()
 		{
 		}
 	}
