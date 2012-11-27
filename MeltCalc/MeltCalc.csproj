@@ -55,9 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Chemistry\Доломит.cs" />
-    <Compile Include="Chemistry\Известняк.cs" />
-    <Compile Include="Chemistry\Известь.cs" />
+    <Compile Include="Chemistry\Chemistry.cs" />
     <Compile Include="Model\Mapper.cs" />
     <Compile Include="Providers\MdbReader.cs" />
     <Compile Include="Providers\TableCache.cs" />
