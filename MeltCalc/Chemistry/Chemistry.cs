@@ -26,7 +26,7 @@
 		public double SiO2;
 	}
 
-	public class Окалина
+	public class Окалина : Навеска
 	{
 		public double ALFA;
 		public double Fe2O3;
@@ -38,7 +38,7 @@
 		public double SiO2;
 	}
 
-	public class Шпат
+	public class Шпат : Навеска
 	{
 		public double ALFA;
 		public double CaF2;
@@ -46,7 +46,7 @@
 		public double SiO2;
 	}
 
-	public class Шлак
+	public class Шлак : Навеска
 	{
 		public double Al2O3;
 		public double B;
@@ -63,7 +63,7 @@
 		public double V2O5;
 	}
 
-	public class ОставленныйШлак
+	public class ОставленныйШлак : Навеска
 	{
 		public double Al2O3;
 		public double CaO;
@@ -73,72 +73,72 @@
 		public double SiO2;
 	}
 
-	public class МиксерныйШлак
+	public class МиксерныйШлак : Навеска
 	{
 		public double CaO, SiO2, MnO, MgO, P2O5, FeO, Fe2O3;
 	}
 
-	public class Чугун
+	public class Чугун : Навеска
 	{
 		public double C, Si, Mn, P, S, T;
 	}
 
-	public class Сталь
+	public class Сталь : Навеска
 	{
 		public double C, V, Si, Mn, P, S, T, Tplav, GYield, GYieldmemo, PMAX, SMax;
 	}
 
-	public class Лом
+	public class Лом : Навеска
 	{
 		public double C, Si, Mn, P, S, DolyaLegkovesa;
 	}
 
-	public class Футеровка
+	public class Футеровка : Навеска
 	{
 		public double GTOTAL, CaO, SiO2, MgO, Al2O3, P2O5, C;
 	}
 
-	public class Дутье
+	public class Дутье : Навеска
 	{
 		public double V, O2, Ar, N2;
 	}
 
-	public class Имф
+	public class Имф : Навеска
 	{
 		public double CaO, SiO2, MgO, Fe2O3;
 	}
 
-	public class Кокс
+	public class Кокс : Навеска
 	{
 		public double C;
 	}
 
-	public class Песок
+	public class Песок : Навеска
 	{
 		public double SiO2, H2O;
 	}
 
-	public class Руда
+	public class Руда : Навеска
 	{
 		public double CaO, SiO2, Fe2O3, Al2O3, P;
 	}
 
-	public class Окатыши
+	public class Окатыши : Навеска
 	{
 		public double SiO2, FeO, Fe2O3;
 	}
 
-	public class Агломерат
+	public class Агломерат : Навеска
 	{
 		public double CaO, FeO, Fe2O3;
 	}
 
-	public class Ферросплав
+	public class Ферросплав : Навеска
 	{
 		public double Fe, Mn, Si, C, P, Al, S;
 	}
 
-	public class ВлажныйДоломит
+	public class ВлажныйДоломит : Навеска
 	{
 		public double CaO, SiO2, MgO, Fe2O3, CO2, H2O, Al2O3;
 	}
