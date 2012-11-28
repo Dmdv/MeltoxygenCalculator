@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MeltCalc.Chemistry;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
 using MeltCalc.ViewModel;
@@ -77,6 +78,13 @@ namespace MeltCalc.Pages
 
 		private void РассчётИзвестняка()
 		{
+			Tube.Известняк.CaO = (56.0 / 100.0) * Tube.Известняк.CaCO3;
+			Tube.Известняк.CO2 = (56.0 / 100.0) * Tube.Известняк.CaCO3;
+
+			Tube.Окалина.FeO = (72.0 / 232.0) * Tube.Окалина.Fe3O4;
+			Tube.Окалина.Fe2O3 = (160.0 / 232.0) * Tube.Окалина.Fe3O4;
+
+			Tube.Шпат.CaO = (56.0 / 72.0) * Tube.Шпат.CaF2;
 		}
 
 		/// <summary>

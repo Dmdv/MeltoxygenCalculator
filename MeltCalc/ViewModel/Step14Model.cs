@@ -27,10 +27,10 @@ namespace MeltCalc.ViewModel
 
 			_boxes = groupBox.FindVisualChild<TextBox>().ToList();
 			_comboBox = groupBox.FindVisualChild<ComboBox>().SingleOrDefault();
-
-			ValidateData();
+			
 			try
 			{
+				ValidateData();
 				InitializeVariants();
 			}
 			catch (Exception ex)
