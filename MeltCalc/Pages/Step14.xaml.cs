@@ -56,28 +56,29 @@ namespace MeltCalc.Pages
 			_controls.ForEach(x => x.DataContext = new Step14Model(x));
 		}
 
-		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
+		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			SaveChoice();
-			РассчётИзвестняка();
+			Calculations();
 		}
 
-		private void CommandBindingCanExecute(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-		}
-
-		private void CommandBindingPreviousPage(object sender, ExecutedRoutedEventArgs e)
-		{
-		}
-
-		private void CommandBindingCanPrevious(object sender, CanExecuteRoutedEventArgs e)
+		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = true;
 		}
 
-		private void РассчётИзвестняка()
+		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
+		}
+
+		private void PreviousCanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void Calculations()
+		{
+			double alfa = Tube.Известь.ALFA;
 			Tube.Известняк.CaO = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 			Tube.Известняк.CO2 = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 

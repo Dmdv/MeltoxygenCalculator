@@ -1,101 +1,145 @@
 ﻿namespace MeltCalc.Chemistry
 {
-	internal class Навеска
+	public class Навеска
 	{
-		public double G, ALFA;
+		public double G;
+		public double ALFA { get; set; }
 	}
 
-	internal class Известь : Навеска
+	public class Известь : Навеска
 	{
-		public double CaO;
-		public double SiO2;
-		public double P2O5;
-		public double MgO;
 		public double Al2O3;
+		public double CaO;
 		public double H2O;
+		public double MgO;
+		public double P2O5;
+		public double SiO2;
 	}
 
-	internal class Известняк : Навеска
+	public class Известняк : Навеска
 	{
+		public double CO2;
+		public double CaCO3;
+		public double CaO;
+		public double H2O;
+		public double P2O5;
+		public double SiO2;
+	}
+
+	public class Окалина
+	{
+		public double ALFA;
+		public double Fe2O3;
+		public double Fe3O4;
+		public double FeO;
+		public double MgO;
+		public double MnO;
+		public double P;
+		public double SiO2;
+	}
+
+	public class Шпат
+	{
+		public double ALFA;
+		public double CaF2;
 		public double CaO;
 		public double SiO2;
+	}
+
+	public class Шлак
+	{
+		public double Al2O3;
+		public double B;
+		public double Bmax;
+		public double Bmin;
+		public double CaO;
+		public double Fe2O3;
+		public double FeO;
+		public double MgO;
+		public double MnO;
 		public double P2O5;
-		public double CO2;
-		public double H2O;
-		public double CaCO3;
+		public double SiO2;
+		public double TOTALFeO;
+		public double V2O5;
 	}
 
-	internal class Окалина
+	public class ОставленныйШлак
 	{
-		public double SiO2, MnO, MgO, FeO, Fe2O3, Fe3O4, P, ALFA;
+		public double Al2O3;
+		public double CaO;
+		public double Fe2O3;
+		public double FeO;
+		public double MgO, MnO, P2O5;
+		public double SiO2;
 	}
 
-	internal class Шпат
+	public class МиксерныйШлак
 	{
-		public double CaO, SiO2, CaF2, ALFA;
+		public double CaO, SiO2, MnO, MgO, P2O5, FeO, Fe2O3;
 	}
 
-	internal class Шлак
+	public class Чугун
 	{
+		public double C, Si, Mn, P, S, T;
 	}
 
-	internal class ОставленныйШлак
+	public class Сталь
 	{
+		public double C, V, Si, Mn, P, S, T, Tplav, GYield, GYieldmemo, PMAX, SMax;
 	}
 
-	internal class МиксерныйШлак
+	public class Лом
 	{
+		public double C, Si, Mn, P, S, DolyaLegkovesa;
 	}
 
-	internal class Чугун
+	public class Футеровка
 	{
+		public double GTOTAL, CaO, SiO2, MgO, Al2O3, P2O5, C;
 	}
 
-	internal class Сталь
+	public class Дутье
 	{
+		public double V, O2, Ar, N2;
 	}
 
-	internal class Лом
+	public class Имф
 	{
+		public double CaO, SiO2, MgO, Fe2O3;
 	}
 
-	internal class Футеровка
+	public class Кокс
 	{
+		public double C;
 	}
 
-	internal class Дутье
+	public class Песок
 	{
+		public double SiO2, H2O;
 	}
 
-	internal class Имф
+	public class Руда
 	{
+		public double CaO, SiO2, Fe2O3, Al2O3, P;
 	}
 
-	internal class Кокс
+	public class Окатыши
 	{
+		public double SiO2, FeO, Fe2O3;
 	}
 
-	internal class Песок
+	public class Агломерат
 	{
+		public double CaO, FeO, Fe2O3;
 	}
 
-	internal class Руда
+	public class Ферросплав
 	{
+		public double Fe, Mn, Si, C, P, Al, S;
 	}
 
-	internal class Окатыши
+	public class ВлажныйДоломит
 	{
-	}
-
-	internal class Агломерат
-	{
-	}
-
-	internal class Ферросплав
-	{
-	}
-
-	internal class ВлажныйДоломит
-	{
+		public double CaO, SiO2, MgO, Fe2O3, CO2, H2O, Al2O3;
 	}
 }
