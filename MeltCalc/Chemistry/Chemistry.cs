@@ -142,4 +142,9 @@
 	{
 		public double CaO, SiO2, MgO, Fe2O3, CO2, H2O, Al2O3;
 	}
+
+	public class Доломит : Навеска
+	{
+		public double CaO, SiO2, MgO, Fe2O3, Al2O3;
+	}
 }

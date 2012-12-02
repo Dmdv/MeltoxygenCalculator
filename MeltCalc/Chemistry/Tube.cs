@@ -29,6 +29,7 @@
 		public static Окатыши Окатыши { get; set; }
 		public static Ферросплав Ферросплав { get; set; }
 		public static Агломерат Агломерат { get; set; }
+		public static Доломит Доломит { get; set; }
 		public static ВлажныйДоломит ВлажныйДоломит { get; set; }
 	}
 }
