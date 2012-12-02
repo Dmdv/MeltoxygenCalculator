@@ -147,4 +147,28 @@
 	{
 		public double CaO, SiO2, MgO, Fe2O3, Al2O3;
 	}
+
+	public class Params
+	{
+		public static double alfaFe, L, StAndShlLoss, TAUprost, TAUprostREAL, TeplFutLoss, TAPtime, Lp, Tog;
+	}
+
+	public class Packets : Навеска
+	{
+		public double dH,
+		              CaO,
+		              SiO2,
+		              MnO,
+		              MgO,
+		              P2O5,
+		              FeO,
+		              Fe2O3,
+		              Al2O3,
+		              TiO2p,
+		              V2O5p,
+		              C,
+		              P,
+		              S,
+		              Fe;
+	}
 }

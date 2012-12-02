@@ -31,5 +31,6 @@
 		public static Агломерат Агломерат { get; set; }
 		public static Доломит Доломит { get; set; }
 		public static ВлажныйДоломит ВлажныйДоломит { get; set; }
+		public static Packets Pack { get; set; }
 	}
 }
