@@ -1,9 +1,15 @@
-﻿namespace MeltCalc.Chemistry
+﻿using MeltCalc.Model;
+
+namespace MeltCalc.Chemistry
 {
 	public class Навеска
 	{
 		public double G;
 		public double ALFA { get; set; }
+		/// <summary>
+		/// Сыпучий материал - шлакообразующий элемент?
+		/// </summary>
+		public static Materials EstimatingLoose { get; set; }
 	}
 
 	public class Известь : Навеска

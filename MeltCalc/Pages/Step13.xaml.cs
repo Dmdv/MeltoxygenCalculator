@@ -10,7 +10,7 @@ using MeltCalc.Model;
 namespace MeltCalc.Pages
 {
 	/// <summary>
-	/// Interaction logic for Step12.xaml
+	/// Шаг3: Выбор рассчитываемого шлакообразующего
 	/// </summary>
 	public partial class Step13
 	{
@@ -26,6 +26,7 @@ namespace MeltCalc.Pages
 		                                             	};
 
 		private readonly List<Materials> _selectedMaterials;
+		private List<RadioButton> _radioButtons;
 
 		public Step13()
 		{
@@ -43,12 +44,12 @@ namespace MeltCalc.Pages
 		{
 			Loaded -= OnLoaded;
 
-			var controls = _grid.FindVisualChild<RadioButton>().ToList();
+			_radioButtons = _grid.FindVisualChild<RadioButton>().ToList();
 
-			VisualHelper.UpdateVisibility(controls, _selectedMaterials);
-			VisualHelper.UpdateEnabled(controls, _disabled);
+			VisualHelper.UpdateVisibility(_radioButtons, _selectedMaterials);
+			VisualHelper.UpdateEnabled(_radioButtons, _disabled);
 
-			DefaultValues(controls);
+			DefaultValues(_radioButtons);
 		}
 
 		private void DefaultValues(IEnumerable<RadioButton> buttons)
@@ -72,9 +73,11 @@ namespace MeltCalc.Pages
 
 		private void CommandBindingExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
+			var radioButton = _radioButtons.Single(x => x.IsChecked.HasValue && x.IsChecked.Value);
+
 			if (NavigationService != null)
 			{
-				NavigationService.Navigate(new Step14(_selectedMaterials));
+				NavigationService.Navigate(new Step14(_selectedMaterials, radioButton.Material()));
 			}
 		}
 

@@ -16,6 +16,7 @@ namespace MeltCalc.Pages
 	public partial class Step14
 	{
 		private readonly List<Materials> _selectedMaterials;
+		private readonly Materials _shlak;
 		private List<GroupBox> _controls = new List<GroupBox>();
 
 		public Step14()
@@ -23,9 +24,10 @@ namespace MeltCalc.Pages
 			InitializeComponent();
 		}
 
-		public Step14(List<Materials> selectedMaterials)
+		public Step14(List<Materials> selectedMaterials, Materials shlak)
 		{
 			_selectedMaterials = selectedMaterials;
+			_shlak = shlak;
 			InitializeComponent();
 			Loaded += OnLoaded;
 		}
@@ -78,6 +80,7 @@ namespace MeltCalc.Pages
 
 		private void Calculations()
 		{
+			// Расчет хс известняка
 			Tube.Известняк.CaO = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 			Tube.Известняк.CO2 = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 
