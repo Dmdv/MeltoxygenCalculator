@@ -6,6 +6,21 @@
 		{
 			GizvSAVE = GizkSAVE = GdolSAVE = GvldolSAV = GimfSAVE = new double[6];
 			GchugSAVE = GlomSAVE = VdutSAVE = GshlSAVE = MnOshlSAVE = GstYieldSAVE = ALFAizvSAVE = new double[6];
+
+			//Минимальные и максимальные пределы по рассчитываемым переменным
+			minimumGchug = maximumGchug = minimumGlom = maximumGlom = minimumVdut = maximumVdut = minimumGshl = maximumGshl = minimumMnOshl = maximumMnOshl = minimumPst = maximumPst = new double();
+			minimumGizv = maximumGizv = minimumGizk = maximumGizk = minimumGdol = maximumGdol = minimumGvldol = maximumGvldol = minimumGimf = maximumGimf = minimumGpes = maximumGpes = minimumGkoks = maximumGkoks = minimumGokal = maximumGokal = minimumGruda = maximumGruda = minimumGokat = maximumGokat = minimumGagl = maximumGagl = minimumGshp = maximumGshp = new double();
+			minimumGstYield = maximumGstYield = minimumAlfaIzv = new double();
+			
+			//Концентрация кремния в стали
+			Tube.Сталь.Si = 0.005;
+
+			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2;
+			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2; 
+			Tube.Лом.G = (minimumGlom + maximumGlom) / 2; 
+			Tube.Сталь.P = PstMAX;
+
+			double NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
 		}
 
 		// Специальные переменные
@@ -13,12 +28,37 @@
 		public static double GshpSAVE;
 		public static readonly double[] GchugSAVE, GlomSAVE, VdutSAVE, GshlSAVE, MnOshlSAVE, GstYieldSAVE, ALFAizvSAVE;
 
+		//Задаваемые
+		public static double minimumGchug, maximumGchug, minimumGlom, maximumGlom, minimumVdut, maximumVdut, minimumGshl, maximumGshl, minimumMnOshl, maximumMnOshl, minimumPst, maximumPst;
+		public static double minimumGizv, maximumGizv, minimumGizk, maximumGizk, minimumGdol, maximumGdol, minimumGvldol, maximumGvldol, minimumGimf, maximumGimf, minimumGpes, maximumGpes, minimumGkoks, maximumGkoks, minimumGokal, maximumGokal, minimumGruda, maximumGruda, minimumGokat, maximumGokat, minimumGagl, maximumGagl, minimumGshp, maximumGshp;
+		public static double minimumGstYield, maximumGstYield, minimumAlfaIzv, maximumAlfaIzv;
+
+		//Переменные для хранения коэффициентов регрессионных уравнений
+
+		//FeO шлака 
+		public static readonly double a0, a1, a2, a3, a4, a5, a6;
+
+		//Mn стали 
+		public static readonly double c0, c1, c2, c3, c4, c5;
+
+		//Lp фосфора 
+		public static readonly double b0, b1, b2, b3, b4;
+
 		private double NeededLp, IterTimes;
 		private string MOVINGSide;
 
+		private static double NeededLp;
+ 
 		private void Prepare1_REGRESSLOAD() 
 		{ 
 			//Загрузка коэффициентов регрессионных уравнений по (FeO), [Mn], Lp
+		}
+
+		private double CALCULATE_TEPLCONSTANTS()
+		{
+
+							
+		
 		}
 
 		private double Calculate_P2O5shl_Bal_P()

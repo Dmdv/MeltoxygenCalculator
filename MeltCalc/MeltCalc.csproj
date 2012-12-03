@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Chemistry\Chemistry.cs" />
     <Compile Include="Chemistry\Estimation.cs" />
+    <Compile Include="Chemistry\Params.cs" />
     <Compile Include="Chemistry\Tube.cs" />
     <Compile Include="Converters\StringToDoubleConverter.cs" />
     <Compile Include="Model\Mapper.cs" />
