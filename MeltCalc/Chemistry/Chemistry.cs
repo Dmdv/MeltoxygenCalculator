@@ -88,19 +88,31 @@
 		public double C, V, Si, Mn, P, S, T, Tplav, GYield, GYieldmemo, PMAX, SMax;
 	}
 
-	public abstract class Лом : Навеска
+	public class Лом : Навеска
 	{
 		public double C, Si, Mn, P, S, DolyaLegkovesa;
 	}
 
 	public class ЛомНизкий : Лом
-	{}
+	{
+		public Лом Low { get; set; }
+		public Лом Mid { get; set; }
+		public Лом High { get; set; }
+	}
 
 	public class ЛомСредний : Лом
-	{}
+	{
+		public Лом Low { get; set; }
+		public Лом Mid { get; set; }
+		public Лом High { get; set; }
+	}
 
 	public class ЛомВысокий : Лом
-	{}
+	{
+		public Лом Low { get; set; }
+		public Лом Mid { get; set; }
+		public Лом High { get; set; }
+	}
 
 	public class Футеровка : Навеска
 	{
