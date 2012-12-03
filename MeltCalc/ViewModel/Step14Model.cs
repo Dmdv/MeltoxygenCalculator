@@ -11,6 +11,7 @@ namespace MeltCalc.ViewModel
 {
 	public class Step14Model : BaseViewModel
 	{
+		private readonly ContentControl _groupBox;
 		// Note: В таблице IMF хранится на одну колонку больше, чем необходимо.
 
 		private static readonly LooseMdb _db = new LooseMdb();
@@ -22,11 +23,13 @@ namespace MeltCalc.ViewModel
 
 		public Step14Model(ContentControl groupBox)
 		{
-			_material = groupBox.Material();
+			_groupBox = groupBox;
+
+			_material = _groupBox.Material();
 			_table = _db.Reader.FetchTable(_material.ToDatabaseName());
 
-			_boxes = groupBox.FindVisualChild<TextBox>().ToList();
-			_comboBox = groupBox.FindVisualChild<ComboBox>().SingleOrDefault();
+			_boxes = _groupBox.FindVisualChild<TextBox>().ToList();
+			_comboBox = _groupBox.FindVisualChild<ComboBox>().SingleOrDefault();
 			
 			try
 			{

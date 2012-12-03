@@ -41,19 +41,19 @@ namespace MeltCalc.Pages
 		{
 			_controls.Clear();
 			_controls = _grid.FindVisualChild<GroupBox>().ToList();
-			UpdateNavigationGroupBox();
+			RemoveUntaggedGroupBox();
 			VisualHelper.UpdateVisibility(_controls, _selectedMaterials);
-			InitializeDataContext();
+			InitializePresenter();
 		}
 
-		private void UpdateNavigationGroupBox()
+		private void RemoveUntaggedGroupBox()
 		{
 			_controls.Remove(_controls.Single(x => x.Tag == null));
 		}
 
-		private void InitializeDataContext()
+		private void InitializePresenter()
 		{
-			_controls.ForEach(x => x.DataContext = new Step14Model(x));
+			_controls.ForEach(x => new Step14Model(x));
 		}
 
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)

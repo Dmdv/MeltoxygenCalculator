@@ -17,7 +17,9 @@ namespace MeltCalc.Converters
 			var val = value as string;
 			if (string.IsNullOrEmpty(val)) return 0.0;
 
-			return null;
+			double parsedValue;
+			var result = double.TryParse(val, out parsedValue);
+			return result ? parsedValue : 0.0;
 		}
 	}
 }

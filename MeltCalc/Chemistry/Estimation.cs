@@ -48,7 +48,6 @@
 		private double NeededLp, IterTimes;
 		private string MOVINGSide;
 
-		private static double NeededLp;
  
 		private void Prepare1_REGRESSLOAD() 
 		{ 

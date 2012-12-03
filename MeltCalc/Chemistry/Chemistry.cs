@@ -8,89 +8,116 @@
 
 	public class Известь : Навеска
 	{
-		public double Al2O3;
-		public double CaO;
-		public double H2O;
-		public double MgO;
-		public double P2O5;
-		public double SiO2;
+		public double Al2O3 { get; set; }
+		public double CaO { get; set; }
+		public double H2O { get; set; }
+		public double MgO { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Известняк : Навеска
 	{
-		public double CO2;
-		public double CaCO3;
-		public double CaO;
-		public double H2O;
-		public double P2O5;
-		public double SiO2;
+		public double CO2 { get; set; }
+		public double CaCO3 { get; set; }
+		public double CaO { get; set; }
+		public double H2O { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Окалина : Навеска
 	{
-		public double ALFA;
-		public double Fe2O3;
-		public double Fe3O4;
-		public double FeO;
-		public double MgO;
-		public double MnO;
-		public double P;
-		public double SiO2;
+		public double Fe2O3 { get; set; }
+		public double Fe3O4 { get; set; }
+		public double FeO { get; set; }
+		public double MgO { get; set; }
+		public double MnO { get; set; }
+		public double P { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Шпат : Навеска
 	{
-		public double ALFA;
-		public double CaF2;
-		public double CaO;
-		public double SiO2;
+		public double CaF2 { get; set; }
+		public double CaO { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Шлак : Навеска
 	{
-		public double Al2O3;
-		public double B;
-		public double Bmax;
-		public double Bmin;
-		public double CaO;
-		public double Fe2O3;
-		public double FeO;
-		public double MgO;
-		public double MnO;
-		public double P2O5;
-		public double SiO2;
-		public double TOTALFeO;
-		public double V2O5;
+		public double Al2O3 { get; set; }
+		public double B { get; set; }
+		public double Bmax { get; set; }
+		public double Bmin { get; set; }
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double FeO { get; set; }
+		public double MgO { get; set; }
+		public double MnO { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
+		public double TOTALFeO { get; set; }
+		public double V2O5 { get; set; }
 	}
 
 	public class ОставленныйШлак : Навеска
 	{
-		public double Al2O3;
-		public double CaO;
-		public double Fe2O3;
-		public double FeO;
-		public double MgO, MnO, P2O5;
-		public double SiO2;
+		public double Al2O3 { get; set; }
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double FeO { get; set; }
+		public double MgO { get; set; }
+		public double MnO { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class МиксерныйШлак : Навеска
 	{
-		public double CaO, SiO2, MnO, MgO, P2O5, FeO, Fe2O3;
+		public double CaO { get; set; }
+		public double SiO2 { get; set; }
+		public double MnO { get; set; }
+		public double MgO { get; set; }
+		public double P2O5 { get; set; }
+		public double FeO { get; set; }
+		public double Fe2O3 { get; set; }
 	}
 
 	public class Чугун : Навеска
 	{
-		public double C, Si, Mn, P, S, T;
+		public double C { get; set; }
+		public double Mn { get; set; }
+		public double P { get; set; }
+		public double S { get; set; }
+		public double Si { get; set; }
+		public double T { get; set; }
 	}
 
 	public class Сталь : Навеска
 	{
-		public double C, V, Si, Mn, P, S, T, Tplav, GYield, GYieldmemo, PMAX, SMax;
+		public double C { get; set; }
+		public double GYield { get; set; }
+		public double GYieldmemo { get; set; }
+		public double Mn { get; set; }
+		public double P { get; set; }
+		public double PMAX { get; set; }
+		public double S { get; set; }
+		public double SMax { get; set; }
+		public double Si { get; set; }
+		public double T { get; set; }
+		public double Tplav { get; set; }
+		public double V { get; set; }
 	}
 
 	public class Лом : Навеска
 	{
-		public double C, Si, Mn, P, S, DolyaLegkovesa;
+		public double C { get; set; }
+		public double DolyaLegkovesa { get; set; }
+		public double Mn { get; set; }
+		public double P { get; set; }
+		public double S { get; set; }
+		public double Si { get; set; }
 	}
 
 	public class ЛомНизкий : Лом
@@ -116,75 +143,93 @@
 
 	public class Футеровка : Навеска
 	{
-		public double GTOTAL, CaO, SiO2, MgO, Al2O3, P2O5, C;
+		public double Al2O3 { get; set; }
+		public double C { get; set; }
+		public double CaO { get; set; }
+		public double GTOTAL { get; set; }
+		public double MgO { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Дутье : Навеска
 	{
-		public double V, O2, Ar, N2;
+		public double Ar { get; set; }
+		public double N2 { get; set; }
+		public double O2 { get; set; }
+		public double V { get; set; }
 	}
 
 	public class Имф : Навеска
 	{
-		public double CaO, SiO2, MgO, Fe2O3;
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double MgO { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Кокс : Навеска
 	{
-		public double C;
+		public double C { get; set; }
 	}
 
 	public class Песок : Навеска
 	{
-		public double SiO2, H2O;
+		public double H2O { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Руда : Навеска
 	{
-		public double CaO, SiO2, Fe2O3, Al2O3, P;
+		public double Al2O3 { get; set; }
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double P { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Окатыши : Навеска
 	{
-		public double SiO2, FeO, Fe2O3;
+		public double Fe2O3 { get; set; }
+		public double FeO { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Агломерат : Навеска
 	{
-		public double CaO, FeO, Fe2O3;
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double FeO { get; set; }
 	}
 
 	public class Ферросплав : Навеска
 	{
-		public double Fe, Mn, Si, C, P, Al, S;
+		public double Al { get; set; }
+		public double C { get; set; }
+		public double Fe { get; set; }
+		public double Mn { get; set; }
+		public double P { get; set; }
+		public double S { get; set; }
+		public double Si { get; set; }
 	}
 
 	public class ВлажныйДоломит : Навеска
 	{
-		public double CaO, SiO2, MgO, Fe2O3, CO2, H2O, Al2O3;
+		public double Al2O3 { get; set; }
+		public double CO2 { get; set; }
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double H2O { get; set; }
+		public double MgO { get; set; }
+		public double SiO2 { get; set; }
 	}
 
 	public class Доломит : Навеска
 	{
-		public double CaO, SiO2, MgO, Fe2O3, Al2O3;
-	}
-
-	public class Packets : Навеска
-	{
-		public double dH,
-		              CaO,
-		              SiO2,
-		              MnO,
-		              MgO,
-		              P2O5,
-		              FeO,
-		              Fe2O3,
-		              Al2O3,
-		              TiO2p,
-		              V2O5p,
-		              C,
-		              P,
-		              S,
-		              Fe;
+		public double Al2O3 { get; set; }
+		public double CaO { get; set; }
+		public double Fe2O3 { get; set; }
+		public double MgO { get; set; }
+		public double SiO2 { get; set; }
 	}
 }
