@@ -151,7 +151,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -160,7 +160,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="P2O5" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding P2O5, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -169,7 +169,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="H2O" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding H2O, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -178,7 +178,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaCO3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaCO3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -236,7 +236,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -245,7 +245,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -254,7 +254,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="MgO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding MgO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -263,7 +263,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -272,7 +272,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Al2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Al2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="6">
@@ -323,7 +323,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -332,7 +332,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -341,7 +341,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="MgO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding MgO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -350,7 +350,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -359,7 +359,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="6">
@@ -368,7 +368,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="H2O" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding H2O, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="7">
@@ -377,7 +377,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Al2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Al2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" Grid.Column="8" d:LayoutOverrides="Width">
@@ -421,7 +421,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -430,7 +430,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -439,7 +439,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="MgO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding MgO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -448,7 +448,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -506,7 +506,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -515,7 +515,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="H2O" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding H2O, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -587,7 +587,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="C" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding C, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -666,7 +666,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -675,7 +675,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="FeO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding FeO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -684,7 +684,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -749,7 +749,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -758,7 +758,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -767,7 +767,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -776,7 +776,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Al2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Al2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -785,7 +785,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="P" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding P, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="6">
@@ -836,7 +836,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -845,7 +845,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="MnO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding MnO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -854,7 +854,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="MgO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding MgO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -863,7 +863,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe3O4" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe3O4, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="5">
@@ -872,7 +872,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="P" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding P, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="6">
@@ -923,7 +923,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -932,7 +932,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="FeO" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding FeO, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">
@@ -941,7 +941,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="Fe2O3" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding Fe2O3, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="4">
@@ -1006,7 +1006,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="SiO2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding SiO2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="2">
@@ -1015,7 +1015,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Text="CaF2" d:LayoutOverrides="Width" Margin="5,0,4,0" TextAlignment="Right"/>
-					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0"/>
+					<TextBox Grid.Column="1" Width="60" Margin="0,0,1,0" Text="{Binding CaF2, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=DoubleCobverter}}"/>
 				
 				</Grid>
 				<Grid VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="3">

@@ -78,7 +78,6 @@ namespace MeltCalc.Pages
 
 		private void Calculations()
 		{
-			double alfa = Tube.Известь.ALFA;
 			Tube.Известняк.CaO = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 			Tube.Известняк.CO2 = (56.0 / 100.0) * Tube.Известняк.CaCO3;
 
