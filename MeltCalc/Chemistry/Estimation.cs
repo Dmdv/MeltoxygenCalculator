@@ -18,7 +18,8 @@
 			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2;
 			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2; 
 			Tube.Лом.G = (minimumGlom + maximumGlom) / 2; 
-			Tube.Сталь.P = PstMAX;
+			//TODO: Что это?
+			Tube.Сталь.P = Tube.Сталь.PMAX;
 
 			double NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
 		}
@@ -56,9 +57,7 @@
 
 		private double CALCULATE_TEPLCONSTANTS()
 		{
-
-							
-		
+			return 0;
 		}
 
 		private double Calculate_P2O5shl_Bal_P()
