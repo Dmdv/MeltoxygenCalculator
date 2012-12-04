@@ -1,19 +1,39 @@
-﻿using MeltCalc.Model;
+﻿using System.Collections.Generic;
+using MeltCalc.Model;
 
 namespace MeltCalc.Chemistry
 {
 	public class Навеска
 	{
+		protected Навеска()
+		{
+		}
+
+		protected Навеска(ICollection<Навеска> registry)
+		{
+			registry.Add(this);
+		}
+
+		/// <summary>
+		/// Масса.
+		/// </summary>
 		public double G;
+
 		public double ALFA { get; set; }
 		/// <summary>
 		/// Сыпучий материал - шлакообразующий элемент?
 		/// </summary>
-		public static Materials EstimatingLoose { get; set; }
+		public Materials Material { get; protected set; }
 	}
 
 	public class Известь : Навеска
 	{
+		public Известь(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Известь;
+		}
+
 		public double Al2O3 { get; set; }
 		public double CaO { get; set; }
 		public double H2O { get; set; }
@@ -24,6 +44,12 @@ namespace MeltCalc.Chemistry
 
 	public class Известняк : Навеска
 	{
+		public Известняк(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Известняк;
+		}
+
 		public double CO2 { get; set; }
 		public double CaCO3 { get; set; }
 		public double CaO { get; set; }
@@ -34,6 +60,12 @@ namespace MeltCalc.Chemistry
 
 	public class Окалина : Навеска
 	{
+		public Окалина(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Окалина;
+		}
+
 		public double Fe2O3 { get; set; }
 		public double Fe3O4 { get; set; }
 		public double FeO { get; set; }
@@ -45,6 +77,12 @@ namespace MeltCalc.Chemistry
 
 	public class Шпат : Навеска
 	{
+		public Шпат(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.ПлавиковыйШпат;
+		}
+
 		public double CaF2 { get; set; }
 		public double CaO { get; set; }
 		public double SiO2 { get; set; }
@@ -168,6 +206,12 @@ namespace MeltCalc.Chemistry
 
 	public class Имф : Навеска
 	{
+		public Имф(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.ИзвестковоМагнитныйФлюс;
+		}
+
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
 		public double MgO { get; set; }
@@ -176,17 +220,35 @@ namespace MeltCalc.Chemistry
 
 	public class Кокс : Навеска
 	{
+		public Кокс(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Кокс;
+		}
+
 		public double C { get; set; }
 	}
 
 	public class Песок : Навеска
 	{
+		public Песок(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Песок;
+		}
+
 		public double H2O { get; set; }
 		public double SiO2 { get; set; }
 	}
 
 	public class Руда : Навеска
 	{
+		public Руда(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Руда;
+		}
+
 		public double Al2O3 { get; set; }
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
@@ -196,6 +258,12 @@ namespace MeltCalc.Chemistry
 
 	public class Окатыши : Навеска
 	{
+		public Окатыши(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Окатыши;
+		}
+
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
 		public double SiO2 { get; set; }
@@ -203,6 +271,12 @@ namespace MeltCalc.Chemistry
 
 	public class Агломерат : Навеска
 	{
+		public Агломерат(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Агломерат;
+		}
+
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
@@ -221,6 +295,12 @@ namespace MeltCalc.Chemistry
 
 	public class ВлажныйДоломит : Навеска
 	{
+		public ВлажныйДоломит(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.СыройДоломит;
+		}
+
 		public double Al2O3 { get; set; }
 		public double CO2 { get; set; }
 		public double CaO { get; set; }
@@ -232,6 +312,12 @@ namespace MeltCalc.Chemistry
 
 	public class Доломит : Навеска
 	{
+		public Доломит(ICollection<Навеска> registry)
+			: base(registry)
+		{
+			Material = Materials.Доломит;
+		}
+
 		public double Al2O3 { get; set; }
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }

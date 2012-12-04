@@ -62,6 +62,7 @@ namespace MeltCalc.Pages
 		{
 			SaveChoice();
 			Calculations();
+			LooseMass();
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -76,6 +77,16 @@ namespace MeltCalc.Pages
 		private void PreviousCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = true;
+		}
+
+		private void LooseMass()
+		{
+			var substance = Tube.FindSubstance<Навеска>(_shlak);
+			var dialog = new InputBox {Caption = string.Format("Введите массу {0}:", _shlak.ToGenitive())};
+			if (dialog.ShowDialog() != true) return;
+
+			// TODO: Прочитать значение из inputbox.
+			substance.G = 0.0;
 		}
 
 		private void Calculations()

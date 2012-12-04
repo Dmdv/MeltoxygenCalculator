@@ -1,13 +1,19 @@
-﻿namespace MeltCalc.Chemistry
+﻿using System.Linq;
+using System.Collections.Generic;
+using MeltCalc.Model;
+
+namespace MeltCalc.Chemistry
 {
 	public class Tube
 	{
+		private static readonly List<Навеска> _registry = new List<Навеска>();
+
 		public Tube()
 		{
-			Известняк = new Известняк();
-			Известь = new Известь();
-			Шпат = new Шпат();
-			Окалина = new Окалина();
+			Известняк = new Известняк(_registry);
+			Известь = new Известь(_registry);
+			Шпат = new Шпат(_registry);
+			Окалина = new Окалина(_registry);
 			Шлак = new Шлак();
 			ОставленныйШлак = new ОставленныйШлак();
 			МиксерныйШлак = new МиксерныйШлак();
@@ -19,16 +25,24 @@
 			ЛомВысокий = new ЛомВысокий();
 			Футеровка = new Футеровка();
 			Дутье = new Дутье();
-			Имф = new Имф();
-			Кокс = new Кокс();
-			Песок = new Песок();
-			Руда = new Руда();
-			Окатыши = new Окатыши();
+			Имф = new Имф(_registry);
+			Кокс = new Кокс(_registry);
+			Песок = new Песок(_registry);
+			Руда = new Руда(_registry);
+			Окатыши = new Окатыши(_registry);
 			Ферросплав = new Ферросплав();
-			Агломерат = new Агломерат();
-			Доломит = new Доломит();
-			ВлажныйДоломит = new ВлажныйДоломит();
+			Агломерат = new Агломерат(_registry);
+			Доломит = new Доломит(_registry);
+			ВлажныйДоломит = new ВлажныйДоломит(_registry);
 			Pack = new Packets();
+		}
+
+		/// <summary>
+		/// Находит игредиент по его типу.
+		/// </summary>
+		public static T FindSubstance<T>(Materials material) where T : Навеска
+		{
+			return (T) _registry.FirstOrDefault(x => x.Material == material);
 		}
 
 		public static Известняк Известняк { get; set; }
