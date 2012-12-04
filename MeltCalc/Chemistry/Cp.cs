@@ -26,5 +26,18 @@
 		public static double agl { get; set; }
 		public static double dol { get; set; }
 		public static double vldol { get; set; }
+
+		//Добавил еще вот эти теплоемкости
+		//CpChugLiquid, CpLomSolid, CpMet
+		
+		public static double ChugLiquid { get; set; }
+		public static double LomSolid { get; set; }
+		public static double Met { get; set; }
+
+		//Что-то связанное с известью
+		public static double Densing { get; set; }
+		
+		public static double DUT { get; set; }
+
 	}
 }
