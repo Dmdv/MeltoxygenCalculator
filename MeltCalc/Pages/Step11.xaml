@@ -6,8 +6,8 @@
 	  mc:Ignorable="d" 
 	  d:DesignHeight="532.167" d:DesignWidth="704.667" Title="Step11" WindowTitle=" Шаг 1. Предварительные операции, ввод данных о процессе" Width="700" Height="580">
 	<Page.CommandBindings>
-		<CommandBinding Command="NextPage" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
-		<CommandBinding Command="PreviousPage" CanExecute="CommandBinding_CanPrevious" Executed="CommandBinding_PreviousPage"/>
+		<CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted"/>
+		<CommandBinding Command="PreviousPage" CanExecute="PrevCanPrevious" Executed="PrevExecuted"/>
 	</Page.CommandBindings>
 
 	<Grid>

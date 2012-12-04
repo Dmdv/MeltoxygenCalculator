@@ -12,8 +12,8 @@
 		 
 	</Page.Resources>
 	<Page.CommandBindings>
-		<CommandBinding Command="NextPage" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
-		<CommandBinding Command="PreviousPage" CanExecute="CommandBinding_CanPrevious" Executed="CommandBinding_PreviousPage"/>
+		<CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted"/>
+		<CommandBinding Command="PreviousPage" CanExecute="PrevCanExecute" Executed="PrevExecuted"/>
 	</Page.CommandBindings>
 
 	<Grid x:Name="_parent" x:FieldModifier="private">

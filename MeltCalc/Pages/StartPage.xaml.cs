@@ -13,12 +13,12 @@ namespace MeltCalc.Pages
 			InitializeComponent();
 		}
 
-		private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = true;
 		}
 
-		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (NavigationService != null) 
 				NavigationService.Navigate(new Uri(@"Pages\Step1.xaml", UriKind.Relative));

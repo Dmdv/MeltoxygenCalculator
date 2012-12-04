@@ -6,7 +6,7 @@
 	  mc:Ignorable="d" 
 	  d:DesignHeight="255" d:DesignWidth="480" Title="OxyCharge 7" Width="584" Height="Auto" MinHeight="255" MinWidth="584" WindowTitle="Выбор варианта расчета">
 	<Page.CommandBindings>
-		<CommandBinding Command="NextPage" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+		<CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted"/>
 	</Page.CommandBindings>
 
 	<Page.Resources>

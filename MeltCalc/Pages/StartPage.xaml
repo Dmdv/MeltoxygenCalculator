@@ -7,7 +7,7 @@
 	  d:DesignHeight="326" d:DesignWidth="544"
 	Title="StartPage" Width="600" WindowTitle="Тренажер КПП">
 	<Page.CommandBindings>
-		<CommandBinding Command="NextPage" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+		<CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted"/>
 	</Page.CommandBindings>
 
 	<Grid Margin="5">
