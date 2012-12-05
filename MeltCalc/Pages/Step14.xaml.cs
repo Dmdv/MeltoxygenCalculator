@@ -65,6 +65,45 @@ namespace MeltCalc.Pages
 			SaveChoice();
 			Calculations();
 			LooseMass();
+			RestoreDefaultSteelMass();
+			ShlakDensing();
+
+			if (AdaptationData.DensingUse && AdaptationData.AlloyUse)
+			{
+				// AlloyAndDensingInput
+			}
+			else
+			{
+				// Step 15
+			}
+		}
+
+		private void ShlakDensing()
+		{
+			if (useShlakDensing.IsChecked.HasValue && useShlakDensing.IsChecked.Value)
+			{
+				AdaptationData.DensingUse = true;
+			}
+			else
+			{
+				AdaptationData.DensingUse = false;
+				AdaptationData.GDensing = 0.0;
+			}
+
+			if (useFerroSplav.IsChecked.HasValue && useFerroSplav.IsChecked.Value)
+			{
+				AdaptationData.AlloyUse = true;
+			}
+			else
+			{
+				AdaptationData.AlloyUse = false;
+				Tube.Ферросплав.G = 0.0;
+			}
+		}
+
+		private void RestoreDefaultSteelMass()
+		{
+			Tube.Сталь.GYield = Tube.Сталь.GYieldmemo;
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -122,6 +161,7 @@ namespace MeltCalc.Pages
 		/// </summary>
 		private void SaveChoice()
 		{
+			//TODO: SaveChoice.
 		}
 	}
 }

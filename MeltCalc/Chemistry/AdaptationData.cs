@@ -6,6 +6,13 @@ namespace MeltCalc.Chemistry
 	public static class AdaptationData
 	{
 		public static double VArBlow;
+
+		// Загуститель шлака.
 		public static double GDensing;
+		public static double CpDensing;
+
+		public static bool BottomBlowUse;
+		public static bool AlloyUse;
+		public static bool DensingUse;
 	}
 }

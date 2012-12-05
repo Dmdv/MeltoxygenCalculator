@@ -1069,8 +1069,8 @@
 				</Grid.ColumnDefinitions>
 				<Button Grid.Column="0" Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32.82" VerticalAlignment="Bottom" Margin="{DynamicResource ButtonMargin}" />
 				<Button Grid.Column="3" Content="Вперед ..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.NextPage" Height="32.82" VerticalAlignment="Bottom" Margin="{DynamicResource ButtonMargin}" />
-				<CheckBox Grid.Column="1" VerticalAlignment="Center">Использовать ферросплав</CheckBox>
-				<CheckBox Grid.Column="2" VerticalAlignment="Center">Использовать загущение шлака в конце продувки</CheckBox>
+				<CheckBox x:Name="useFerroSplav" Grid.Column="1" VerticalAlignment="Center">Использовать ферросплав</CheckBox>
+				<CheckBox x:Name="useShlakDensing" Grid.Column="2" VerticalAlignment="Center">Использовать загущение шлака в конце продувки</CheckBox>
 			</Grid>
 		</GroupBox>
 	</Grid>

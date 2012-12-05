@@ -11,7 +11,5 @@ namespace MeltCalc.Chemistry
 		                  AirTemp,
 		                  FutDurability,
 		                  BlowingTime;
-
-		public static bool BottomBlowUse, AlloyUse, DensingUse;
 	}
 }
