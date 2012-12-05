@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
+using MeltCalc.Controls;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
 using MeltCalc.ViewModel;
@@ -81,12 +83,26 @@ namespace MeltCalc.Pages
 
 		private void LooseMass()
 		{
-			var substance = Tube.FindSubstance<Навеска>(_shlak);
-			var dialog = new InputBox {Caption = string.Format("Введите массу {0}:", _shlak.ToGenitive())};
-			if (dialog.ShowDialog() != true) return;
+			var result = false;
+			var mass = 0.0;
 
-			// TODO: Прочитать значение из inputbox.
-			substance.G = 0.0;
+			while (!result)
+			{
+				var dialog = new InputBox
+				{
+				    Caption = string.Format("Введите массу {0}:", _shlak.ToGenitive()),
+				    ShowInTaskbar = false,
+				    Topmost = true
+				};
+
+				var showDialog = dialog.ShowDialog();
+				if (!showDialog.HasValue || !showDialog.Value) return;
+				
+				result = double.TryParse(dialog.ResponseText, NumberStyles.Number, CultureInfo.InstalledUICulture, out mass);
+			}
+
+			var substance = Tube.FindSubstance<Навеска>(_shlak);
+			substance.G = mass;
 		}
 
 		private void Calculations()
