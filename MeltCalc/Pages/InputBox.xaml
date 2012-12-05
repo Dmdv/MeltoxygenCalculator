@@ -1,10 +1,12 @@
 ﻿<Window x:Class="MeltCalc.Pages.InputBox"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="InputBox" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="100" d:DesignWidth="489" SizeToContent="WidthAndHeight">
+        Title="InputBox" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        Padding="5" d:DesignWidth="469" Width="400">
     <StackPanel>
-        <TextBlock x:Name="CaptionText" Text="Enter some text" x:FieldModifier="private" />
-        <TextBox x:Name="ResponseTextBox" x:FieldModifier="private" />
-        <Button Content="OK" />
+        <TextBlock x:Name="CaptionText" Text="Enter some text" x:FieldModifier="private" Margin="5"/>
+        <TextBox x:Name="ResponseTextBox" x:FieldModifier="private"  Margin="5"/>
+        <Button Content="OK" HorizontalAlignment="Right" Width="60"  Margin="5"/>
     </StackPanel>
 </Window>
