@@ -122,6 +122,11 @@ namespace MeltCalc.Pages
 
 		private void LooseMass()
 		{
+			_selectedMaterials.Where(material => material != _shlak).ToList().ForEach(LooseMass);
+		}
+
+		private static void LooseMass(Materials material)
+		{
 			var result = false;
 			var mass = 0.0;
 
@@ -129,7 +134,7 @@ namespace MeltCalc.Pages
 			{
 				var dialog = new InputBox
 				{
-				    Caption = string.Format("Введите массу {0}:", _shlak.ToGenitive()),
+					Caption = string.Format("Введите массу {0} в килограммах:", material.ToGenitive()),
 				    ShowInTaskbar = false,
 				    Topmost = true
 				};
@@ -140,7 +145,7 @@ namespace MeltCalc.Pages
 				result = double.TryParse(dialog.ResponseText, NumberStyles.Number, CultureInfo.InstalledUICulture, out mass);
 			}
 
-			var substance = Tube.FindSubstance<Навеска>(_shlak);
+			var substance = Tube.FindSubstance<Навеска>(material);
 			substance.G = mass;
 		}
 
