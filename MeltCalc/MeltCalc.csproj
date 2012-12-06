@@ -71,6 +71,9 @@
     <Compile Include="Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AlloyAndDensingInput.xaml.cs">
+      <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Providers\MdbReader.cs" />
     <Compile Include="Providers\TableCache.cs" />
     <Compile Include="Providers\TableCacheReader.cs" />
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InputBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AlloyAndDensingInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

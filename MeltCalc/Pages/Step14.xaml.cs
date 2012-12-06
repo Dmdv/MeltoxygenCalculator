@@ -70,7 +70,10 @@ namespace MeltCalc.Pages
 
 			if (AdaptationData.DensingUse && AdaptationData.AlloyUse)
 			{
-				// AlloyAndDensingInput
+				if (NavigationService != null)
+				{
+					NavigationService.Navigate(new AlloyAndDensingInput());
+				}
 			}
 			else
 			{
