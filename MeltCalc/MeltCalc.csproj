@@ -82,8 +82,8 @@
     <Compile Include="Providers\TableReader.cs" />
     <Compile Include="Providers\TablesSchema.cs" />
     <Compile Include="ViewModel\AlloyAndDensingPresenter.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Step14Model.cs" />
+    <Compile Include="ViewModel\BasePresenter.cs" />
+    <Compile Include="ViewModel\Step14Presenter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
