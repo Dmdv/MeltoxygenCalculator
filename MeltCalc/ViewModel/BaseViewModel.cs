@@ -4,7 +4,7 @@ using System.Windows.Threading;
 
 namespace MeltCalc.ViewModel
 {
-	public abstract class BaseViewModel : INotifyPropertyChanged
+	public abstract class BasePresenter : INotifyPropertyChanged
 	{
 		private static bool? _isInDesignMode;
 

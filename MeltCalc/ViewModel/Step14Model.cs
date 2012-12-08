@@ -9,7 +9,7 @@ using MeltCalc.Model;
 
 namespace MeltCalc.ViewModel
 {
-	public class Step14Model : BaseViewModel
+	public class Step14Presenter : BasePresenter
 	{
 		private readonly ContentControl _groupBox;
 		// Note: В таблице IMF хранится на одну колонку больше, чем необходимо.
@@ -21,7 +21,7 @@ namespace MeltCalc.ViewModel
 		private readonly Materials _material;
 		private readonly DataTable _table;
 
-		public Step14Model(ContentControl groupBox)
+		public Step14Presenter(ContentControl groupBox)
 		{
 			_groupBox = groupBox;
 

@@ -57,7 +57,7 @@ namespace MeltCalc.Pages
 
 		private void InitializePresenter()
 		{
-			_controls.ForEach(x => new Step14Model(x));
+			_controls.ForEach(x => new Step14Presenter(x));
 		}
 
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
