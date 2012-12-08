@@ -14,7 +14,7 @@ namespace MeltCalc.ViewModel
 		private readonly ContentControl _groupBox;
 		// Note: В таблице IMF хранится на одну колонку больше, чем необходимо.
 
-		private static readonly LooseMdb _db = new LooseMdb();
+		private static readonly LooseMdb _looseMdb = new LooseMdb();
 
 		private readonly List<TextBox> _boxes;
 		private readonly ComboBox _comboBox;
@@ -26,7 +26,7 @@ namespace MeltCalc.ViewModel
 			_groupBox = groupBox;
 
 			_material = _groupBox.Material();
-			_table = _db.Reader.FetchTable(_material.ToDatabaseName());
+			_table = _looseMdb.Reader.FetchTable(_material.ToTableName());
 
 			_boxes = _groupBox.FindVisualChild<TextBox>().ToList();
 			_comboBox = _groupBox.FindVisualChild<ComboBox>().SingleOrDefault();
@@ -45,16 +45,12 @@ namespace MeltCalc.ViewModel
 		// TODO: Было бы лучше, если привязать значения по имени колонки, а не по индексу.
 		private void SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var row = _table.Rows[_comboBox.SelectedIndex];
-			var itemArray = row.ItemArray;
-			if (_material == Materials.ИзвестковоМагнитныйФлюс)
-			{
-				itemArray = itemArray.Take(itemArray.Length - 1).ToArray();
-			}
-			for (var i = 1; i < itemArray.Length; i++)
-			{
-				_boxes[i - 1].Text = itemArray[i].ToString();
-			}
+			FillEditBoxes(_material.ToTableName(), _comboBox.SelectedIndex, _boxes);
+		}
+
+		private static void FillEditBoxes(string tableName, int index, IList<TextBox> boxes)
+		{
+			_looseMdb.FillBoxes(tableName, index, boxes, 1);
 		}
 
 		private void InitializeVariants()

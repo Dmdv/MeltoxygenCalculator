@@ -45,7 +45,7 @@ namespace MeltCalc.Model
 			return _genitives[material];
 		}
 
-		public static string ToDatabaseName(this Materials materials)
+		public static string ToTableName(this Materials materials)
 		{
 			switch (materials)
 			{

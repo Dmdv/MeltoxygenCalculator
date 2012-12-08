@@ -104,7 +104,7 @@ namespace MeltCalc.Pages
 			}
 		}
 
-		private void RestoreDefaultSteelMass()
+		private static void RestoreDefaultSteelMass()
 		{
 			Tube.Сталь.GYield = Tube.Сталь.GYieldmemo;
 		}
@@ -152,7 +152,7 @@ namespace MeltCalc.Pages
 			substance.G = mass;
 		}
 
-		private void Calculations()
+		private static void Calculations()
 		{
 			// Расчет хс известняка
 			Tube.Известняк.CaO = (56.0 / 100.0) * Tube.Известняк.CaCO3;

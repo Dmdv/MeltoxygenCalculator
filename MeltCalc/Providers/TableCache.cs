@@ -7,10 +7,11 @@ using MeltCalc.Properties;
 namespace MeltCalc.Providers
 {
 	/// <summary>
-	/// Непотокобезопасный кэш.
+	/// Потокобезопасный кеш.
 	/// </summary>
 	public static class TableCache
 	{
+		private static readonly object _lock = new object();
 		private static readonly Dictionary<string, DataTable> _cache = new Dictionary<string, DataTable>();
 
 		public static void Refresh()
@@ -29,12 +30,18 @@ namespace MeltCalc.Providers
 
 		public static DataTable Get(string table)
 		{
-			return _cache[table];
+			lock (_lock)
+			{
+				return _cache.ContainsKey(table) ? _cache[table] : null;
+			}
 		}
 
 		public static void Put(string table, DataTable datatable)
 		{
-			_cache[table] = datatable;
+			lock (_lock)
+			{
+				_cache[table] = datatable;
+			}
 		}
 	}
 }
