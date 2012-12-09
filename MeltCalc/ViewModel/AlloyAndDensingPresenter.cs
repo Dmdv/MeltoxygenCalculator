@@ -8,7 +8,7 @@ namespace MeltCalc.ViewModel
 	public class AlloyAndDensingPresenter
 	{
 		private const string TableName = "FerroAlloys";
-		const int FerroAlloysShift = 2;
+		private const int FerroAlloysShift = 2;
 
 		private readonly ComboBox _alloys;
 		private readonly LooseMdb _looseMdb = new LooseMdb();

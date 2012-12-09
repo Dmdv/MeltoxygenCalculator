@@ -8,7 +8,7 @@ namespace MeltCalc.Chemistry
 	{
 		private static readonly List<Навеска> _registry = new List<Навеска>();
 
-		public Tube()
+		static Tube()
 		{
 			Известняк = new Известняк(_registry);
 			Известь = new Известь(_registry);

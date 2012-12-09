@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MeltCalc.Model;
 
 namespace MeltCalc.Chemistry
@@ -286,11 +287,19 @@ namespace MeltCalc.Chemistry
 	{
 		public double Al { get; set; }
 		public double C { get; set; }
-		public double Fe { get; set; }
+		public double Fe
+		{
+			get { return 100.0 - Al - C - Mn - P - S - Si; }
+		}
 		public double Mn { get; set; }
 		public double P { get; set; }
 		public double S { get; set; }
 		public double Si { get; set; }
+
+		public static bool Validate(double galloy)
+		{
+			return !(Math.Abs(galloy - 0.0) < 0.000001 || (galloy >= 0.01 && galloy <= 10.0));
+		}
 	}
 
 	public class ВлажныйДоломит : Навеска

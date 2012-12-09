@@ -2,14 +2,9 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Model="clr-namespace:MeltCalc.Model"
-	  xmlns:Converters="clr-namespace:MeltCalc.Converters"
 	  x:Class="MeltCalc.Pages.Step14" mc:Ignorable="d" d:DesignHeight="812" d:DesignWidth="1106" Title="Шаг 4"
 	  WindowTitle="Шаг 4" VerticalAlignment="Top">
 	
-	<Page.Resources>
-		<Converters:StringToDoubleConverter x:Key="DoubleConverter"/>
-	</Page.Resources>
-
 	<Page.DataContext>
 		<Binding Source="{StaticResource Tube}" />
 	</Page.DataContext>

@@ -68,7 +68,7 @@ namespace MeltCalc.Pages
 			RestoreDefaultSteelMass();
 			ShlakDensing();
 
-			if (AdaptationData.DensingUse && AdaptationData.AlloyUse)
+			if (AdaptationData.DensingUse || AdaptationData.AlloyUse)
 			{
 				if (NavigationService != null)
 				{
@@ -77,7 +77,7 @@ namespace MeltCalc.Pages
 			}
 			else
 			{
-				// Step 15
+				// TODO Step15
 			}
 		}
 
