@@ -77,7 +77,10 @@ namespace MeltCalc.Pages
 			}
 			else
 			{
-				// TODO Step15
+				if (NavigationService != null)
+				{
+					NavigationService.Navigate(new Step15());
+				}
 			}
 		}
 

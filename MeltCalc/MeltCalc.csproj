@@ -75,6 +75,9 @@
     <Compile Include="Pages\AlloyAndDensingInput.xaml.cs">
       <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Step15.xaml.cs">
+      <DependentUpon>Step15.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Providers\MdbReader.cs" />
     <Compile Include="Providers\TableCache.cs" />
     <Compile Include="Providers\TableCacheReader.cs" />
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Step14.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Step15.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

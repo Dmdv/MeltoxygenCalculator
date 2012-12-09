@@ -49,7 +49,7 @@ namespace MeltCalc.Pages
 		{
 			if (AssingAlloy() && NavigationService != null)
 			{
-				// NavigationService.Navigate(new Step15());
+				NavigationService.Navigate(new Step15());
 			}
 		}
 
