@@ -16,22 +16,18 @@ namespace MeltCalc.Pages
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			throw new NotImplementedException();
 		}
 
 		private void PreviousCanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			throw new NotImplementedException();
 		}
 
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			throw new NotImplementedException();
 		}
 
 		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

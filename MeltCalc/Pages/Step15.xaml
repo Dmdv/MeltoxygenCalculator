@@ -12,9 +12,9 @@
 
   <Grid>
   	<Grid.RowDefinitions>
-  		<RowDefinition Height="Auto"/>
-  		<RowDefinition/>
-  		<RowDefinition/>
+  		<RowDefinition Height="Auto" MinHeight="214.5"/>
+  		<RowDefinition Height="0.457*"/>
+  		<RowDefinition Height="0.543*"/>
   	</Grid.RowDefinitions>
   	<Grid>
   		<Grid.ColumnDefinitions>
@@ -26,7 +26,7 @@
   			<RowDefinition/>
   			<RowDefinition/>
   		</Grid.RowDefinitions>
-  		<GroupBox Header="Лом" d:LayoutOverrides="Width, Height, GridBox" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5,5,5,0">
+  		<GroupBox Header="Лом" d:LayoutOverrides="Width, Height, GridBox" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="3,3,3,4">
   			<Grid>
   				<Grid.ColumnDefinitions>
   					<ColumnDefinition Width="2*"/>
@@ -34,16 +34,15 @@
   				</Grid.ColumnDefinitions>
   				<Grid.RowDefinitions>
   					<RowDefinition Height="4*"/>
-  					<RowDefinition/>
   				</Grid.RowDefinitions>
-  				<GroupBox Header="Выберите сортовой состав" d:LayoutOverrides="Width, Height" Margin="4">
+  				<GroupBox Header="Выберите сортовой состав" d:LayoutOverrides="Width, Height" Margin="3,-2,3,3">
   					<Grid Margin="3">
   						<Grid.RowDefinitions>
+  							<RowDefinition Height="0.8*"/>
   							<RowDefinition/>
+  							<RowDefinition Height="0.8*"/>
   							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
+  							<RowDefinition Height="0.8*"/>
   							<RowDefinition/>
   						</Grid.RowDefinitions>
   						<Grid.ColumnDefinitions>
@@ -52,7 +51,7 @@
   							<ColumnDefinition/>
   						</Grid.ColumnDefinitions>
   						<TextBlock Text="Высокоуглеродистый лом" Grid.ColumnSpan="3" Margin="0,0,0,3"></TextBlock>
-						<xctk:DoubleUpDown Grid.Row="1" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown Grid.Row="1" Margin="0,0,3,0" Text="0"/>
 						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" Margin="0,0,3,0"/>
 						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="2" Margin="0,0,3,0"/>
 						<TextBlock Text="Среднеуглеродистый лом" Grid.ColumnSpan="3" Grid.Row="2" Margin="0,0,0,3"/>
@@ -65,15 +64,15 @@
 						<xctk:DoubleUpDown Grid.Row="5" Grid.Column="2" Margin="0,0,3,0"/>		
 					</Grid>
 				</GroupBox>
-  				<GroupBox Header="Результирующий х/с" d:LayoutOverrides="Height" Grid.Column="1" Margin="4,4,3,4">
+  				<GroupBox Header="Результирующий х/с" d:LayoutOverrides="Height" Grid.Column="1" Margin="3,-2,3,3">
   					<Grid>
   						<Grid.RowDefinitions>
-  							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
-  							<RowDefinition/>
+  							<RowDefinition Height="0.156*"/>
+  							<RowDefinition Height="0.183*"/>
+  							<RowDefinition Height="0.141*"/>
+  							<RowDefinition Height="0.179*"/>
+  							<RowDefinition Height="0.097*"/>
+  							<RowDefinition Height="0.244*"/>
   						</Grid.RowDefinitions>
   						<Grid.ColumnDefinitions>
   							<ColumnDefinition/>
@@ -93,11 +92,56 @@
   						<TextBox TextWrapping="Wrap" Text="0.0" Grid.ColumnSpan="2" Grid.Row="3" TextAlignment="Center" d:LayoutOverrides="Width, Height" Grid.Column="1" Margin="3,0"/>
   						<TextBlock TextWrapping="Wrap" Text="S" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" d:LayoutOverrides="GridBox" Grid.Row="2" Grid.Column="3"/>
   						<TextBox TextWrapping="Wrap" Text="0.0" Grid.ColumnSpan="2" Grid.Row="3" TextAlignment="Center" Margin="3,0" d:LayoutOverrides="Width, Height" Grid.Column="3"/>
-  						<Button Grid.ColumnSpan="6" Content="Button" d:LayoutOverrides="Height" Grid.Row="4" Grid.RowSpan="2" Margin="4,6,4,4"/>
+  						<Button Grid.ColumnSpan="6" Content="Button" d:LayoutOverrides="Height" Grid.Row="5" Margin="4,6,4,4"/>
   					</Grid>
   				</GroupBox>
   			</Grid>
   		</GroupBox>
-  		<Grid Grid.Column="2" Grid.RowSpan="2"/>
-  	</Grid></Grid>
+  		<Grid Grid.Column="2" Grid.RowSpan="2">
+  			<Grid.RowDefinitions>
+  				<RowDefinition Height="3*"/>
+  				<RowDefinition/>
+  			</Grid.RowDefinitions>
+  			<GroupBox Header="Простой" d:LayoutOverrides="Height" Margin="0,1,2,0" FontSize="14.667">
+  				<Grid>
+  					<Grid.RowDefinitions>
+  						<RowDefinition/>
+  						<RowDefinition Height="33"/>
+  					</Grid.RowDefinitions>
+  					<Grid.ColumnDefinitions>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  					</Grid.ColumnDefinitions>
+  					<TextBlock TextWrapping="Wrap" Text="Введите длительность простоя агрегата с момента слива полупродукта до залива чугуна текущей плавки, мин" Grid.ColumnSpan="2" d:LayoutOverrides="Height" FontSize="16" Margin="3,0,0,0"/>
+  					<ComboBox Grid.Row="1" Margin="0,2,2,1"/>
+  					<Button Content="Button" Grid.Column="1" Grid.Row="1" Margin="0,2,0,1"/>
+  				</Grid>
+  			</GroupBox>
+  			<GroupBox d:LayoutOverrides="Height" Grid.Row="1" FontSize="16" Header="Слив полупродукта" Margin="0,-2,2,4">
+  				<Grid>
+  					<Grid.ColumnDefinitions>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  					</Grid.ColumnDefinitions>
+  					<TextBlock TextWrapping="Wrap" FontSize="16" TextAlignment="Center"><Run Text="Время слива, мин"/></TextBlock>
+  					<ComboBox d:LayoutOverrides="Width" Grid.Column="1"/>		
+  				</Grid>
+  			</GroupBox>
+  		</Grid>
+  	</Grid>
+  	<GroupBox Header="Чугун" Grid.Row="1" Margin="3,-1,3,0">
+  		<Grid>
+  			<Grid.ColumnDefinitions>
+  				<ColumnDefinition/>
+  				<ColumnDefinition Width="3*"/>
+  			</Grid.ColumnDefinitions>
+  			<GroupBox Header="Температура, С" Margin="5" FontSize="13.333">
+  				<ComboBox VerticalAlignment="Center" Margin="10,0"/>
+  			</GroupBox>
+  			<GroupBox Header="Химический состав пробы из миксера" Grid.Column="1" Margin="5" FontSize="13.333"/>
+  		</Grid>
+  	</GroupBox>
+  	<GroupBox Header="Полупродукт" Grid.Row="2" Margin="3,0,3,4">
+  		<Grid/>
+  	</GroupBox></Grid>
 </Page>
