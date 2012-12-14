@@ -4,6 +4,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="MeltCalc.Pages.Step15"
       mc:Ignorable="d" d:DesignHeight="594" d:DesignWidth="1122.5" Title="Step15" DataContext="{Binding Source={StaticResource Tube}}">
+	<Page.Resources>
+		<Thickness x:Key="GroupBoxMargin">3,-1,3,0</Thickness>
+	</Page.Resources>
 
   <Page.CommandBindings>
   	<CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted" />
@@ -50,7 +53,7 @@
   							<ColumnDefinition/>
   							<ColumnDefinition/>
   						</Grid.ColumnDefinitions>
-  						<TextBlock Text="Высокоуглеродистый лом" Grid.ColumnSpan="3" Margin="0,0,0,3"></TextBlock>
+  						<TextBlock Text="Высокоуглеродистый лом" Grid.ColumnSpan="3" Margin="0,0,0,3"/>
 						<xctk:DoubleUpDown Grid.Row="1" Margin="0,0,3,0" Text="0"/>
 						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" Margin="0,0,3,0"/>
 						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="2" Margin="0,0,3,0"/>
@@ -129,19 +132,104 @@
   			</GroupBox>
   		</Grid>
   	</Grid>
-  	<GroupBox Header="Чугун" Grid.Row="1" Margin="3,-1,3,0">
+  	<GroupBox Header="Чугун" Grid.Row="1" Margin="{DynamicResource GroupBoxMargin}">
   		<Grid>
   			<Grid.ColumnDefinitions>
   				<ColumnDefinition/>
   				<ColumnDefinition Width="3*"/>
   			</Grid.ColumnDefinitions>
   			<GroupBox Header="Температура, С" Margin="5" FontSize="13.333">
-  				<ComboBox VerticalAlignment="Center" Margin="10,0"/>
+  				<ComboBox VerticalAlignment="Center" Margin="10,0" Height="30"/>
   			</GroupBox>
-  			<GroupBox Header="Химический состав пробы из миксера" Grid.Column="1" Margin="5" FontSize="13.333"/>
+  			<GroupBox Header="Химический состав пробы из миксера" Grid.Column="1" Margin="5" FontSize="13.333">
+  				<Grid>
+  					<Grid.RowDefinitions>
+  						<RowDefinition Height="0.392*"/>
+  						<RowDefinition Height="0.608*"/>
+  					</Grid.RowDefinitions>
+  					<Grid.ColumnDefinitions>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  						<ColumnDefinition/>
+  					</Grid.ColumnDefinitions>
+  					<TextBlock TextWrapping="Wrap" Text="С" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"/>
+  					<TextBlock TextWrapping="Wrap" Text="Si" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="1"/>
+  					<TextBlock TextWrapping="Wrap" Text="Mn" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="2"/>
+  					<TextBlock TextWrapping="Wrap" Text="P" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="3"/>
+  					<TextBlock TextWrapping="Wrap" Text="S" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="4"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="1"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="2"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="3"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="4"/>
+  				</Grid>
+  			</GroupBox>
   		</Grid>
   	</GroupBox>
-  	<GroupBox Header="Полупродукт" Grid.Row="2" Margin="3,0,3,4">
-  		<Grid/>
-  	</GroupBox></Grid>
+  	<Grid Grid.Row="2">
+  		<Grid.ColumnDefinitions>
+  			<ColumnDefinition Width="2*"/>
+  			<ColumnDefinition/>
+  		</Grid.ColumnDefinitions>
+  		<GroupBox Header="Полупродукт" Margin="{DynamicResource GroupBoxMargin}">
+  			<Grid>
+  				<Grid.ColumnDefinitions>
+  					<ColumnDefinition/>
+  					<ColumnDefinition/>
+  				</Grid.ColumnDefinitions>
+  				<GroupBox Header="Температура и масса" Margin="10,5,5,5">
+  					<Grid>
+  						<Grid.RowDefinitions>
+  							<RowDefinition/>
+  							<RowDefinition/>
+  						</Grid.RowDefinitions>
+  						<Grid.ColumnDefinitions>
+  							<ColumnDefinition/>
+  							<ColumnDefinition/>
+  						</Grid.ColumnDefinitions>
+  						<TextBlock TextWrapping="Wrap" Text="Град, С" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667"/>
+  						<TextBlock TextWrapping="Wrap" Text="Тонн" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
+  						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="30" Margin="0,0,5,0"/>
+  					</Grid>
+  				</GroupBox>
+  				<GroupBox Header="Заданный химический состав, %" Grid.Column="1" Grid.Row="10" Margin="5,5,10,5">
+  					<Grid>
+  						<Grid.RowDefinitions>
+  							<RowDefinition/>
+  							<RowDefinition/>
+  						</Grid.RowDefinitions>
+  						<Grid.ColumnDefinitions>
+  							<ColumnDefinition/>
+  							<ColumnDefinition/>
+  						</Grid.ColumnDefinitions>
+  						<TextBlock TextWrapping="Wrap" Text="С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18.667" Margin="0,0,0,10"/>
+  						<TextBlock TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667" Text="P max"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="1"/>
+  					</Grid>
+  				</GroupBox>
+  			</Grid>
+  		</GroupBox>
+  		<GroupBox Header="Шлак" Grid.Column="1" Margin="{DynamicResource GroupBoxMargin}" FontSize="16">
+  			<Grid>
+  				<Grid.RowDefinitions>
+  					<RowDefinition/>
+  					<RowDefinition/>
+  					<RowDefinition/>
+  					<RowDefinition/>
+  				</Grid.RowDefinitions>
+  				<Grid.ColumnDefinitions>
+  					<ColumnDefinition/>
+  					<ColumnDefinition/>
+  					<ColumnDefinition/>
+  				</Grid.ColumnDefinitions>
+  				<ComboBox Margin="0,0,-1.278,17.417" d:LayoutOverrides="Height"/>
+  				<ComboBox Margin="0,0,-1.278,17.416" d:LayoutOverrides="Height"/>
+  				<ComboBox Margin="0,0,-1.278,17.416" d:LayoutOverrides="Height"/>
+  			</Grid>
+  		</GroupBox>
+  	</Grid></Grid>
 </Page>
