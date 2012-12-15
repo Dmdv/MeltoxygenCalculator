@@ -3,7 +3,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="MeltCalc.Pages.Step15"
-      mc:Ignorable="d" d:DesignHeight="594" d:DesignWidth="1122.5" Title="Step15" DataContext="{Binding Source={StaticResource Tube}}">
+      mc:Ignorable="d" d:DesignHeight="529.5" d:DesignWidth="1155.5" Title="Step15" DataContext="{Binding Source={StaticResource Tube}}" Width="900" Height="500">
 	<Page.Resources>
 		<Thickness x:Key="GroupBoxMargin">3,-1,3,0</Thickness>
 	</Page.Resources>
@@ -16,8 +16,9 @@
   <Grid>
   	<Grid.RowDefinitions>
   		<RowDefinition Height="Auto" MinHeight="214.5"/>
-  		<RowDefinition Height="0.457*"/>
-  		<RowDefinition Height="0.543*"/>
+  		<RowDefinition Height="Auto" MinHeight="65.237"/>
+  		<RowDefinition Height="Auto" MinHeight="63.446"/>
+  		<RowDefinition Height="Auto" MinHeight="56.523"/>
   	</Grid.RowDefinitions>
   	<Grid>
   		<Grid.ColumnDefinitions>
@@ -95,7 +96,7 @@
   						<TextBox TextWrapping="Wrap" Text="0.0" Grid.ColumnSpan="2" Grid.Row="3" TextAlignment="Center" d:LayoutOverrides="Width, Height" Grid.Column="1" Margin="3,0"/>
   						<TextBlock TextWrapping="Wrap" Text="S" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" d:LayoutOverrides="GridBox" Grid.Row="2" Grid.Column="3"/>
   						<TextBox TextWrapping="Wrap" Text="0.0" Grid.ColumnSpan="2" Grid.Row="3" TextAlignment="Center" Margin="3,0" d:LayoutOverrides="Width, Height" Grid.Column="3"/>
-  						<Button Grid.ColumnSpan="6" Content="Button" d:LayoutOverrides="Height" Grid.Row="5" Margin="4,6,4,4"/>
+  						<Button Grid.ColumnSpan="6" Content="Ввести массу брикетов" d:LayoutOverrides="Height" Grid.Row="5" Margin="4,6,4,4" VerticalAlignment="Center"/>
   					</Grid>
   				</GroupBox>
   			</Grid>
@@ -115,19 +116,19 @@
   						<ColumnDefinition/>
   						<ColumnDefinition/>
   					</Grid.ColumnDefinitions>
-  					<TextBlock TextWrapping="Wrap" Text="Введите длительность простоя агрегата с момента слива полупродукта до залива чугуна текущей плавки, мин" Grid.ColumnSpan="2" d:LayoutOverrides="Height" FontSize="16" Margin="3,0,0,0"/>
-  					<ComboBox Grid.Row="1" Margin="0,2,2,1"/>
-  					<Button Content="Button" Grid.Column="1" Grid.Row="1" Margin="0,2,0,1"/>
+  					<TextBlock TextWrapping="Wrap" Text="Введите длительность простоя агрегата с момента слива полупродукта до залива чугуна текущей плавки, мин" Grid.ColumnSpan="2" d:LayoutOverrides="Height" FontSize="13.333" Margin="3,0,0,0"/>
+  					<ComboBox Grid.Row="1" Margin="2,2,3,1" VerticalAlignment="Center" FontSize="12"/>
+  					<Button Content="Восстановить" Grid.Column="1" Grid.Row="1" Margin="2,2,2,1" VerticalAlignment="Center" FontSize="12"/>
   				</Grid>
   			</GroupBox>
-  			<GroupBox d:LayoutOverrides="Height" Grid.Row="1" FontSize="16" Header="Слив полупродукта" Margin="0,-2,2,4">
+  			<GroupBox d:LayoutOverrides="Height" Grid.Row="1" FontSize="14.667" Header="Слив полупродукта" Margin="0,-2,2,4">
   				<Grid>
   					<Grid.ColumnDefinitions>
   						<ColumnDefinition/>
   						<ColumnDefinition/>
   					</Grid.ColumnDefinitions>
-  					<TextBlock TextWrapping="Wrap" FontSize="16" TextAlignment="Center"><Run Text="Время слива, мин"/></TextBlock>
-  					<ComboBox d:LayoutOverrides="Width" Grid.Column="1"/>		
+  					<TextBlock TextWrapping="Wrap" FontSize="13.333" TextAlignment="Center"><Run Text="Время слива, мин"/></TextBlock>
+  					<ComboBox d:LayoutOverrides="Width" Grid.Column="1" VerticalAlignment="Center" FontSize="12"/>		
   				</Grid>
   			</GroupBox>
   		</Grid>
@@ -139,7 +140,14 @@
   				<ColumnDefinition Width="3*"/>
   			</Grid.ColumnDefinitions>
   			<GroupBox Header="Температура, С" Margin="5" FontSize="13.333">
-  				<ComboBox VerticalAlignment="Center" Margin="10,0" Height="30"/>
+  				<Grid>
+  					<Grid.RowDefinitions>
+  						<RowDefinition Height="0.392*"/>
+  						<RowDefinition Height="0.582*"/>
+  					</Grid.RowDefinitions>
+  					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667"/>
+  					<ComboBox VerticalAlignment="Center" Margin="10,0,10,4" Grid.Row="1"/>
+  				</Grid>
   			</GroupBox>
   			<GroupBox Header="Химический состав пробы из миксера" Grid.Column="1" Margin="5" FontSize="13.333">
   				<Grid>
@@ -154,16 +162,16 @@
   						<ColumnDefinition/>
   						<ColumnDefinition/>
   					</Grid.ColumnDefinitions>
-  					<TextBlock TextWrapping="Wrap" Text="С" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"/>
-  					<TextBlock TextWrapping="Wrap" Text="Si" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="1"/>
-  					<TextBlock TextWrapping="Wrap" Text="Mn" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="2"/>
-  					<TextBlock TextWrapping="Wrap" Text="P" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="3"/>
-  					<TextBlock TextWrapping="Wrap" Text="S" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" Grid.Column="4"/>
-  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
-  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="1"/>
-  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="2"/>
-  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="3"/>
-  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="4"/>
+  					<TextBlock TextWrapping="Wrap" Text="С" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667"/>
+  					<TextBlock TextWrapping="Wrap" Text="Si" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="1"/>
+  					<TextBlock TextWrapping="Wrap" Text="Mn" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="2"/>
+  					<TextBlock TextWrapping="Wrap" Text="P" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="3"/>
+  					<TextBlock TextWrapping="Wrap" Text="S" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="4"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="1"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="2"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="3"/>
+  					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="4"/>
   				</Grid>
   			</GroupBox>
   		</Grid>
@@ -189,10 +197,10 @@
   							<ColumnDefinition/>
   							<ColumnDefinition/>
   						</Grid.ColumnDefinitions>
-  						<TextBlock TextWrapping="Wrap" Text="Град, С" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667"/>
-  						<TextBlock TextWrapping="Wrap" Text="Тонн" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667"/>
-  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
-  						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="30" Margin="0,0,5,0"/>
+  						<TextBlock TextWrapping="Wrap" Text="Град, С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
+  						<TextBlock TextWrapping="Wrap" Text="Тонн" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
+  						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,5,0"/>
   					</Grid>
   				</GroupBox>
   				<GroupBox Header="Заданный химический состав, %" Grid.Column="1" Grid.Row="10" Margin="5,5,10,5">
@@ -205,15 +213,15 @@
   							<ColumnDefinition/>
   							<ColumnDefinition/>
   						</Grid.ColumnDefinitions>
-  						<TextBlock TextWrapping="Wrap" Text="С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18.667" Margin="0,0,0,10"/>
-  						<TextBlock TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18.667" Text="P max"/>
-  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0"/>
-  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Height="30" Margin="5,0" Grid.Column="1"/>
+  						<TextBlock TextWrapping="Wrap" Text="С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
+  						<TextBlock TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16" Text="P max"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
+  						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
   					</Grid>
   				</GroupBox>
   			</Grid>
   		</GroupBox>
-  		<GroupBox Header="Шлак" Grid.Column="1" Margin="{DynamicResource GroupBoxMargin}" FontSize="16">
+  		<GroupBox Header="Шлак" Grid.Column="1" Margin="{DynamicResource GroupBoxMargin}">
   			<Grid>
   				<Grid.RowDefinitions>
   					<RowDefinition/>
@@ -226,10 +234,26 @@
   					<ColumnDefinition/>
   					<ColumnDefinition/>
   				</Grid.ColumnDefinitions>
-  				<ComboBox Margin="0,0,-1.278,17.417" d:LayoutOverrides="Height"/>
-  				<ComboBox Margin="0,0,-1.278,17.416" d:LayoutOverrides="Height"/>
-  				<ComboBox Margin="0,0,-1.278,17.416" d:LayoutOverrides="Height"/>
+  				<ComboBox d:LayoutOverrides="Height" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="5,0"/>
+  				<ComboBox d:LayoutOverrides="Height" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,5,0"/>
+  				<ComboBox d:LayoutOverrides="Height" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,5,0"/>
+  				<TextBlock TextWrapping="Wrap" Text="min" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+  				<TextBlock TextWrapping="Wrap" Text="max" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
+  				<TextBlock TextWrapping="Wrap" Text="основность" VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1"/>
+  				<StackPanel Orientation="Horizontal" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+  					<TextBlock TextWrapping="Wrap" Text="(" FontSize="24" VerticalAlignment="Center"/>
+  					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+  						<TextBlock TextWrapping="Wrap" Text="CaO + MgO" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+  						<TextBlock TextWrapping="Wrap" Text="-------------" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="12"/>
+  						<TextBlock TextWrapping="Wrap" Text="SiO2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12"/>
+  					</StackPanel>
+  					<TextBlock TextWrapping="Wrap" Text=")" VerticalAlignment="Center" FontSize="24"/>
+  				</StackPanel>
+  				<CheckBox Content="" d:LayoutOverrides="Width" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="2,0,0,0"/>
+  				<TextBlock TextWrapping="Wrap" Text="Присутствует оставленный шлак" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Row="3" Margin="20,0,1,0" Grid.ColumnSpan="2"/>
   			</Grid>
   		</GroupBox>
-  	</Grid></Grid>
+  	</Grid>
+  	<Button Grid.Column="0" Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32" VerticalAlignment="Center" d:LayoutOverrides="HorizontalAlignment" Grid.Row="3" Margin="10,0,0,0" />
+  	<Button Grid.Column="0" Content="Вперед..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.PreviousPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,10,0" /></Grid>
 </Page>
