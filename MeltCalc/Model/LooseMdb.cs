@@ -5,7 +5,8 @@ namespace MeltCalc.Model
 {
 	public class LooseMdb : MdbReader
 	{
-		public LooseMdb() : base(Settings.Default.LooseMdb)
+		public LooseMdb() 
+			: base(Settings.Default.LooseMdb)
 		{
 		}
 	}

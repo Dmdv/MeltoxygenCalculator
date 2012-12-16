@@ -40,5 +40,14 @@ namespace MeltCalc.Properties {
                 return ((string)(this["DatabaseRelativePath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("params.mdb")]
+        public string ParamsMdb {
+            get {
+                return ((string)(this["ParamsMdb"]));
+            }
+        }
     }
 }

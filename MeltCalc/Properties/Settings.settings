@@ -8,5 +8,8 @@
     <Setting Name="DatabaseRelativePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">..\..\Database</Value>
     </Setting>
+    <Setting Name="ParamsMdb" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">params.mdb</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

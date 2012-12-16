@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using MeltCalc.Chemistry;
+using MeltCalc.Model;
 
 namespace MeltCalc.Pages
 {
@@ -8,6 +9,9 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Step15
 	{
+		private const string Lomdata = "lomdata";
+		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
+		
 		public Step15()
 		{
 			InitializeComponent();
@@ -19,6 +23,11 @@ namespace MeltCalc.Pages
 			// Во избежание определения INotifyPropertyChanges в каждом компоненте придется инициализировать
 			// поля из свойств вручную.
 
+			InitializeFromGlobals();
+		}
+
+		private void InitializeFromGlobals()
+		{
 			_stalMass.Value = Tube.Сталь.GYield;
 
 			if (Params.IsDuplex)

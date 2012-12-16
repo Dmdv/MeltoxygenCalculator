@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using MeltCalc.Converters;
 using MeltCalc.Model;
 
 namespace MeltCalc.Chemistry
@@ -157,33 +159,83 @@ namespace MeltCalc.Chemistry
 
 	public class Лом : Навеска
 	{
+		private readonly RowIndex _index;
+		private const string Lomdata = "lomdata";
+		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
+		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
+		private readonly DataTable _table;
+
+		public Лом()
+		{
+		}
+
+		protected Лом(RowIndex index)
+		{
+			_index = index;
+			_table = _paramsMdb.Reader.FetchTable(Lomdata);
+
+			C = ReadValue("C");
+			Mn = ReadValue("Mn");
+			Si = ReadValue("Si");
+			P = ReadValue("P");
+			S = ReadValue("S");
+		}
+
+		private double ReadValue(string column)
+		{
+			var value = _table.Rows[(int)_index][column];
+			return (double) _converter.ConvertBack(value, typeof (double), null, null);
+		}
+
 		public double C { get; set; }
 		public double DolyaLegkovesa { get; set; }
 		public double Mn { get; set; }
 		public double P { get; set; }
 		public double S { get; set; }
 		public double Si { get; set; }
+
+		protected enum RowIndex
+		{
+			LowSmall,
+			LowMed,
+			LowBig,
+			MidSmall,
+			MidMed,
+			MidBig,
+			HighSmall,
+			HighMed,
+			HighBig
+		}
 	}
 
 	public class ЛомНизкий : Лом
 	{
-		public Лом Low { get; set; }
+		public ЛомНизкий()
+		{
+			Small = new ЛомНизкий(RowIndex.LowSmall);
+		}
+
+		protected ЛомНизкий(RowIndex index)
+		{
+		}
+
+		public Лом Small { get; set; }
 		public Лом Mid { get; set; }
-		public Лом High { get; set; }
+		public Лом Large { get; set; }
 	}
 
 	public class ЛомСредний : Лом
 	{
-		public Лом Low { get; set; }
+		public Лом Small { get; set; }
 		public Лом Mid { get; set; }
-		public Лом High { get; set; }
+		public Лом Large { get; set; }
 	}
 
 	public class ЛомВысокий : Лом
 	{
-		public Лом Low { get; set; }
+		public Лом Small { get; set; }
 		public Лом Mid { get; set; }
-		public Лом High { get; set; }
+		public Лом Large { get; set; }
 	}
 
 	public class Футеровка : Навеска
