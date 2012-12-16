@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows;
 using MeltCalc.Converters;
 using MeltCalc.Model;
 
@@ -158,7 +159,8 @@ namespace MeltCalc.Chemistry
 	}
 
 	/// <summary>
-	/// This is a row from params.mdb
+	/// This is a row from params.mdb.
+	/// Result lom composition.
 	/// </summary>
 	public class Лом : Навеска
 	{
@@ -183,20 +185,30 @@ namespace MeltCalc.Chemistry
 			P = ReadValue("P");
 			S = ReadValue("S");
 			C = ReadValue("С");
+			Part = ReadValue("Доля лома");
 		}
 
-		public float C { get; private set; }
-		public float DolyaLegkovesa { get; private set; }
-		public float Mn { get; private set; }
-		public float P { get; private set; }
-		public float S { get; private set; }
-		public float Si { get; private set; }
+		public float C { get; set; }
+		public float DolyaLegkovesa { get; set; }
+		public float Mn { get; set; }
+		public float P { get; set; }
+		public float S { get; set; }
+		public float Si { get; set; }
+		public float Part { get; set; }
 
 		private float ReadValue(string column)
 		{
-			var index = (int) _index;
-			var value = _table.Rows[index][column];
-			return (float)_converter.ConvertBack(value, typeof(double), null, null);
+			var value = _table.Rows[(int)_index][column];
+			try
+			{
+				return (float)_converter.ConvertBack(value, typeof(float), null, null);
+			}
+			catch (Exception e)
+			{
+				// TODO: Удалить.
+				MessageBox.Show(e.ToString());
+			}
+			return 0;
 		}
 
 		/// <summary>
@@ -204,63 +216,15 @@ namespace MeltCalc.Chemistry
 		/// </summary>
 		public enum RowIndex
 		{
-			LowSmall,
-			LowMed,
-			LowBig,
-			MidSmall,
-			MidMed,
-			MidBig,
-			HighSmall,
-			HighMed,
-			HighBig
-		}
-	}
-
-	public abstract class ЛомРазмерный
-	{
-		/// <summary>
-		/// Низкоуглеродный лом.
-		/// </summary>
-		protected Лом Low { get; set; }
-
-		/// <summary>
-		/// Среднеуглеродный.
-		/// </summary>
-		protected Лом Mid { get; set; }
-
-		/// <summary>
-		/// Высокоуглеродный.
-		/// </summary>
-		protected Лом High { get; set; }
-	}
-
-	public class ЛомМелкий : ЛомРазмерный
-	{
-		public ЛомМелкий()
-		{
-			Low = new Лом(Лом.RowIndex.LowSmall);
-			Mid = new Лом(Лом.RowIndex.LowMed);
-			High = new Лом(Лом.RowIndex.LowBig);
-		}
-	}
-
-	public class ЛомСредний : ЛомРазмерный
-	{
-		public ЛомСредний()
-		{
-			Low = new Лом(Лом.RowIndex.MidSmall);
-			Mid = new Лом(Лом.RowIndex.MidMed);
-			High = new Лом(Лом.RowIndex.MidBig);
-		}
-	}
-
-	public class ЛомКрупный : ЛомРазмерный
-	{
-		public ЛомКрупный()
-		{
-			Low = new Лом(Лом.RowIndex.HighSmall);
-			Mid = new Лом(Лом.RowIndex.HighMed);
-			High = new Лом(Лом.RowIndex.HighBig);
+			LowSmall = 0,
+			LowMed = 1,
+			LowBig = 2,
+			MidSmall = 3,
+			MidMed = 4,
+			MidBig = 5,
+			HighSmall = 6,
+			HighMed = 7,
+			HighBig = 8
 		}
 	}
 

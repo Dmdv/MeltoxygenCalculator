@@ -57,17 +57,17 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<TextBlock Text="Высокоуглеродистый лом" Grid.ColumnSpan="3" Margin="0,0,0,3"/>
-						<xctk:DoubleUpDown Grid.Row="1" Margin="0,0,3,0" Text="0"/>
-						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" Margin="0,0,3,0"/>
-						<xctk:DoubleUpDown Grid.Row="1" Grid.Column="2" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_highSmall" Grid.Row="1" Margin="0,0,3,0" Text="0"/>
+						<xctk:DoubleUpDown x:Name="_highMiddle" Grid.Row="1" Grid.Column="1" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_highLarge" Grid.Row="1" Grid.Column="2" Margin="0,0,3,0"/>
 						<TextBlock Text="Среднеуглеродистый лом" Grid.ColumnSpan="3" Grid.Row="2" Margin="0,0,0,3"/>
-						<xctk:DoubleUpDown Grid.Row="3" Margin="0,0,3,0"/>
-						<xctk:DoubleUpDown Grid.Row="3" Grid.Column="1" Margin="0,0,3,0"/>
-						<xctk:DoubleUpDown Grid.Row="3" Grid.Column="2" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_midSmall" Grid.Row="3" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_midMiddle" Grid.Row="3" Grid.Column="1" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_midLarge" Grid.Row="3" Grid.Column="2" Margin="0,0,3,0"/>
 						<TextBlock Text="Низкоуглеродистый лом" Grid.ColumnSpan="3" Grid.Row="4" Margin="0,0,0,3"/>
-						<xctk:DoubleUpDown Grid.Row="5" Margin="0,0,3,0"/>
-						<xctk:DoubleUpDown Grid.Row="5" Grid.Column="1" Margin="0,0,3,0"/>
-						<xctk:DoubleUpDown Grid.Row="5" Grid.Column="2" Margin="0,0,3,0"/>		
+						<xctk:DoubleUpDown x:Name="_lowSmall" Grid.Row="5" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_lowMiddle" Grid.Row="5" Grid.Column="1" Margin="0,0,3,0"/>
+						<xctk:DoubleUpDown x:Name="_lowLarge" Grid.Row="5" Grid.Column="2" Margin="0,0,3,0"/>		
 					</Grid>
 				</GroupBox>
 				<GroupBox Header="Результирующий х/с" d:LayoutOverrides="Height" Grid.Column="1" Margin="3,-2,3,3">
