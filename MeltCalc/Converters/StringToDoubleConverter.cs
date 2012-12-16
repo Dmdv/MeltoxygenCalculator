@@ -14,6 +14,8 @@ namespace MeltCalc.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is double) return value;
+			if (value is float) return value;
+
 			if (value == null) return 0.0d;
 			var val = value as string;
 			if (string.IsNullOrEmpty(val)) return 0.0;

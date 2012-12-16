@@ -20,9 +20,9 @@ namespace MeltCalc.Chemistry
 			Чугун = new Чугун();
 			Сталь = new Сталь();
 			Лом = new Лом();
-			ЛомНизкий = new ЛомНизкий();
+			ЛомМелкий = new ЛомМелкий();
 			ЛомСредний = new ЛомСредний();
-			ЛомВысокий = new ЛомВысокий();
+			ЛомКрупный = new ЛомКрупный();
 			Футеровка = new Футеровка();
 			Дутье = new Дутье();
 			Имф = new Имф(_registry);
@@ -47,9 +47,9 @@ namespace MeltCalc.Chemistry
 		public static Чугун Чугун { get; set; }
 		public static Сталь Сталь { get; set; }
 		public static Лом Лом { get; set; }
-		public static ЛомНизкий ЛомНизкий { get; set; }
+		public static ЛомМелкий ЛомМелкий { get; set; }
 		public static ЛомСредний ЛомСредний { get; set; }
-		public static ЛомВысокий ЛомВысокий { get; set; }
+		public static ЛомКрупный ЛомКрупный { get; set; }
 		public static Футеровка Футеровка { get; set; }
 		public static Дутье Дутье { get; set; }
 		public static Имф Имф { get; set; }

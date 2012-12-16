@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using MeltCalc.Chemistry;
-using MeltCalc.Model;
 
 namespace MeltCalc.Pages
 {
@@ -9,9 +8,6 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Step15
 	{
-		private const string Lomdata = "lomdata";
-		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
-		
 		public Step15()
 		{
 			InitializeComponent();

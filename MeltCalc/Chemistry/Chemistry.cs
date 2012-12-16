@@ -157,44 +157,52 @@ namespace MeltCalc.Chemistry
 		public double V { get; set; }
 	}
 
+	/// <summary>
+	/// This is a row from params.mdb
+	/// </summary>
 	public class Лом : Навеска
 	{
-		private readonly RowIndex _index;
 		private const string Lomdata = "lomdata";
-		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
-		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
+		private static readonly ParamsMdb _paramsMdb = new ParamsMdb();
+		private static readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
+
+		private readonly RowIndex _index;
 		private readonly DataTable _table;
 
 		public Лом()
 		{
 		}
 
-		protected Лом(RowIndex index)
+		public Лом(RowIndex index)
 		{
 			_index = index;
 			_table = _paramsMdb.Reader.FetchTable(Lomdata);
 
-			C = ReadValue("C");
 			Mn = ReadValue("Mn");
 			Si = ReadValue("Si");
 			P = ReadValue("P");
 			S = ReadValue("S");
+			C = ReadValue("С");
 		}
 
-		private double ReadValue(string column)
+		public float C { get; private set; }
+		public float DolyaLegkovesa { get; private set; }
+		public float Mn { get; private set; }
+		public float P { get; private set; }
+		public float S { get; private set; }
+		public float Si { get; private set; }
+
+		private float ReadValue(string column)
 		{
-			var value = _table.Rows[(int)_index][column];
-			return (double) _converter.ConvertBack(value, typeof (double), null, null);
+			var index = (int) _index;
+			var value = _table.Rows[index][column];
+			return (float)_converter.ConvertBack(value, typeof(double), null, null);
 		}
 
-		public double C { get; set; }
-		public double DolyaLegkovesa { get; set; }
-		public double Mn { get; set; }
-		public double P { get; set; }
-		public double S { get; set; }
-		public double Si { get; set; }
-
-		protected enum RowIndex
+		/// <summary>
+		/// Углеродность - Размерность.
+		/// </summary>
+		public enum RowIndex
 		{
 			LowSmall,
 			LowMed,
@@ -208,34 +216,52 @@ namespace MeltCalc.Chemistry
 		}
 	}
 
-	public class ЛомНизкий : Лом
+	public abstract class ЛомРазмерный
 	{
-		public ЛомНизкий()
-		{
-			Small = new ЛомНизкий(RowIndex.LowSmall);
-		}
+		/// <summary>
+		/// Низкоуглеродный лом.
+		/// </summary>
+		protected Лом Low { get; set; }
 
-		protected ЛомНизкий(RowIndex index)
-		{
-		}
+		/// <summary>
+		/// Среднеуглеродный.
+		/// </summary>
+		protected Лом Mid { get; set; }
 
-		public Лом Small { get; set; }
-		public Лом Mid { get; set; }
-		public Лом Large { get; set; }
+		/// <summary>
+		/// Высокоуглеродный.
+		/// </summary>
+		protected Лом High { get; set; }
 	}
 
-	public class ЛомСредний : Лом
+	public class ЛомМелкий : ЛомРазмерный
 	{
-		public Лом Small { get; set; }
-		public Лом Mid { get; set; }
-		public Лом Large { get; set; }
+		public ЛомМелкий()
+		{
+			Low = new Лом(Лом.RowIndex.LowSmall);
+			Mid = new Лом(Лом.RowIndex.LowMed);
+			High = new Лом(Лом.RowIndex.LowBig);
+		}
 	}
 
-	public class ЛомВысокий : Лом
+	public class ЛомСредний : ЛомРазмерный
 	{
-		public Лом Small { get; set; }
-		public Лом Mid { get; set; }
-		public Лом Large { get; set; }
+		public ЛомСредний()
+		{
+			Low = new Лом(Лом.RowIndex.MidSmall);
+			Mid = new Лом(Лом.RowIndex.MidMed);
+			High = new Лом(Лом.RowIndex.MidBig);
+		}
+	}
+
+	public class ЛомКрупный : ЛомРазмерный
+	{
+		public ЛомКрупный()
+		{
+			Low = new Лом(Лом.RowIndex.HighSmall);
+			Mid = new Лом(Лом.RowIndex.HighMed);
+			High = new Лом(Лом.RowIndex.HighBig);
+		}
 	}
 
 	public class Футеровка : Навеска
