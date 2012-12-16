@@ -11,5 +11,14 @@ namespace MeltCalc.Chemistry
 		                  AirTemp,
 		                  FutDurability,
 		                  BlowingTime;
+
+		// TODO:
+		public static int Round;
+		// TODO:
+		public static string InputForm;
+		// TODO:
+		public static bool IsDuplex;
+
+		// cmdLastEstimate не реализован.
 	}
 }

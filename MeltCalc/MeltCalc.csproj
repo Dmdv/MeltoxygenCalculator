@@ -82,6 +82,7 @@
     <Compile Include="Pages\Step15.xaml.cs">
       <DependentUpon>Step15.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Providers\Key.cs" />
     <Compile Include="Providers\MdbReader.cs" />
     <Compile Include="Providers\TableCache.cs" />
     <Compile Include="Providers\TableCacheReader.cs" />

@@ -23,24 +23,28 @@ namespace MeltCalc.Providers
 				var schema = new TablesSchema(file);
 				foreach (var tableName in schema.GetTableNames())
 				{
-					Put(tableName, reader.FetchTable(tableName));
+					Put(new Key(tableName, file), reader.FetchTable(tableName));
 				}
 			}
 		}
 
-		public static DataTable Get(string table)
+		public static DataTable Get(Key key)
 		{
 			lock (_lock)
 			{
-				return _cache.ContainsKey(table) ? _cache[table] : null;
+				return _cache.ContainsKey(key.Value) ? _cache[key.Value] : null;
 			}
 		}
 
-		public static void Put(string table, DataTable datatable)
+		public static void Put(Key key, DataTable datatable)
 		{
 			lock (_lock)
 			{
-				_cache[table] = datatable;
+				if (Get(key) != null)
+				{
+					throw new Exception(string.Format("{0} exists", key));
+				}
+				_cache[key.Value] = datatable;
 			}
 		}
 	}

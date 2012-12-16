@@ -11,11 +11,9 @@ namespace MeltCalc.ViewModel
 {
 	public class Step14Presenter : BasePresenter
 	{
-		private readonly ContentControl _groupBox;
-		// Note: В таблице IMF хранится на одну колонку больше, чем необходимо.
-
 		private static readonly LooseMdb _looseMdb = new LooseMdb();
 
+		private readonly ContentControl _groupBox;
 		private readonly List<TextBox> _boxes;
 		private readonly ComboBox _comboBox;
 		private readonly Materials _material;

@@ -37,14 +37,6 @@ namespace MeltCalc.Chemistry
 			Pack = new Packets();
 		}
 
-		/// <summary>
-		/// Находит игредиент по его типу.
-		/// </summary>
-		public static T FindSubstance<T>(Materials material) where T : Навеска
-		{
-			return (T) _registry.FirstOrDefault(x => x.Material == material);
-		}
-
 		public static Известняк Известняк { get; set; }
 		public static Известь Известь { get; set; }
 		public static Шпат Шпат { get; set; }
@@ -70,5 +62,13 @@ namespace MeltCalc.Chemistry
 		public static Доломит Доломит { get; set; }
 		public static ВлажныйДоломит ВлажныйДоломит { get; set; }
 		public static Packets Pack { get; set; }
+
+		/// <summary>
+		/// Находит игредиент по его типу.
+		/// </summary>
+		public static T FindSubstance<T>(Materials material) where T : Навеска
+		{
+			return (T) _registry.FirstOrDefault(x => x.Material == material);
+		}
 	}
 }

@@ -24,11 +24,11 @@ namespace MeltCalc.Providers
 
 		public override DataTable FetchTable(string table)
 		{
-			var datatable = TableCache.Get(table);
+			var datatable = TableCache.Get(new Key(table, SubKey));
 			if (datatable == null)
 			{
 				datatable = base.FetchTable(table);
-				TableCache.Put(table, datatable);
+				TableCache.Put(new Key(table, SubKey), datatable);
 			}
 			return datatable;
 		}
