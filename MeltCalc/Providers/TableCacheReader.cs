@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 
@@ -20,6 +21,15 @@ namespace MeltCalc.Providers
 		{
 			var dataTable = FetchTableSafe(table);
 			return dataTable.Rows[index].ItemArray.Select(item => item.ToString()).ToArray();
+		}
+
+		public IEnumerable<string[]> SelectAllRows(string table)
+		{
+			return 
+				FetchTableSafe(table).Rows
+				.Cast<DataRow>()
+				.Select(row => row.ItemArray.Select(item => item.ToString()).ToArray())
+				.ToList();
 		}
 
 		public override DataTable FetchTable(string table)

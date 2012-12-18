@@ -11,5 +11,8 @@
     <Setting Name="ParamsMdb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">params.mdb</Value>
     </Setting>
+    <Setting Name="TeploPhisConstsMdb" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TeploPhisConsts.mdb</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

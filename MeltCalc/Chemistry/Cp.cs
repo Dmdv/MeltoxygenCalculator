@@ -1,8 +1,23 @@
-﻿namespace MeltCalc.Chemistry
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using MeltCalc.Helpers;
+using MeltCalc.Model;
+using System.Linq;
+
+namespace MeltCalc.Chemistry
 {
 	// Переменные теплового баланса
 	public static class Cp
 	{
+		private const string CpTable = "Cp";
+		private static readonly TeploPhysConstantsMdb _constantsMdb = new TeploPhysConstantsMdb();
+
+		static Cp()
+		{
+			LoadConstants();
+		}
+
 		public static double H2O { get; set; }
 		public static double CO { get; set; }
 		public static double CO2 { get; set; }
@@ -27,17 +42,41 @@
 		public static double dol { get; set; }
 		public static double vldol { get; set; }
 
-		//Добавил еще вот эти теплоемкости
-		//CpChugLiquid, CpLomSolid, CpMet
-		
+		// CpChugSolid, CpMetRZ - не используется!
+
+		public static double ChugSolid { get; set; }
 		public static double ChugLiquid { get; set; }
 		public static double LomSolid { get; set; }
 		public static double Met { get; set; }
 
-		//Что-то связанное с известью
+		//Что-то связанное с известью.
 		public static double Densing { get; set; }
-		
+
 		public static double DUT { get; set; }
 
+		private static void LoadConstants()
+		{
+			var rows = _constantsMdb.Reader
+				.SelectAllRows(CpTable)
+				.ToDictionary(row => row[0], row => row[1]);
+
+			ChugLiquid	= SafeValue("CpChugLiquid", rows);
+			LomSolid	= SafeValue("CpLomSolid", rows);
+			Met			= SafeValue("CpMet", rows);
+		}
+
+		private static double SafeValue(string param, IDictionary<string, string> rows)
+		{
+			try
+			{
+				return rows[param].ToDoubleSafe();
+			}
+			catch (Exception)
+			{
+				var msg = string.Format("Failed to find '{0}'. All the following calculations will not be correct", param);
+				MessageBox.Show(msg);
+			}
+			return 0.0;
+		}
 	}
 }

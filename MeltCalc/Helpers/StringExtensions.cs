@@ -13,7 +13,14 @@ namespace MeltCalc.Helpers
 		{
 			if (string.IsNullOrWhiteSpace(value)) return 0;
 			float outValue;
-			return float.TryParse(value, out outValue) ? outValue : 0;
+			return float.TryParse(value, out outValue) ? outValue : 0.0f;
+		}
+
+		public static double ToDoubleSafe(this string value)
+		{
+			if (string.IsNullOrWhiteSpace(value)) return 0;
+			double outValue;
+			return double.TryParse(value, out outValue) ? outValue : 0.0d;
 		}
 	}
 }

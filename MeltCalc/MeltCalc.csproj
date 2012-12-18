@@ -78,6 +78,7 @@
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ParamsMdb.cs" />
+    <Compile Include="Model\TeploPhysConstantsMdb.cs" />
     <Compile Include="Pages\AlloyAndDensingInput.xaml.cs">
       <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
     </Compile>
