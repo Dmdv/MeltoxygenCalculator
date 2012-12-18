@@ -22,7 +22,12 @@ namespace MeltCalc.Converters
 
 		private static object ConvertBack(object value, Type targetType)
 		{
-			if (targetType == typeof (Single))
+			if (targetType == typeof(int))
+			{
+				return System.Convert.ToInt32(value);
+			}
+
+			if (targetType == typeof(Single))
 			{
 				return System.Convert.ToSingle(value);
 			}
@@ -32,13 +37,7 @@ namespace MeltCalc.Converters
 
 		private static object ConvetrFromString(object value, Type targetType)
 		{
-			if (value == null) return 0.0d;
-			var val = value as string;
-			if (string.IsNullOrEmpty(val)) return 0.0;
-
-			double parsedValue;
-			var result = double.TryParse(val, out parsedValue);
-			return result ? parsedValue : 0.0;
+			return string.IsNullOrEmpty(value as string) ? 0.0 : ConvertBack(value, targetType);
 		}
 	}
 }

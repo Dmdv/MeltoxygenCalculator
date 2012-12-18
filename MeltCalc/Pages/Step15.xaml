@@ -148,7 +148,7 @@
 						<RowDefinition Height="0.582*"/>
 					</Grid.RowDefinitions>
 					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667"/>
-					<ComboBox VerticalAlignment="Center" Margin="10,0,10,4" Grid.Row="1"/>
+					<ComboBox x:Name="_chugTemp" VerticalAlignment="Center" Margin="10,0,10,4" Grid.Row="1"/>
 				</Grid>
 			</GroupBox>
 			<GroupBox Header="Химический состав пробы из миксера" Grid.Column="1" Margin="5" FontSize="13.333">
@@ -169,11 +169,11 @@
 					<TextBlock TextWrapping="Wrap" Text="Mn" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="2"/>
 					<TextBlock TextWrapping="Wrap" Text="P" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="3"/>
 					<TextBlock TextWrapping="Wrap" Text="S" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18.667" Grid.Column="4"/>
-					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4"/>
-					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="1"/>
-					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="2"/>
-					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="3"/>
-					<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="4"/>
+					<ComboBox x:Name="_chugC" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4"/>
+					<ComboBox x:Name="_chugSi" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="1"/>
+					<ComboBox x:Name="_chugMn" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="2"/>
+					<ComboBox x:Name="_chugP" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="3"/>
+					<ComboBox x:Name="_chugS" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,5,4" Grid.Column="4"/>
 				</Grid>
 			</GroupBox>
 		</Grid>

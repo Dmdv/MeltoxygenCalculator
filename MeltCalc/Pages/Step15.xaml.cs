@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Globalization;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
 using MeltCalc.Converters;
+using MeltCalc.Helpers;
+using MeltCalc.Model;
 
 namespace MeltCalc.Pages
 {
@@ -11,7 +15,9 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Step15
 	{
+		private const string StAndChugLists = "StAndChugLists";
 		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
+		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
 
 		public Step15()
 		{
@@ -27,6 +33,29 @@ namespace MeltCalc.Pages
 			InitializeFromGlobals();
 			LomChem_Load();
 			LomChemTotalCount();
+			Lists_Load();
+		}
+
+		private void InitializeFromGlobals()
+		{
+			_stalMass.Value = Tube.Сталь.GYield;
+
+			if (Params.IsDuplex)
+			{
+				_shlak.IsEnabled = false;
+				_leftShlak.IsChecked = false;
+			}
+
+			if (Params.InputForm == "auto")
+			{
+				_stalMass.IsEnabled = true;
+				_stalMass.AllowSpin = true;
+			}
+			else
+			{
+				_stalMass.IsEnabled = false;
+				_stalMass.AllowSpin = false;
+			}
 		}
 
 		private void LomChem_Load()
@@ -114,31 +143,40 @@ namespace MeltCalc.Pages
 			_lomS.Text = Tube.Лом.S.ToString(CultureInfo.InvariantCulture);
 		}
 
-		private void InitializeFromGlobals()
+		private void Lists_Load()
 		{
-			_stalMass.Value = Tube.Сталь.GYield;
+			InitCombobox(_chugTemp, Row.TempChug);
+			InitCombobox(_chugC, Row.CChug);
+			InitCombobox(_chugS, Row.SChug);
+			InitCombobox(_chugSi, Row.SiChug);
+			InitCombobox(_chugP, Row.PChug);
+			InitCombobox(_chugMn, Row.MnChug);
+		}
 
-			if (Params.IsDuplex)
+		private void InitCombobox(Selector chugTemp, Row tempChug)
+		{
+			var boundaries = SelectBoundaries(tempChug);
+
+			for (var idx = boundaries.Item1; idx < boundaries.Item2; idx += boundaries.Item3)
 			{
-				_shlak.IsEnabled = false;
-				_leftShlak.IsChecked = false;
+				chugTemp.Items.Add(string.Format("{0:0.###}", idx));
 			}
 
-			if (Params.InputForm == "auto")
-			{
-				_stalMass.IsEnabled = true;
-				_stalMass.AllowSpin = true;
-			}
-			else
-			{
-				_stalMass.IsEnabled = false;
-				_stalMass.AllowSpin = false;
-			}
+			chugTemp.SelectedIndex = Convert.ToInt32(boundaries.Item4);
+		}
+
+		private Tuple<float, float, float, float> SelectBoundaries(Row rowIndex)
+		{
+			var tempParams = _paramsMdb.Reader
+				.SelectRowRange(StAndChugLists, (int)rowIndex)
+				.Select(x => x.ToFloatSafe()).ToArray();
+
+			return new Tuple<float, float, float, float>(tempParams[2], tempParams[3], tempParams[4], tempParams[5]);
 		}
 
 		private float ToFloat(string text)
 		{
-			var convertBack = _converter.ConvertBack(text, typeof (double), null, null);
+			var convertBack = _converter.ConvertBack(text, typeof (float), null, null);
 			return Convert.ToSingle(convertBack);
 		}
 
@@ -158,6 +196,19 @@ namespace MeltCalc.Pages
 
 		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
+		}
+
+		private enum Row
+		{
+			TempChug = 0,
+			CChug = 1,
+			SiChug = 2,
+			MnChug = 3,
+			PChug = 4,
+			SChug = 5,
+			TempSteel = 6,
+			CSteel = 7,
+			PSteel = 8,
 		}
 	}
 }
