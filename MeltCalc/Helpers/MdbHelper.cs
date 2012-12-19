@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using MeltCalc.Providers;
 
@@ -18,6 +19,24 @@ namespace MeltCalc.Helpers
 			for (var idx = 0; idx < boxes.Count; idx++)
 			{
 				boxes[idx].Text = values[idx + shift];
+			}
+		}
+
+		public static void FillComboBox(this MdbReader reader, string tablename, string columnname, ComboBox comboBox)
+		{
+			try
+			{
+				foreach (var name in reader.Reader.SelectColumnRange<string>(tablename, columnname))
+				{
+					comboBox.Items.Add(name);
+				}
+
+				comboBox.SelectedIndex = 0;
+			}
+			catch (Exception)
+			{
+				MessageBox.Show(string.Format("Ошибка при чтении из таблицы '{0}' и колонки '{1}'", 
+					tablename, columnname), "Ошибка чтения", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

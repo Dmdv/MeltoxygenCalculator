@@ -39,7 +39,7 @@
 				<TextBlock Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="При автоматическом способе ввода большая часть информации о процессе извлекается из базы данных, в случае выбора самостоятельного способа эту информацию можно просмотреть и изменить вручную" Margin="0,5,0,0"/>
 				<StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical">
 					<TextBlock Text="Выберите предприятие" Margin="0,0,0,5"/>
-					<ComboBox/>
+					<ComboBox x:Name="_names"/>
 				</StackPanel>
 				<CheckBox Grid.Row="2" Content="Расчет 1 периода дуплекса-процесса" VerticalAlignment="Center"/>
 
@@ -63,7 +63,7 @@
 					<ColumnDefinition Width="0.584*"/>
 				</Grid.ColumnDefinitions>
 				<TextBlock Text="Введите температуру воздуха С" HorizontalAlignment="Left"/>
-				<ComboBox Grid.Column="1" HorizontalAlignment="Left" Width="60" VerticalAlignment="Top" Margin="6,0,0,0"/>
+				<ComboBox x:Name="_tempAir" Grid.Column="1" HorizontalAlignment="Left" Width="60" VerticalAlignment="Top" Margin="6,0,0,0"/>
 				<TextBlock Text="град С" HorizontalAlignment="Left" Grid.Column="2" Margin="4,0,0,0"/>
 				<TextBlock Text="Эта величина необходима для корректного учета температуры лома и подаваемых сыпучих материалов" TextWrapping="Wrap" d:LayoutOverrides="Width" Grid.Column="3" Margin="10,0,0,0"/>
 			</Grid>
@@ -88,7 +88,7 @@
 				<TextBlock Text="Донная продувка инертным газом" Grid.Row="1" Margin="{DynamicResource GroupboxMargin}" VerticalAlignment="Center"/>
 				<TextBlock Text="Выберите тип применяемой на конвертере футеровки" Grid.Row="2" Margin="{DynamicResource GroupboxMargin}" VerticalAlignment="Center" TextWrapping="Wrap"/>
 				<TextBlock Text="Средняя стойкость футеровки конвертера" Grid.Row="3" Margin="{DynamicResource GroupboxMargin}" VerticalAlignment="Center" TextWrapping="Wrap"/>
-				<ComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Margin="5,0,0,0"/>
+				<ComboBox x:Name="_timeProduv" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Margin="5,0,0,0"/>
 				<TextBlock Text="мин" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,50,0"/>
 				<RadioButton GroupName="usegroup" Content="Используется" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="5,0,0,3"/>
 				<RadioButton GroupName="usegroup" Content="Не используется" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5,3,0,0"/>
@@ -115,15 +115,15 @@
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 							<Button Content="Показать х/с кислорода продувки" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="5,0"/>
-							<TextBox Grid.Row="2" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Margin="{DynamicResource GroupboxMargin}"/>
-							<TextBox Grid.Row="2" TextWrapping="Wrap" Margin="{DynamicResource GroupboxMargin}" d:LayoutOverrides="Width, Height" Grid.Column="1"/>
-							<TextBox Grid.Row="2" TextWrapping="Wrap" Margin="{DynamicResource GroupboxMargin}" d:LayoutOverrides="Width, Height" Grid.Column="2"/>
+							<TextBox x:Name="_o2" Grid.Row="2" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Margin="{DynamicResource GroupboxMargin}"/>
+							<TextBox x:Name="_ar" Grid.Row="2" TextWrapping="Wrap" Margin="{DynamicResource GroupboxMargin}" d:LayoutOverrides="Width, Height" Grid.Column="1"/>
+							<TextBox x:Name="_n2" Grid.Row="2" TextWrapping="Wrap" Margin="{DynamicResource GroupboxMargin}" d:LayoutOverrides="Width, Height" Grid.Column="2"/>
 							<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{}{O2} %" d:LayoutOverrides="Height" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,2"/>
 							<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{}{Ar} %" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Column="1"/>
 							<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{}{N2} %" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Column="2"/>				
 						</Grid>
-						<ComboBox VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,0"/>
-						<ComboBox VerticalAlignment="Center" Grid.Row="2" Margin="5,0,34,0"/>
+						<ComboBox x:Name="_futType" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,0"/>
+						<ComboBox x:Name="_numPlavok" VerticalAlignment="Center" Grid.Row="2" Margin="5,0,34,0"/>
 						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="плавок" VerticalAlignment="Center" Grid.Row="2" Margin="88,0,0,0" Grid.ColumnSpan="2"/>
 						<ComboBox VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Margin="15,0,5,0"/>
 					</Grid>
