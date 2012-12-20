@@ -233,7 +233,6 @@ namespace MeltCalc.Chemistry
 		public double Al2O3 { get; set; }
 		public double C { get; set; }
 		public double CaO { get; set; }
-		public double GTOTAL { get; set; }
 		public double MgO { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
 using MeltCalc.Helpers;
@@ -23,7 +24,6 @@ namespace MeltCalc.Pages
 		{
 			PlantNames_Load();
 			FutType_Load();
-			FutChem_Load();
 
 			Tube.Дутье.N2 = 0.042;
 			Tube.Дутье.Ar = 0.226;
@@ -34,8 +34,27 @@ namespace MeltCalc.Pages
 			_n2.Text = string.Format("{0:0.###}", Tube.Дутье.N2);
 		}
 
+		private void FutTypeChanged(object sender, SelectionChangedEventArgs e)
+		{
+			FutChem_Load();
+		}
+
+		public int SelectedFuter
+		{
+			get { return _futType.SelectedIndex; }
+		}
+
 		private void FutChem_Load()
 		{
+			var table = _params.Reader.FetchTable("futdata");
+
+			Tube.Футеровка.Al2O3	= table.Rows[SelectedFuter]["Al2O3"].ToString().ToDoubleSafe();
+			Tube.Футеровка.C		= table.Rows[SelectedFuter]["C"].ToString().ToDoubleSafe();
+			Tube.Футеровка.CaO		= table.Rows[SelectedFuter]["CaO"].ToString().ToDoubleSafe();
+			Tube.Футеровка.MgO		= table.Rows[SelectedFuter]["MgO"].ToString().ToDoubleSafe();
+			Tube.Футеровка.P2O5		= table.Rows[SelectedFuter]["P2O5"].ToString().ToDoubleSafe();
+			Tube.Футеровка.SiO2		= table.Rows[SelectedFuter]["SiO2"].ToString().ToDoubleSafe();
+
 			//TODO:
 			// Изменение полей газов и next_click.
 		}
