@@ -169,7 +169,7 @@ namespace MeltCalc.Pages
 		{
 			var tempParams = _paramsMdb.Reader
 				.SelectRowRange(StAndChugLists, (int)rowIndex)
-				.Select(x => x.ToFloatSafe()).ToArray();
+				.Select(x => x.ToFloatOrZero()).ToArray();
 
 			return new Tuple<float, float, float, float>(tempParams[2], tempParams[3], tempParams[4], tempParams[5]);
 		}

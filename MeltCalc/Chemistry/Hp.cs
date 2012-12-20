@@ -74,43 +74,43 @@ namespace MeltCalc.Chemistry
 				.SelectAllRows(CpTable)
 				.ToDictionary(row => row[0], row => new Tuple<string, string>(row[1], row[2]));
 
-			dHfe_O2_mol = rows["fe_O2_mol"].Item1.ToDoubleSafe();
-			dSfe_O2_mol = rows["fe_O2_mol"].Item2.ToDoubleSafe();
+			dHfe_O2_mol = rows["fe_O2_mol"].Item1.ToDoubleOrZero();
+			dSfe_O2_mol = rows["fe_O2_mol"].Item2.ToDoubleOrZero();
 
-			dHmn_O2_mol = rows["mn_O2_mol"].Item1.ToDoubleSafe();
-			dSmn_O2_mol = rows["mn_O2_mol"].Item2.ToDoubleSafe();
+			dHmn_O2_mol = rows["mn_O2_mol"].Item1.ToDoubleOrZero();
+			dSmn_O2_mol = rows["mn_O2_mol"].Item2.ToDoubleOrZero();
 
-			dHsi_O2_mol = rows["si_O2_mol"].Item1.ToDoubleSafe();
-			dSsi_O2_mol = rows["si_O2_mol"].Item2.ToDoubleSafe();
+			dHsi_O2_mol = rows["si_O2_mol"].Item1.ToDoubleOrZero();
+			dSsi_O2_mol = rows["si_O2_mol"].Item2.ToDoubleOrZero();
 
-			dHp_O2_mol = rows["p_O2_mol"].Item1.ToDoubleSafe();
-			dSp_O2_mol = rows["p_O2_mol"].Item2.ToDoubleSafe();
+			dHp_O2_mol = rows["p_O2_mol"].Item1.ToDoubleOrZero();
+			dSp_O2_mol = rows["p_O2_mol"].Item2.ToDoubleOrZero();
 
-			dHs_O2_mol = rows["s_O2_mol"].Item1.ToDoubleSafe();
-			dSs_O2_mol = rows["s_O2_mol"].Item2.ToDoubleSafe();
+			dHs_O2_mol = rows["s_O2_mol"].Item1.ToDoubleOrZero();
+			dSs_O2_mol = rows["s_O2_mol"].Item2.ToDoubleOrZero();
 
-			dHco_co2_mol = rows["co_co2_mol"].Item1.ToDoubleSafe();
-			dSco_co2_mol = rows["co_co2_mol"].Item2.ToDoubleSafe();
+			dHco_co2_mol = rows["co_co2_mol"].Item1.ToDoubleOrZero();
+			dSco_co2_mol = rows["co_co2_mol"].Item2.ToDoubleOrZero();
 
-			dHc_O2_mol = rows["c_o2_mol"].Item1.ToDoubleSafe();
-			dSc_O2_mol = rows["c_o2_mol"].Item2.ToDoubleSafe();
+			dHc_O2_mol = rows["c_o2_mol"].Item1.ToDoubleOrZero();
+			dSc_O2_mol = rows["c_o2_mol"].Item2.ToDoubleOrZero();
 
-			dHc_feo_mol = rows["c_feo_mol"].Item1.ToDoubleSafe();
-			dSc_feo_mol = rows["c_feo_mol"].Item2.ToDoubleSafe();
+			dHc_feo_mol = rows["c_feo_mol"].Item1.ToDoubleOrZero();
+			dSc_feo_mol = rows["c_feo_mol"].Item2.ToDoubleOrZero();
 
-			dHsi_feo_mol = rows["si_feo_mol"].Item1.ToDoubleSafe();
-			dSsi_feo_mol = rows["si_feo_mol"].Item2.ToDoubleSafe();
+			dHsi_feo_mol = rows["si_feo_mol"].Item1.ToDoubleOrZero();
+			dSsi_feo_mol = rows["si_feo_mol"].Item2.ToDoubleOrZero();
 
-			dHmn_feo_mol = rows["mn_feo_mol"].Item1.ToDoubleSafe();
-			dSmn_feo_mol = rows["mn_feo_mol"].Item2.ToDoubleSafe();
+			dHmn_feo_mol = rows["mn_feo_mol"].Item1.ToDoubleOrZero();
+			dSmn_feo_mol = rows["mn_feo_mol"].Item2.ToDoubleOrZero();
 
-			dHp_feo_mol = rows["p_feo_mol"].Item1.ToDoubleSafe();
-			dSp_feo_mol = rows["p_feo_mol"].Item2.ToDoubleSafe();
+			dHp_feo_mol = rows["p_feo_mol"].Item1.ToDoubleOrZero();
+			dSp_feo_mol = rows["p_feo_mol"].Item2.ToDoubleOrZero();
 
-			dHc_mno_mol = rows["c_mno_mol"].Item1.ToDoubleSafe();
-			dSc_mno_mol = rows["c_mno_mol"].Item2.ToDoubleSafe();
+			dHc_mno_mol = rows["c_mno_mol"].Item1.ToDoubleOrZero();
+			dSc_mno_mol = rows["c_mno_mol"].Item2.ToDoubleOrZero();
 
-			dHfe_fe2o3_o2_mol = rows["fe_fe2o3_o2_mol"].Item1.ToDoubleSafe();
+			dHfe_fe2o3_o2_mol = rows["fe_fe2o3_o2_mol"].Item1.ToDoubleOrZero();
 		}
 	}
 }

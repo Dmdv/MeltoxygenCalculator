@@ -69,7 +69,7 @@ namespace MeltCalc.Chemistry
 		{
 			try
 			{
-				return rows[param].ToDoubleSafe();
+				return rows[param].ToDoubleOrZero();
 			}
 			catch (Exception)
 			{
