@@ -11,7 +11,7 @@ namespace MeltCalc.Chemistry
 		public static double GDensing;
 		public static double CpDensing;
 
-		public static bool BottomBlowUse;
+		
 		public static bool AlloyUse;
 		public static bool DensingUse;
 	}

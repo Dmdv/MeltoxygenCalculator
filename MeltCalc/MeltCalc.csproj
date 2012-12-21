@@ -64,6 +64,7 @@
     <Compile Include="Chemistry\Chemistry.cs" />
     <Compile Include="Chemistry\Estimation.cs" />
     <Compile Include="Chemistry\Hp.cs" />
+    <Compile Include="Chemistry\Lom.cs" />
     <Compile Include="Chemistry\Packets.cs" />
     <Compile Include="Chemistry\Params.cs" />
     <Compile Include="Chemistry\Tube.cs" />

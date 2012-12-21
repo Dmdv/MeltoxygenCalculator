@@ -4,6 +4,17 @@ namespace MeltCalc.Helpers
 {
 	public static class StringExtensions
 	{
+		public static int ToInt(this string value)
+		{
+			int outValue;
+			if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out outValue))
+			{
+				throw new ArgumentException(value, "value");
+			}
+
+			return outValue;
+		}
+
 		public static int ToIntOrZero(this string value)
 		{
 			if (string.IsNullOrWhiteSpace(value)) return 0;

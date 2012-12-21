@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
@@ -35,6 +35,17 @@ namespace MeltCalc.Pages
 			ShowComposition();
 			InitNumPlavok();
 			InitProduvTime();
+			InitTemperature();
+		}
+
+		private void InitTemperature()
+		{
+			for (var idx = -30; idx < 35; idx += 5)
+			{
+				_tempAir.Items.Add(idx);
+			}
+
+			_tempAir.SelectedValue = 20;
 		}
 
 		private void InitProduvTime()
@@ -81,7 +92,7 @@ namespace MeltCalc.Pages
 
 		private void PlantNames_Load()
 		{
-			_params.FillComboBox("countdata", "Производитель", _names);
+			_params.FillComboBox("countdata", "Производитель", _plantNames);
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -91,10 +102,55 @@ namespace MeltCalc.Pages
 
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
+			try
+			{
+				if (!InitializeParams()) return;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+
 			if (NavigationService != null)
 			{
 				NavigationService.Navigate(new Uri(@"Pages\Step12.xaml", UriKind.Relative));
 			}
+		}
+
+		private bool InitializeParams()
+		{
+			Params.IsDuplex = _isDuplex.IsChecked.HasValue && _isDuplex.IsChecked.Value;
+			Params.InputForm = _isManual.IsChecked.HasValue && _isManual.IsChecked.Value ? "manual" : "auto";
+			Params.SelectedPlant = _plantNames.SelectedIndex;
+			Params.AirTemp = _tempAir.SelectedValue.ToString().ToInt();
+			Params.FutDurability = _numPlavok.Text.ToInt();
+			Params.BlowingTime = _timeProduv.SelectedValue.ToString().ToInt();
+			Params.BottomBlowUse = _isAirUsed.IsChecked.HasValue && _isAirUsed.IsChecked.Value;
+
+			if (Params.AirTemp < 40 &&
+			    Params.AirTemp > -40 &&
+			    Params.FutDurability <= 6000 &&
+			    Params.FutDurability >= 200 &&
+			    Params.BlowingTime >= 10 &&
+			    Params.BlowingTime <= 30 &&
+			    IsAdaptationOn)
+			{
+				if (IsAdaptationOn)
+				{
+					// GOTO ADAPTATIOn
+					return false;
+				}
+				return true;
+			}
+
+			MessageBox.Show("Введите корректность введенных данных!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+			return false;
+		}
+
+		private bool IsAdaptationOn
+		{
+			get { return _isAdaptValues.IsChecked.HasValue && _isAdaptValues.IsChecked.Value; }
 		}
 
 		private void PrevCanPrevious(object sender, CanExecuteRoutedEventArgs e)

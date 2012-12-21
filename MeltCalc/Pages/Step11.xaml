@@ -43,15 +43,12 @@
 				<TextBlock Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="При автоматическом способе ввода большая часть информации о процессе извлекается из базы данных, в случае выбора самостоятельного способа эту информацию можно просмотреть и изменить вручную" Margin="0,5,0,0"/>
 				<StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical">
 					<TextBlock Text="Выберите предприятие" Margin="0,0,0,5"/>
-					<ComboBox x:Name="_names"/>
+					<ComboBox x:Name="_plantNames"/>
 				</StackPanel>
-				<CheckBox Grid.Row="2" Content="Расчет 1 периода дуплекса-процесса" VerticalAlignment="Center"/>
-
+				<CheckBox x:Name="_isDuplex" Grid.Row="2" Content="Расчет 1 периода дуплекса-процесса" VerticalAlignment="Center"/>
 				<RadioButton Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="15,0,0,0"/>
 				<TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="Автоматический ввод исходных данных по наименованию предприятия  (рекомендуется при проведении стандартных плавок)" Margin="40,0,0,0" VerticalAlignment="Center"/>
-
-				<RadioButton Grid.Column="1" Grid.Row="2"
-							 Content="Ручной ввод исходной информации об агрегате" Padding="8,0,0,0" VerticalAlignment="Center" Margin="15,0,0,0"/>
+				<RadioButton x:Name="_isManual" Grid.Column="1" Grid.Row="2" Content="Ручной ввод исходной информации об агрегате" Padding="8,0,0,0" VerticalAlignment="Center" Margin="15,0,0,0"/>
 			</Grid>
 		</GroupBox>
 
@@ -94,8 +91,8 @@
 				<TextBlock Text="Средняя стойкость футеровки конвертера" Grid.Row="3" Margin="{DynamicResource GroupboxMargin}" VerticalAlignment="Center" TextWrapping="Wrap"/>
 				<ComboBox x:Name="_timeProduv" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Margin="5,0,0,0"/>
 				<TextBlock Text="мин" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,50,0"/>
-				<RadioButton GroupName="usegroup" Content="Используется" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="5,0,0,3"/>
-				<RadioButton GroupName="usegroup" Content="Не используется" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5,3,0,0"/>
+				<RadioButton x:Name="_isAirUsed" GroupName="usegroup" Content="Используется" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="5,0,0,3"/>
+				<RadioButton IsChecked="True" GroupName="usegroup" Content="Не используется" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5,3,0,0"/>
 				<Grid Grid.RowSpan="4" Grid.Column="2">
 					<Grid>
 						<Grid.RowDefinitions>
@@ -142,7 +139,7 @@
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,0,0,0"></CheckBox>
+				<CheckBox x:Name="_isAdaptValues" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,0,0,0"></CheckBox>
 				<TextBlock TextWrapping="Wrap" Text="Произвести адаптацию системы расчета шихты на процесс" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="29,0,0,0"/>
 				<TextBlock TextWrapping="Wrap" Text="Данную операцию желательно производить 1 раз в 100 плавок для идентификации ряда величин, характеризующих процесс, которые оказывают значительное влияние на результаты расчета" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			</Grid>
