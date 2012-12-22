@@ -27,7 +27,25 @@ namespace MeltCalc.Pages
 			get { return _futType.SelectedIndex; }
 		}
 
-		private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+		private static bool IsCorrectParams
+		{
+			get
+			{
+				return Params.AirTemp < 40 &&
+				       Params.AirTemp > -40 &&
+				       Params.FutDurability <= 6000 &&
+				       Params.FutDurability >= 200 &&
+				       Params.BlowingTime >= 10 &&
+				       Params.BlowingTime <= 30;
+			}
+		}
+
+		private bool IsAdaptationOn
+		{
+			get { return _isAdaptValues.IsChecked.HasValue && _isAdaptValues.IsChecked.Value; }
+		}
+
+		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
 			PlantNames_Load();
 			FutType_Load();
@@ -36,6 +54,32 @@ namespace MeltCalc.Pages
 			InitNumPlavok();
 			InitProduvTime();
 			InitTemperature();
+		}
+
+		private void InitializeParams()
+		{
+			Params.IsDuplex = _isDuplex.IsChecked.HasValue && _isDuplex.IsChecked.Value;
+			Params.InputForm = _isManual.IsChecked.HasValue && _isManual.IsChecked.Value ? "manual" : "auto";
+			Params.SelectedPlant = _plantNames.SelectedIndex;
+			Params.AirTemp = _tempAir.SelectedValue.ToString().ToInt();
+			Params.FutDurability = _numPlavok.Text.ToInt();
+			Params.BlowingTime = _timeProduv.SelectedValue.ToString().ToInt();
+			Params.BottomBlowUse = _isAirUsed.IsChecked.HasValue && _isAirUsed.IsChecked.Value;
+
+			if (!IsCorrectParams)
+			{
+				MessageBox.Show("Введите корректность введенных данных!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+
+			if (IsAdaptationOn)
+			{
+				GoToAdaptation();
+			}
+			else
+			{
+				GoToStep12();
+			}
 		}
 
 		private void InitTemperature()
@@ -68,11 +112,6 @@ namespace MeltCalc.Pages
 			_numPlavok.SelectedValue = 3000;
 		}
 
-		private void FutTypeChanged(object sender, SelectionChangedEventArgs e)
-		{
-			FutChem_Load();
-		}
-
 		private void FutChem_Load()
 		{
 			var table = _params.Reader.FetchTable("futdata");
@@ -95,62 +134,25 @@ namespace MeltCalc.Pages
 			_params.FillComboBox("countdata", "Производитель", _plantNames);
 		}
 
-		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
+		private void GoToStep12()
 		{
-			e.CanExecute = true;
-		}
-
-		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
-		{
-			try
-			{
-				if (!InitializeParams()) return;
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.ToString(), "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
-				return;
-			}
-
 			if (NavigationService != null)
 			{
 				NavigationService.Navigate(new Uri(@"Pages\Step12.xaml", UriKind.Relative));
 			}
 		}
 
-		private bool InitializeParams()
+		private void GoToAdaptation()
 		{
-			Params.IsDuplex = _isDuplex.IsChecked.HasValue && _isDuplex.IsChecked.Value;
-			Params.InputForm = _isManual.IsChecked.HasValue && _isManual.IsChecked.Value ? "manual" : "auto";
-			Params.SelectedPlant = _plantNames.SelectedIndex;
-			Params.AirTemp = _tempAir.SelectedValue.ToString().ToInt();
-			Params.FutDurability = _numPlavok.Text.ToInt();
-			Params.BlowingTime = _timeProduv.SelectedValue.ToString().ToInt();
-			Params.BottomBlowUse = _isAirUsed.IsChecked.HasValue && _isAirUsed.IsChecked.Value;
-
-			if (Params.AirTemp < 40 &&
-			    Params.AirTemp > -40 &&
-			    Params.FutDurability <= 6000 &&
-			    Params.FutDurability >= 200 &&
-			    Params.BlowingTime >= 10 &&
-			    Params.BlowingTime <= 30 &&
-			    IsAdaptationOn)
+			if (NavigationService != null)
 			{
-				if (IsAdaptationOn)
-				{
-					// GOTO ADAPTATIOn
-					return false;
-				}
-				return true;
+				NavigationService.Navigate(new Uri(@"Pages\Adaptation.xaml", UriKind.Relative));
 			}
-
-			MessageBox.Show("Введите корректность введенных данных!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-			return false;
 		}
 
-		private bool IsAdaptationOn
+		private void FutTypeChanged(object sender, SelectionChangedEventArgs e)
 		{
-			get { return _isAdaptValues.IsChecked.HasValue && _isAdaptValues.IsChecked.Value; }
+			FutChem_Load();
 		}
 
 		private void PrevCanPrevious(object sender, CanExecuteRoutedEventArgs e)
@@ -211,6 +213,23 @@ namespace MeltCalc.Pages
 			_ar.Text = string.Format("{0:0.###}", Tube.Дутье.Ar);
 			_n2.Text = string.Format("{0:0.###}", Tube.Дутье.N2);
 			_o2.Text = string.Format("{0:0.###}", Tube.Дутье.O2);
+		}
+
+		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			try
+			{
+				InitializeParams();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 		}
 	}
 }
