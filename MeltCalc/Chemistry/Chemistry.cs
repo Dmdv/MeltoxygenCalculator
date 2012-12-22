@@ -4,30 +4,99 @@ using System.Data;
 using System.Windows;
 using MeltCalc.Converters;
 using MeltCalc.Model;
+using MeltCalc.Helpers;
 
 namespace MeltCalc.Chemistry
 {
 	public class Навеска
 	{
+		private const int InvalidMaterial = -1000;
+		private static readonly LooseMdb _looseMdb = new LooseMdb();
+
 		protected Навеска()
 		{
+			Material = (Materials) InvalidMaterial;
 		}
 
+		/// <summary>
+		/// Создание с записью в реестр и с сохранением кода материала - это название таблицы из loose.mdb
+		/// </summary>
 		protected Навеска(ICollection<Навеска> registry)
 		{
+			Material = (Materials)InvalidMaterial;
 			registry.Add(this);
 		}
 
 		/// <summary>
-		/// Масса.
+		/// Масса
 		/// </summary>
-		public double G;
-
+		public double G { get; set; }
+		/// <summary>
+		/// Усвоение
+		/// </summary>
 		public double ALFA { get; set; }
 		/// <summary>
 		/// Сыпучий материал - шлакообразующий элемент?
 		/// </summary>
 		public Materials Material { get; protected set; }
+
+		public bool IsMaterial
+		{
+			get { return Material != (Materials) InvalidMaterial; }
+		}
+
+		/// <summary>
+		/// Загрузка материала из БД
+		/// </summary>
+		public void Load(int index)
+		{
+			if (!IsMaterial)
+			{
+				throw new InvalidOperationException("This is not a material and cannot be loaded");
+			}
+
+			try
+			{
+				var map = new Map<string, string>(LoadRowDictionary(index));
+				ALFA = map["Assimilation"].ToDouble();
+				InternalLoad(map);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(string.Format("Material '{0}' failed to load", Material), ex);
+			}
+		}
+
+		protected virtual void InternalLoad(Map<string, string> map)
+		{}
+
+		protected string[] LoadRow(int rowindex)
+		{
+			if (string.IsNullOrWhiteSpace(Code))
+			{
+				throw new NullReferenceException("Code is not initialized");
+			}
+
+			return _looseMdb.Reader.SelectRowRange(Code, rowindex);
+		}
+
+		private Dictionary<string, string> LoadRowDictionary(int rowindex)
+		{
+			if (string.IsNullOrWhiteSpace(Code))
+			{
+				throw new NullReferenceException("Code is not initialized");
+			}
+
+			return _looseMdb.Reader.SelectRowDictionary(Code, rowindex);
+		}
+
+		/// <summary>
+		/// Код материала
+		/// </summary>
+		private string Code
+		{
+			get { return Material.ToTableName(); }
+		}
 	}
 
 	public class Известь : Навеска
@@ -44,6 +113,16 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			CaO = map["CaO"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			P2O5 = map["P2O5"].ToDouble();
+			H2O = map["H2O"].ToDouble();
+			Al2O3 = map["Al2O3"].ToDouble();
+		}
 	}
 
 	public class Известняк : Навеска
@@ -60,6 +139,14 @@ namespace MeltCalc.Chemistry
 		public double H2O { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			CaCO3 = map["CaCO3"].ToDouble();
+			H2O = map["H2O"].ToDouble();
+			P2O5 = map["P2O5"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Окалина : Навеска
@@ -77,6 +164,15 @@ namespace MeltCalc.Chemistry
 		public double MnO { get; set; }
 		public double P { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			Fe3O4 = map["Fe3O4"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			MnO = map["MnO"].ToDouble();
+			P = map["P"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Шпат : Навеска
@@ -90,6 +186,12 @@ namespace MeltCalc.Chemistry
 		public double CaF2 { get; set; }
 		public double CaO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			CaF2 = map["CaF2"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Шлак : Навеска
@@ -258,6 +360,13 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			CaO = map["CaO"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Кокс : Навеска
@@ -269,6 +378,11 @@ namespace MeltCalc.Chemistry
 		}
 
 		public double C { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			C = map["C"].ToDouble();
+		}
 	}
 
 	public class Песок : Навеска
@@ -281,6 +395,12 @@ namespace MeltCalc.Chemistry
 
 		public double H2O { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			H2O = map["H2O"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Руда : Навеска
@@ -296,6 +416,15 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double P { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			Al2O3 = map["Al2O3"].ToDouble();
+			CaO = map["CaO"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			P = map["P"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Окатыши : Навеска
@@ -309,6 +438,13 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			FeO = map["FeO"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Агломерат : Навеска
@@ -322,6 +458,13 @@ namespace MeltCalc.Chemistry
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			CaO = map["CaO"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			FeO = map["FeO"].ToDouble();
+		}
 	}
 
 	public class Ферросплав : Навеска
@@ -358,6 +501,17 @@ namespace MeltCalc.Chemistry
 		public double H2O { get; set; }
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			Al2O3 = map["Al2O3"].ToDouble();
+			CO2 = map["CO2"].ToDouble();
+			CaO = map["CaO"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			H2O = map["H2O"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 
 	public class Доломит : Навеска
@@ -373,5 +527,14 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override void InternalLoad(Map<string, string> map)
+		{
+			Al2O3 = map["Al2O3"].ToDouble();
+			CaO = map["CaO"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
 	}
 }

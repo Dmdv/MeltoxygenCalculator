@@ -23,6 +23,16 @@ namespace MeltCalc.Providers
 			return dataTable.Rows[index].ItemArray.Select(item => item.ToString()).ToArray();
 		}
 
+		public Dictionary<string, string> SelectRowDictionary(string table, int index)
+		{
+			var dataTable = FetchTableSafe(table);
+			var dataRow = dataTable.Rows[index];
+			return
+				dataTable.Columns.OfType<DataColumn>()
+					.ToDictionary(column => column.ColumnName,
+					              column => dataRow[column.ColumnName].ToString());
+		}
+
 		public IEnumerable<string[]> SelectAllRows(string table)
 		{
 			return 

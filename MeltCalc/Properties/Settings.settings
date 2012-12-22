@@ -14,5 +14,8 @@
     <Setting Name="TeploPhisConstsMdb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">TeploPhisConsts.mdb</Value>
     </Setting>
+    <Setting Name="MelpMdb" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">meltdata.mdb</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

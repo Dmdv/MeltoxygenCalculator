@@ -62,6 +62,7 @@
     <Compile Include="Chemistry\AdaptationData.cs" />
     <Compile Include="Chemistry\Cp.cs" />
     <Compile Include="Chemistry\Chemistry.cs" />
+    <Compile Include="Helpers\DictionaryDecorator.cs" />
     <Compile Include="Chemistry\Estimation.cs" />
     <Compile Include="Chemistry\Hp.cs" />
     <Compile Include="Chemistry\Lom.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\MeltMdb.cs" />
     <Compile Include="Model\ParamsMdb.cs" />
     <Compile Include="Model\TeploPhysConstantsMdb.cs" />
     <Compile Include="Pages\Adaptation.xaml.cs">

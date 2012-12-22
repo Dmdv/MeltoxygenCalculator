@@ -11,7 +11,26 @@ namespace MeltCalc.Helpers
 			{
 				throw new ArgumentException(value, "value");
 			}
+			return outValue;
+		}
 
+		public static double ToDouble(this string value)
+		{
+			double outValue;
+			if (string.IsNullOrWhiteSpace(value) || !double.TryParse(value, out outValue))
+			{
+				throw new ArgumentException(value, "value");
+			}
+			return outValue;
+		}
+
+		public static float ToFloat(this string value)
+		{
+			float outValue;
+			if (string.IsNullOrWhiteSpace(value) || !float.TryParse(value, out outValue))
+			{
+				throw new ArgumentException(value, "value");
+			}
 			return outValue;
 		}
 

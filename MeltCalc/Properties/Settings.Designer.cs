@@ -58,5 +58,14 @@ namespace MeltCalc.Properties {
                 return ((string)(this["TeploPhisConstsMdb"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("meltdata.mdb")]
+        public string MelpMdb {
+            get {
+                return ((string)(this["MelpMdb"]));
+            }
+        }
     }
 }
