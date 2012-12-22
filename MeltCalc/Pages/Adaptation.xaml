@@ -1,0 +1,57 @@
+﻿<Page x:Class="MeltCalc.Pages.Adaptation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" d:DesignHeight="234" d:DesignWidth="609"
+      Title="Adaptation" DataContext="{Binding Source={StaticResource Tube}}">
+
+  <Page.CommandBindings>
+    <CommandBinding Command="NextPage" CanExecute="NextCanExecute" Executed="NextExecuted" />
+    <CommandBinding Command="PreviousPage" CanExecute="PrevCanPrevious" Executed="PrevExecuted" />
+  </Page.CommandBindings>
+
+  <Grid>
+  	<Grid.ColumnDefinitions>
+  		<ColumnDefinition Width="0.761*"/>
+  		<ColumnDefinition Width="0.239*"/>
+  	</Grid.ColumnDefinitions>
+  	<Grid.RowDefinitions>
+  		<RowDefinition Height="0.367*"/>
+  		<RowDefinition Height="0.351*"/>
+  		<RowDefinition Height="0.282*"/>
+  	</Grid.RowDefinitions>
+  	<GroupBox Header="Ориентировочный х\с лома, одинаковым для всех 100 плавок" d:LayoutOverrides="Width" Margin="0,0,3,0">
+  		<Grid>
+  			<Grid.ColumnDefinitions>
+  				<ColumnDefinition/>
+  				<ColumnDefinition/>
+  				<ColumnDefinition/>
+  				<ColumnDefinition/>
+  				<ColumnDefinition/>
+  			</Grid.ColumnDefinitions>
+  			<TextBlock TextWrapping="Wrap" Text="[C],л" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
+  			<ComboBox VerticalAlignment="Center" Margin="30,0,0,0"/>
+  			<TextBlock TextWrapping="Wrap" Text="[Si],л" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Column="1"/>
+  			<ComboBox VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="1"/>
+  			<TextBlock TextWrapping="Wrap" Text="[Mn],л" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Column="2"/>
+  			<ComboBox VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="2"/>
+  			<TextBlock TextWrapping="Wrap" Text="[P],л" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Column="3"/>
+  			<ComboBox VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="3"/>
+  			<TextBlock TextWrapping="Wrap" Text="[S],л" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Column="4"/>
+  			<ComboBox VerticalAlignment="Center" Margin="30,0,0,0" Grid.Column="4"/>
+  		</Grid>
+  	</GroupBox>
+  	<GroupBox Header="Вид сыпучих" d:LayoutOverrides="Width" Grid.Column="5">
+  		<ComboBox VerticalAlignment="Center"/>
+  	</GroupBox>
+  	<GroupBox Header="Выберите вариант адаптации" d:LayoutOverrides="Width" Grid.Row="1" Grid.ColumnSpan="6">
+  		<Grid>
+  			<Grid.ColumnDefinitions>
+  				<ColumnDefinition/>
+  				<ColumnDefinition/>
+  			</Grid.ColumnDefinitions>
+  			<RadioButton Content="Адаптация с фиксированной массой жидкого" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+  			<RadioButton Content="Адаптация с расчетом массы полупродукта" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Column="1"/>
+  		</Grid>
+  	</GroupBox></Grid>
+</Page>

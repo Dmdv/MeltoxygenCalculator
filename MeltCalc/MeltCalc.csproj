@@ -80,6 +80,9 @@
     </Compile>
     <Compile Include="Model\ParamsMdb.cs" />
     <Compile Include="Model\TeploPhysConstantsMdb.cs" />
+    <Compile Include="Pages\Adaptation.xaml.cs">
+      <DependentUpon>Adaptation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AlloyAndDensingInput.xaml.cs">
       <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,7 @@
     <Compile Include="Model\LooseMdb.cs" />
     <Compile Include="Providers\TableReader.cs" />
     <Compile Include="Providers\TablesSchema.cs" />
+    <Compile Include="ViewModel\AdaptationModel.cs" />
     <Compile Include="ViewModel\AlloyAndDensingPresenter.cs" />
     <Compile Include="ViewModel\BasePresenter.cs" />
     <Compile Include="ViewModel\Step14Presenter.cs" />
@@ -115,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InputBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Adaptation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

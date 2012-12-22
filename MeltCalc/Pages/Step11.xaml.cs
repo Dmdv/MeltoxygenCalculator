@@ -155,19 +155,6 @@ namespace MeltCalc.Pages
 			FutChem_Load();
 		}
 
-		private void PrevCanPrevious(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = true;
-		}
-
-		private void PrevExecuted(object sender, ExecutedRoutedEventArgs e)
-		{
-			if (NavigationService != null)
-			{
-				NavigationService.Navigate(new Uri(@"Pages\Step1.xaml", UriKind.Relative));
-			}
-		}
-
 		private void OnArChanged(object sender, TextChangedEventArgs e)
 		{
 			var result = _ar.Text.ToDoubleSafe();
@@ -213,6 +200,19 @@ namespace MeltCalc.Pages
 			_ar.Text = string.Format("{0:0.###}", Tube.Дутье.Ar);
 			_n2.Text = string.Format("{0:0.###}", Tube.Дутье.N2);
 			_o2.Text = string.Format("{0:0.###}", Tube.Дутье.O2);
+		}
+
+		private void PrevExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (NavigationService != null)
+			{
+				NavigationService.Navigate(new Uri(@"Pages\Step1.xaml", UriKind.Relative));
+			}
+		}
+
+		private void PrevCanPrevious(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
