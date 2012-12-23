@@ -290,7 +290,7 @@
 				
 			</Grid>
 		</GroupBox>
-		<GroupBox VerticalAlignment="Top" Grid.Row="3" Tag="{x:Static Model:Materials.СыройДоломит}" DataContext="{Binding ВлажныйДоломит}">
+		<GroupBox VerticalAlignment="Top" Grid.Row="3" Tag="{x:Static Model:Materials.ВлажныйДоломит}" DataContext="{Binding ВлажныйДоломит}">
 			<GroupBox.Header>Сырой доломит</GroupBox.Header>
 			<Grid>
 				<Grid.ColumnDefinitions>

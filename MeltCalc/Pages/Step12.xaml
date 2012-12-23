@@ -32,7 +32,7 @@
 					<CheckBox Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True" Tag="{x:Static Model:Materials.Известь}"/>
 					<CheckBox Content="Известняк" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Известняк}"/>
 					<CheckBox Content="Доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Доломит}"/>
-					<CheckBox Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.СыройДоломит}"/>
+					<CheckBox Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ВлажныйДоломит}"/>
 					<CheckBox Content="Известково-магнитный флюс (ИМФ)" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ИзвестковоМагнитныйФлюс}"/>
 					<CheckBox Content="Кокс" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Кокс}"/>
 				</StackPanel>

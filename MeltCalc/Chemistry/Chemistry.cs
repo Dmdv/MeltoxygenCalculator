@@ -558,7 +558,7 @@ namespace MeltCalc.Chemistry
 		public ВлажныйДоломит(ICollection<Навеска> registry)
 			: base(registry)
 		{
-			Material = Materials.СыройДоломит;
+			Material = Materials.ВлажныйДоломит;
 		}
 
 		public double Al2O3 { get; set; }

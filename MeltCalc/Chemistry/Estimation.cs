@@ -223,7 +223,7 @@ namespace MeltCalc.Chemistry
 					minGdol[0] = GdolSAVE[5] - stepGdol[1];
 
 					minGvldol[0] = GvldolSAVE[5] - stepGvldol[1];
-					minGimf[0] = GimfSAVE[5] - stepGimf[0];
+					minGimf[0] = GimfSAVE[5] - stepGimf[1];
 					minGshp[0] = GshpSAVE[5] - stepGshp[0];
 
 					minGchug[0] = GchugSAVE[5] - stepGchug[1];
@@ -256,7 +256,6 @@ namespace MeltCalc.Chemistry
 				stepGvldol[0] = (maxGvldol[0] - minGvldol[0]) / 4.0;
 				stepGimf[0] = (maxGimf[0] - minGimf[0]) / 4.0;
 				stepGshp[0] = (maxGshp[0] - minGshp[0]) / 4.0;
-
 				stepGchug[0] = (maxGchug[0] - minGchug[0]) / 4.0;
 				stepGlom[0] = (maxGlom[0] - minGlom[0]) / 4.0;
 				stepVdut[0] = (maxVdut[0] - minVdut[0]) / 4.0;
@@ -272,7 +271,6 @@ namespace MeltCalc.Chemistry
 					stepGvldol[i] = stepGvldol[i - 1] / 2.0;
 					stepGimf[i] = stepGimf[i - 1] / 2.0;
 					stepGshp[i] = stepGshp[i - 1] / 2.0;
-
 					stepGchug[i] = stepGchug[i - 1] / 2.0;
 					stepGlom[i] = stepGlom[i - 1] / 2.0;
 					stepVdut[i] = stepVdut[i - 1] / 2.0;
@@ -288,10 +286,82 @@ namespace MeltCalc.Chemistry
 					Tube.Шлак.G = minGshl[Params.Round];
 					Tube.Шлак.MnO = minMnOshl[Params.Round];
 
+					if (Tube.Шлакообразующий == Materials.Известь)
+					{
+						Tube.Известь.G = minGizv[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.Известь.G += stepGizv[Params.Round];
+
+						} while (Tube.Известь.G <= maxGizv[Params.Round]);
+					}
+
+					if (Tube.Шлакообразующий == Materials.Известняк)
+					{
+						Tube.Известняк.G = minGizk[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.Известняк.G += stepGizk[Params.Round];
+
+						} while (Tube.Известняк.G <= maxGizk[Params.Round]);
+					}
+
+					if (Tube.Шлакообразующий == Materials.Доломит)
+					{
+						Tube.Доломит.G = minGdol[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.Доломит.G += stepGdol[Params.Round];
+
+						} while (Tube.Доломит.G <= maxGdol[Params.Round]);
+					}
+
+					if (Tube.Шлакообразующий == Materials.ВлажныйДоломит)
+					{
+						Tube.ВлажныйДоломит.G = minGvldol[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.ВлажныйДоломит.G += stepGvldol[Params.Round];
+
+						} while (Tube.ВлажныйДоломит.G <= maxGvldol[Params.Round]);
+					}
+
+					if (Tube.Шлакообразующий == Materials.ПлавиковыйШпат)
+					{
+						Tube.Шпат.G = minGshp[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.Шпат.G += stepGshp[Params.Round];
+
+						} while (Tube.Шпат.G <= maxGshp[Params.Round]);
+					}
+
+					if (Tube.Шлакообразующий == Materials.ИзвестковоМагнитныйФлюс)
+					{
+						Tube.Имф.G = minGimf[Params.Round];
+						do
+						{
+							Other6Circles();
+							Tube.Имф.G += stepGimf[Params.Round];
+
+						} while (Tube.Имф.G <= maxGimf[Params.Round]);
+					}
+
 					// TODO:
+
 				}
 
 			} while (!Params.OkPst);
+		}
+
+		private void Other6Circles()
+		{
+			throw new NotImplementedException();
 		}
 
 		private void Prepare1_REGRESSLOAD()

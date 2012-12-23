@@ -21,7 +21,7 @@ namespace MeltCalc.Model
 			_genitives[Materials.Окалина] = "Окалины";
 			_genitives[Materials.Окатыши] = "Окатышей";
 			_genitives[Materials.Песок] = "Песка";
-			_genitives[Materials.СыройДоломит] = "Сырого Доломита";
+			_genitives[Materials.ВлажныйДоломит] = "Сырого Доломита";
 			_genitives[Materials.Руда] = "Руды";
 		}
   
@@ -31,7 +31,7 @@ namespace MeltCalc.Model
 			{
 				case Materials.ИзвестковоМагнитныйФлюс:
 					return "ИМФ";
-				case Materials.СыройДоломит:
+				case Materials.ВлажныйДоломит:
 					return "Вл доломит";
 				case Materials.ПлавиковыйШпат:
 					return "П шпат";
@@ -51,7 +51,7 @@ namespace MeltCalc.Model
 			{
 				case Materials.ИзвестковоМагнитныйФлюс:
 					return "IMF";
-				case Materials.СыройДоломит:
+				case Materials.ВлажныйДоломит:
 					return "VlDol";
 				case Materials.ПлавиковыйШпат:
 					return "Shp";

@@ -35,7 +35,7 @@
 					<RadioButton Content="Известь" Margin="{DynamicResource topcheckboxframe}" IsChecked="True" Tag="{x:Static Model:Materials.Известь}" />
 					<RadioButton Content="Известняк" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Известняк}"/>
 					<RadioButton Content="Доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Доломит}"/>
-					<RadioButton Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.СыройДоломит}"/>
+					<RadioButton Content="Сырой доломит" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ВлажныйДоломит}"/>
 					<RadioButton Content="Известково-магнитный флюс (ИМФ)" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.ИзвестковоМагнитныйФлюс}"/>
 					<RadioButton Content="Кокс" Margin="{DynamicResource checkboxframe}" Tag="{x:Static Model:Materials.Кокс}"/>
 				</StackPanel>
