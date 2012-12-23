@@ -118,7 +118,7 @@ namespace MeltCalc.Chemistry
 
 			NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
 
-			for (Tube.Шлак.B = Tube.Шлак.Bmin; Tube.Шлак.B < Tube.Шлак.Bmax; Tube.Шлак.B += 0.05)
+			for (Tube.Шлак.B = Tube.Шлак.Bmin; Tube.Шлак.B <= Tube.Шлак.Bmax; Tube.Шлак.B += 0.05)
 			{
 				CALCULATE_REGRESSFeOMnO();
 				CALCULATE_RegressLp();
@@ -144,7 +144,7 @@ namespace MeltCalc.Chemistry
 						   (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss));
 
 			SumDisbal = DisbalCaO[Params.Round - 1] + DisbalMat[Params.Round - 1] + DisbalSHL[Params.Round - 1] +
-			            DisbalTepl[Params.Round - 1] + DisbalO2[Params.Round - 1] + DisbalMnO[Params.Round - 1];
+						DisbalTepl[Params.Round - 1] + DisbalO2[Params.Round - 1] + DisbalMnO[Params.Round - 1];
 
 			if (SumDisbal * 100 > 5)
 			{
@@ -155,7 +155,7 @@ namespace MeltCalc.Chemistry
 			if (Tube.Сталь.P > Tube.Сталь.PMAX)
 			{
 				const string Msg = "При заданных условиях требуемая дефосфорация не может быть достигнута.\r\n" + 
-				                   "Попробуйте увеличить допустимую основность шлака";
+								   "Попробуйте увеличить допустимую основность шлака";
 				MessageBox.Show(Msg, "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 
@@ -352,8 +352,73 @@ namespace MeltCalc.Chemistry
 						} while (Tube.Имф.G <= maxGimf[Params.Round]);
 					}
 
-					// TODO:
+					// Изменение диапазонов сканирования в соответствии с найденным минимумом рассогласования левых и правых частей уравнения.
 
+					// Нижняя граница
+					minGizv[Params.Round + 1] = GizvSAVE[Params.Round] - stepGizv[Params.Round];
+					minGizk[Params.Round + 1] = GizkSAVE[Params.Round] - stepGizk[Params.Round];
+					minGdol[Params.Round + 1] = GdolSAVE[Params.Round] - stepGdol[Params.Round];
+					minGvldol[Params.Round + 1] = GvldolSAVE[Params.Round] - stepGvldol[Params.Round];
+					minGimf[Params.Round + 1] = GimfSAVE[Params.Round] - stepGimf[Params.Round];
+					minGshp[Params.Round + 1] = GshpSAVE[Params.Round] - stepGshp[Params.Round];
+					minGchug[Params.Round + 1] = GchugSAVE[Params.Round] - stepGchug[Params.Round];
+					minGlom[Params.Round + 1] = GlomSAVE[Params.Round] - stepGlom[Params.Round];
+					minVdut[Params.Round + 1] = VdutSAVE[Params.Round] - stepVdut[Params.Round];
+					minGshl[Params.Round + 1] = GshlSAVE[Params.Round] - stepGshl[Params.Round];
+					minMnOshl[Params.Round + 1] = MnOshlSAVE[Params.Round] - stepMnOshl[Params.Round];
+
+					// Верхняя граница
+					maxGizv[Params.Round + 1] = GizvSAVE[Params.Round] + stepGizv[Params.Round];
+					maxGizk[Params.Round + 1] = GizkSAVE[Params.Round] + stepGizk[Params.Round];
+					maxGdol[Params.Round + 1] = GdolSAVE[Params.Round] + stepGdol[Params.Round];
+					maxGvldol[Params.Round + 1] = GvldolSAVE[Params.Round] + stepGvldol[Params.Round];
+					maxGimf[Params.Round + 1] = GimfSAVE[Params.Round] + stepGimf[Params.Round];
+					maxGshp[Params.Round + 1] = GshpSAVE[Params.Round] + stepGshp[Params.Round];
+					maxGchug[Params.Round + 1] = GchugSAVE[Params.Round] + stepGchug[Params.Round];
+					maxGlom[Params.Round + 1] = GlomSAVE[Params.Round] + stepGlom[Params.Round];
+					maxVdut[Params.Round + 1] = VdutSAVE[Params.Round] + stepVdut[Params.Round];
+					maxGshl[Params.Round + 1] = GshlSAVE[Params.Round] + stepGshl[Params.Round];
+					maxMnOshl[Params.Round + 1] = MnOshlSAVE[Params.Round] + stepMnOshl[Params.Round];
+				}
+
+				Calculate_Pst_Bal_P(Params.Round);
+
+				// Проверка, прошли ли по P.
+
+				if (Tube.Сталь.P <= Tube.Сталь.PMAX || Tube.Шлак.B >= Tube.Шлак.Bmax)
+				{
+					Params.OkPst = true;
+					IterTimes++;
+				}
+				else
+				{
+					IterTimes = 0;
+					if (Tube.Шлакообразующий == Materials.Известь)
+					{
+						Tube.Известь.G = GizvSAVE[Params.Round - 1];
+					}
+					if (Tube.Шлакообразующий == Materials.Известняк)
+					{
+						Tube.Известняк.G = GizkSAVE[Params.Round - 1];
+					}
+
+					Tube.Шлак.G = GshlSAVE[Params.Round - 1];
+					Tube.Чугун.G = GchugSAVE[Params.Round - 1];
+					Tube.Лом.G = GlomSAVE[Params.Round - 1];
+					Tube.Сталь.P = Tube.Сталь.PMAX;
+
+					Calculate_P2O5shl_Bal_P();
+					NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
+
+					for (Tube.Шлак.B = Tube.Шлак.Bmin; Tube.Шлак.B <= Tube.Шлак.Bmax; Tube.Шлак.B += 0.05)
+					{
+						CALCULATE_REGRESSFeOMnO();
+						CALCULATE_RegressLp();
+						if (Params.Lp > NeededLp) break;
+					}
+
+					CALCULATE_REGRESSFeOMnO();
+					CALCULATE_RegressLp();
 				}
 
 			} while (!Params.OkPst);
