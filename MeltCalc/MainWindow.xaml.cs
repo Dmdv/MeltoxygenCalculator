@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MeltCalc.Chemistry;
 using MeltCalc.Providers;
 
 namespace MeltCalc
@@ -12,6 +13,7 @@ namespace MeltCalc
 		{
 			InitializeDatabases();
 			InitializeComponent();
+			Estimation.Prepare1_REGRESSLOAD();
 		}
 
 		private static void InitializeDatabases()

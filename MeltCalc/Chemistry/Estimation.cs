@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Data;
 using System.Windows;
 using MeltCalc.Model;
+using MeltCalc.Helpers;
 
 namespace MeltCalc.Chemistry
 {
@@ -79,13 +82,13 @@ namespace MeltCalc.Chemistry
 		//Переменные для хранения коэффициентов регрессионных уравнений
 
 		//FeO шлака 
-		public static readonly double a0, a1, a2, a3, a4, a5, a6;
+		public static double a0, a1, a2, a3, a4, a5, a6;
 
 		//Mn стали
-		public static readonly double c0, c1, c2, c3, c4, c5;
+		public static double c0, c1, c2, c3, c4, c5;
 
 		//Lp фосфора 
-		public static readonly double b0, b1, b2, b3, b4;
+		public static double b0, b1, b2, b3, b4;
 
 		private double NeededLp;
 		private int IterTimes;
@@ -429,9 +432,56 @@ namespace MeltCalc.Chemistry
 			throw new NotImplementedException();
 		}
 
-		private void Prepare1_REGRESSLOAD()
+		public static void Prepare1_REGRESSLOAD()
 		{ 
-			//Загрузка коэффициентов регрессионных уравнений по (FeO), [Mn], Lp
+			var paramsMdb = new ParamsMdb();
+			var table = paramsMdb.Reader.FetchTable("regressions");
+
+			if (Params.IsDuplex)
+			{
+				var range = table.SelectRowRange(0).RangeInclusive(2, 8).Select(x => x.ToDouble()).ToArray();
+				a0 = range[0];
+				a1 = range[1];
+				a2 = range[2];
+				a3 = range[3];
+				a4 = range[4];
+				a5 = range[5];
+				a6 = range[6];
+
+				range = table.SelectRowRange(1).RangeInclusive(2, 7).Select(x => x.ToDouble()).ToArray();
+				c0 = range[0];
+				c1 = range[1];
+				c2 = range[3];
+				c3 = range[3];
+				c4 = range[4];
+				c5 = range[5];
+
+				range = table.SelectRowRange(2).RangeInclusive(2, 6).Select(x => x.ToDouble()).ToArray();
+				b0 = range[0];
+				b1 = range[1];
+				b2 = range[3];
+				b3 = range[3];
+				b4 = range[4];
+			}
+			else
+			{
+				var range = table.SelectRowRange(5).RangeInclusive(2, 8).Select(x => x.ToDouble()).ToArray();
+				a0 = range[0];
+				a1 = range[1];
+				a2 = range[2];
+				a3 = range[3];
+				a4 = range[4];
+				a5 = range[5];
+				a6 = range[6];
+
+				range = table.SelectRowRange(6).RangeInclusive(2, 7).Select(x => x.ToDouble()).ToArray();
+				c0 = range[0];
+				c1 = range[1];
+				c2 = range[3];
+				c3 = range[3];
+				c4 = range[4];
+				c5 = range[5];
+			}
 		}
 
 		public static void CALCULATE_TEPLCONSTANTS()
