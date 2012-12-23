@@ -8,7 +8,7 @@ namespace MeltCalc.Chemistry
 	{
 		static Estimation()
 		{
-			GizvSAVE = GizkSAVE = GdolSAVE = GvldolSAV = GimfSAVE = new double[6];
+			GizvSAVE = GizkSAVE = GdolSAVE = GvldolSAVE = GimfSAVE = new double[6];
 			GchugSAVE = GlomSAVE = VdutSAVE = GshlSAVE = MnOshlSAVE = GstYieldSAVE = ALFAizvSAVE = new double[6];
 
 			//Минимальные и максимальные пределы по рассчитываемым переменным
@@ -37,8 +37,7 @@ namespace MeltCalc.Chemistry
 		}
 
 		// Специальные переменные
-		public static readonly double[] GizvSAVE, GizkSAVE, GdolSAVE, GvldolSAV, GimfSAVE;
-		public static double GshpSAVE;
+		public static readonly double[] GizvSAVE, GizkSAVE, GdolSAVE, GvldolSAVE, GimfSAVE, GshpSAVE;
 		public static readonly double[] GchugSAVE, GlomSAVE, VdutSAVE, GshlSAVE, MnOshlSAVE, GstYieldSAVE, ALFAizvSAVE;
 
 		//Задаваемые
@@ -218,7 +217,79 @@ namespace MeltCalc.Chemistry
 				}
 
 				if (IterTimes >= 1)
-				{ }
+				{
+					minGizv[0] = GizvSAVE[5] - stepGizv[1];
+					minGizk[0] = GizkSAVE[5] - stepGizk[1];
+					minGdol[0] = GdolSAVE[5] - stepGdol[1];
+
+					minGvldol[0] = GvldolSAVE[5] - stepGvldol[1];
+					minGimf[0] = GimfSAVE[5] - stepGimf[0];
+					minGshp[0] = GshpSAVE[5] - stepGshp[0];
+
+					minGchug[0] = GchugSAVE[5] - stepGchug[1];
+					minGlom[0] = GlomSAVE[5] - stepGlom[1];
+					minVdut[0] = VdutSAVE[5] - stepVdut[1];
+					minGshl[0] = GshlSAVE[5] - stepGshl[1];
+					minMnOshl[0] = MnOshlSAVE[5] - stepMnOshl[0];
+
+					maxGizv[0] = GizvSAVE[5] + stepGizv[1];
+					maxGizk[0] = GizkSAVE[5] + stepGizk[1];
+					maxGdol[0] = GdolSAVE[5] + stepGdol[1];
+					maxGvldol[0] = GvldolSAVE[5] + stepGvldol[1];
+					maxGimf[0] = GimfSAVE[5] + stepGimf[1];
+					maxGshp[0] = GshpSAVE[5] + stepGshp[0];
+
+					maxGchug[0] = GchugSAVE[5] + stepGchug[1];
+					maxGlom[0] = GlomSAVE[5] + stepGlom[1];
+					maxVdut[0] = VdutSAVE[5] + stepVdut[1];
+					maxGshl[0] = GshlSAVE[5] + stepGshl[1];
+					maxMnOshl[0] = MnOshlSAVE[5] + stepMnOshl[0];
+				}
+
+				// Расчет шагов сканирования для всех уточнений.
+
+				// Для 1 шага.
+
+				stepGizv[0] = (maxGizv[0] - minGizv[0]) / 4.0;
+				stepGizk[0] = (maxGizk[0] - minGizk[0]) / 4.0;
+				stepGdol[0] = (maxGdol[0] - minGdol[0]) / 4.0;
+				stepGvldol[0] = (maxGvldol[0] - minGvldol[0]) / 4.0;
+				stepGimf[0] = (maxGimf[0] - minGimf[0]) / 4.0;
+				stepGshp[0] = (maxGshp[0] - minGshp[0]) / 4.0;
+
+				stepGchug[0] = (maxGchug[0] - minGchug[0]) / 4.0;
+				stepGlom[0] = (maxGlom[0] - minGlom[0]) / 4.0;
+				stepVdut[0] = (maxVdut[0] - minVdut[0]) / 4.0;
+				stepGshl[0] = (maxGshl[0] - minGshl[0]) / 4.0;
+				stepMnOshl[0] = (maxMnOshl[0] - minMnOshl[0]) / 4.0;
+
+				// Для 2 - 6 шагов.
+				for (var i = 1; i < 6; i++)
+				{
+					stepGizv[i] = stepGizv[i - 1] / 2.0;
+					stepGizk[i] = stepGizk[i - 1] / 2.0;
+					stepGdol[i] = stepGdol[i - 1] / 2.0;
+					stepGvldol[i] = stepGvldol[i - 1] / 2.0;
+					stepGimf[i] = stepGimf[i - 1] / 2.0;
+					stepGshp[i] = stepGshp[i - 1] / 2.0;
+
+					stepGchug[i] = stepGchug[i - 1] / 2.0;
+					stepGlom[i] = stepGlom[i - 1] / 2.0;
+					stepVdut[i] = stepVdut[i - 1] / 2.0;
+					stepGshl[i] = stepGshl[i - 1] / 2.0;
+					stepMnOshl[i] = stepMnOshl[i - 1] / 2.0;
+				}
+
+				for (Params.Round = 0; Params.Round < 6; Params.Round++)
+				{
+					Tube.Чугун.G = minGchug[Params.Round];
+					Tube.Лом.G = minGlom[Params.Round];
+					Tube.Дутье.V = minVdut[Params.Round];
+					Tube.Шлак.G = minGshl[Params.Round];
+					Tube.Шлак.MnO = minMnOshl[Params.Round];
+
+					// TODO:
+				}
 
 			} while (!Params.OkPst);
 		}
