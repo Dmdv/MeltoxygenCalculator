@@ -19,6 +19,11 @@ namespace MeltCalc.Providers
 			get { return _cacheReader; }
 		}
 
+		public int RowCount(string table)
+		{
+			return Reader.FetchTable(table).Rows.Count;
+		}
+
 		private static void ValidatePath(string path)
 		{
 			if (!File.Exists(path))

@@ -11,11 +11,12 @@ namespace MeltCalc.Chemistry
 	public static class Cp
 	{
 		private const string CpTable = "Cp";
-		private static readonly TeploPhysConstantsMdb _constantsMdb = new TeploPhysConstantsMdb();
+		private static readonly TeploPhysConstantsMdb _constantsMdb;
 
 		static Cp()
 		{
-			LoadConstants();
+			_constantsMdb = new TeploPhysConstantsMdb();
+			LoadConstants();	
 		}
 
 		public static double H2O { get; set; }

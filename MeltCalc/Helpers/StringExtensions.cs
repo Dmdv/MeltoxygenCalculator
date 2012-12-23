@@ -9,7 +9,7 @@ namespace MeltCalc.Helpers
 			int outValue;
 			if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out outValue))
 			{
-				throw new ArgumentException(value, "value");
+				throw new ArgumentException(value, string.Format("value = '{0}'", value));
 			}
 			return outValue;
 		}
@@ -19,7 +19,7 @@ namespace MeltCalc.Helpers
 			double outValue;
 			if (string.IsNullOrWhiteSpace(value) || !double.TryParse(value, out outValue))
 			{
-				throw new ArgumentException(value, "value");
+				throw new ArgumentException(value, string.Format("value = '{0}'", value));
 			}
 			return outValue;
 		}
@@ -29,7 +29,7 @@ namespace MeltCalc.Helpers
 			float outValue;
 			if (string.IsNullOrWhiteSpace(value) || !float.TryParse(value, out outValue))
 			{
-				throw new ArgumentException(value, "value");
+				throw new ArgumentException(value, string.Format("value = '{0}'", value));
 			}
 			return outValue;
 		}

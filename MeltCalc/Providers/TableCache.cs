@@ -42,7 +42,7 @@ namespace MeltCalc.Providers
 			{
 				if (Get(key) != null)
 				{
-					throw new Exception(string.Format("{0} exists", key));
+					throw new Exception(string.Format("{0} doesn't exist", key));
 				}
 				_cache[key.Value] = datatable;
 			}

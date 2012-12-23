@@ -5,6 +5,7 @@ using System.Windows;
 using MeltCalc.Converters;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
+using MeltCalc.Providers;
 
 namespace MeltCalc.Chemistry
 {
@@ -40,26 +41,16 @@ namespace MeltCalc.Chemistry
 		/// </summary>
 		public Materials Material { get; protected set; }
 
-		public bool IsMaterial
-		{
-			get { return Material != (Materials) InvalidMaterial; }
-		}
-
 		/// <summary>
 		/// Загрузка материала из БД
 		/// </summary>
-		public void Load(int index)
+		public virtual void Load(int index)
 		{
-			if (!IsMaterial)
-			{
-				throw new InvalidOperationException("This is not a material and cannot be loaded");
-			}
-
 			try
 			{
 				var map = new Map<string, string>(LoadRowDictionary(index));
-				ALFA = map["Assimilation"].ToDouble();
-				InternalLoad(map);
+				PropertyLoad(map);
+				AfterPropertyLoad(map);
 			}
 			catch (Exception ex)
 			{
@@ -67,35 +58,45 @@ namespace MeltCalc.Chemistry
 			}
 		}
 
-		protected virtual void InternalLoad(Map<string, string> map)
-		{}
-
-		protected string[] LoadRow(int rowindex)
+		protected virtual TableCacheReader Reader
 		{
-			if (string.IsNullOrWhiteSpace(Code))
-			{
-				throw new NullReferenceException("Code is not initialized");
-			}
-
-			return _looseMdb.Reader.SelectRowRange(Code, rowindex);
-		}
-
-		private Dictionary<string, string> LoadRowDictionary(int rowindex)
-		{
-			if (string.IsNullOrWhiteSpace(Code))
-			{
-				throw new NullReferenceException("Code is not initialized");
-			}
-
-			return _looseMdb.Reader.SelectRowDictionary(Code, rowindex);
+			get { return _looseMdb.Reader; }
 		}
 
 		/// <summary>
 		/// Код материала
 		/// </summary>
-		private string Code
+		protected virtual string TableName
 		{
 			get { return Material.ToTableName(); }
+		}
+
+		protected virtual void PropertyLoad(Map<string, string> map)
+		{}
+
+		protected virtual void AfterPropertyLoad(Map<string, string> map)
+		{
+			ALFA = map["Assimilation"].ToDouble();
+		}
+
+		protected string[] LoadRow(int rowindex)
+		{
+			if (string.IsNullOrWhiteSpace(TableName))
+			{
+				throw new NullReferenceException("TableName is not initialized");
+			}
+
+			return _looseMdb.Reader.SelectRowRange(TableName, rowindex);
+		}
+
+		private Dictionary<string, string> LoadRowDictionary(int rowindex)
+		{
+			if (string.IsNullOrWhiteSpace(TableName))
+			{
+				throw new NullReferenceException("TableName is not initialized");
+			}
+
+			return Reader.SelectRowDictionary(TableName, rowindex);
 		}
 	}
 
@@ -114,7 +115,7 @@ namespace MeltCalc.Chemistry
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaO = map["CaO"].ToDouble();
 			SiO2 = map["SiO2"].ToDouble();
@@ -140,7 +141,7 @@ namespace MeltCalc.Chemistry
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaCO3 = map["CaCO3"].ToDouble();
 			H2O = map["H2O"].ToDouble();
@@ -165,7 +166,7 @@ namespace MeltCalc.Chemistry
 		public double P { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Fe3O4 = map["Fe3O4"].ToDouble();
 			MgO = map["MgO"].ToDouble();
@@ -187,7 +188,7 @@ namespace MeltCalc.Chemistry
 		public double CaO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaF2 = map["CaF2"].ToDouble();
 			SiO2 = map["SiO2"].ToDouble();
@@ -213,6 +214,9 @@ namespace MeltCalc.Chemistry
 
 	public class ОставленныйШлак : Навеска
 	{
+		private const int Index = 1;
+		private static readonly ParamsMdb _paramMdb = new ParamsMdb();
+
 		public double Al2O3 { get; set; }
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
@@ -221,17 +225,80 @@ namespace MeltCalc.Chemistry
 		public double MnO { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
+
+		public void Load()
+		{		
+			Load(Index);
+		}
+
+		protected override TableCacheReader Reader
+		{
+			get { return _paramMdb.Reader; }
+		}
+
+		protected override string TableName
+		{
+			get { return "mixandostshl"; }
+		}
+
+		protected override void PropertyLoad(Map<string, string> map)
+		{
+			CaO = map["СаО"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			FeO = map["FeO"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			MnO = map["MnO"].ToDouble();
+			P2O5 = map["P2O5"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
+
+		protected override void AfterPropertyLoad(Map<string, string> map)
+		{
+		}
 	}
 
 	public class МиксерныйШлак : Навеска
 	{
+		private const int Index = 0;
+		private static readonly ParamsMdb _paramMdb = new ParamsMdb();
+
 		public double CaO { get; set; }
-		public double SiO2 { get; set; }
-		public double MnO { get; set; }
-		public double MgO { get; set; }
-		public double P2O5 { get; set; }
-		public double FeO { get; set; }
 		public double Fe2O3 { get; set; }
+		public double FeO { get; set; }
+		public double MgO { get; set; }
+		public double MnO { get; set; }
+		public double P2O5 { get; set; }
+		public double SiO2 { get; set; }
+
+		public void Load()
+		{
+			Load(Index);
+		}
+
+		protected override TableCacheReader Reader
+		{
+			get { return _paramMdb.Reader; }
+		}
+
+		protected override string TableName
+		{
+			get { return "mixandostshl"; }
+		}
+
+		protected override void PropertyLoad(Map<string, string> map)
+		{
+			CaO = map["СаО"].ToDouble();
+			Fe2O3 = map["Fe2O3"].ToDouble();
+			FeO = map["FeO"].ToDouble();
+			MgO = map["MgO"].ToDouble();
+			MnO = map["MnO"].ToDouble();
+			P2O5 = map["P2O5"].ToDouble();
+			SiO2 = map["SiO2"].ToDouble();
+		}
+
+		protected override void AfterPropertyLoad(Map<string, string> map)
+		{
+		}
 	}
 
 	public class Чугун : Навеска
@@ -361,7 +428,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaO = map["CaO"].ToDouble();
 			MgO = map["MgO"].ToDouble();
@@ -379,7 +446,7 @@ namespace MeltCalc.Chemistry
 
 		public double C { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			C = map["C"].ToDouble();
 		}
@@ -396,7 +463,7 @@ namespace MeltCalc.Chemistry
 		public double H2O { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			H2O = map["H2O"].ToDouble();
 			SiO2 = map["SiO2"].ToDouble();
@@ -417,7 +484,7 @@ namespace MeltCalc.Chemistry
 		public double P { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Al2O3 = map["Al2O3"].ToDouble();
 			CaO = map["CaO"].ToDouble();
@@ -439,7 +506,7 @@ namespace MeltCalc.Chemistry
 		public double FeO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Fe2O3 = map["Fe2O3"].ToDouble();
 			FeO = map["FeO"].ToDouble();
@@ -459,7 +526,7 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaO = map["CaO"].ToDouble();
 			Fe2O3 = map["Fe2O3"].ToDouble();
@@ -502,7 +569,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Al2O3 = map["Al2O3"].ToDouble();
 			CO2 = map["CO2"].ToDouble();
@@ -528,7 +595,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override void InternalLoad(Map<string, string> map)
+		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Al2O3 = map["Al2O3"].ToDouble();
 			CaO = map["CaO"].ToDouble();

@@ -192,6 +192,7 @@ namespace MeltCalc.Pages
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			double gYield = Tube.Сталь.GYield;
+			// TODO;
 		}
 
 		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)

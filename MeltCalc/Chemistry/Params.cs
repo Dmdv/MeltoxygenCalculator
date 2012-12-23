@@ -21,11 +21,14 @@ namespace MeltCalc.Chemistry
 		public static int BlowingTime;
 		public static bool BottomBlowUse;
 
-		// TODO:
+		// ѕоказывает шаг уточнени€, всего 4 шага.
 		public static int Round;
-		// TODO:
+		// ѕоказывает, прошли ли по P, а также увеличивали ли основность.
+		public static bool OkPst;
+		// ѕоказывает, отрицательное ли значение рассчитанного сыпучего.
+		public static bool LessThanZero;
+
 		public static string InputForm;
-		// TODO:
 		public static bool IsDuplex;
 
 		static Params()

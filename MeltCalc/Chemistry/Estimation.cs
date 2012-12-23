@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using MeltCalc.Model;
 
 namespace MeltCalc.Chemistry
 {
@@ -17,17 +19,17 @@ namespace MeltCalc.Chemistry
 			//Концентрация кремния в стали
 			Tube.Сталь.Si = 0.005;
 
-			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2;
-			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2; 
-			Tube.Лом.G = (minimumGlom + maximumGlom) / 2; 
+			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2.0;
+			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2.0; 
+			Tube.Лом.G = (minimumGlom + maximumGlom) / 2.0; 
 			
 			Tube.Сталь.P = Tube.Сталь.PMAX;
 			Params.Tog = Tube.Сталь.T;
 
+			DisbalCaO = DisbalSHL = DisbalTepl = DisbalMat = DisbalO2 = DisbalMnO = DisbalSiO2 = new double[6];
+
 			double NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
 
-			//Рассчет концентрации серы в стали
-			Tube.Сталь.S = 0.8 * (Tube.Чугун.G * Tube.Чугун.S + Tube.Лом.G * Tube.Лом.S + Tube.Pack.ALFA * Tube.Pack.S * Tube.Pack.G) / (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss));
 			
 			//(FeO)шл = a0 + a1 * B + a2 / [C] + a3 / [Mn] + a4 / [P] + a5 * T + a6 * VarBlow
 			double TOTALFeOshl = a0 + a1 * Tube.Шлак.B + a2 / Tube.Сталь.C + a4 / Tube.Сталь.P + a5 * Tube.Сталь.T + a6 * AdaptationData.VArBlow;
@@ -44,29 +46,189 @@ namespace MeltCalc.Chemistry
 		public static double minimumGizv, maximumGizv, minimumGizk, maximumGizk, minimumGdol, maximumGdol, minimumGvldol, maximumGvldol, minimumGimf, maximumGimf, minimumGpes, maximumGpes, minimumGkoks, maximumGkoks, minimumGokal, maximumGokal, minimumGruda, maximumGruda, minimumGokat, maximumGokat, minimumGagl, maximumGagl, minimumGshp, maximumGshp;
 		public static double minimumGstYield, maximumGstYield, minimumAlfaIzv, maximumAlfaIzv;
 
-		//Переменные для хранения коэффициентов регрессионных уравнений
+		// Рассчитываемые, на 1 больше, чем РАУНДов- для расчета шагов. для расчета шихты и адаптации
+		public double[] minGchug, maxGchug, minGlom, maxGlom, minVdut, maxVdut, minGshl, maxGshl, minMnOshl, maxMnOshl;
+		public double[] minGizv, maxGizv, minGizk, maxGizk, minGdol, maxGdol, minGvldol, maxGvldol, minGimf, maxGimf, minGpes, maxGpes, minGkoks, maxGkoks, minGokal, maxGokal, minGruda, maxGruda, minGokat, maxGokat, minGagl, maxGagl, minGshp, maxGshp;
 
-		public double TOTALFeOshl;
+		// То же для адаптации по второму варианту
+		public double[] minGstYield, maxGstYield, minALFAizv, maxALFAizv;
+	
+		// Шаги переменных
+		public static double[] stepGizv, stepGizk, stepGdol, stepGvldol, stepGimf, stepGshp;
+		public static double[] stepGchug, stepGlom, stepVdut, stepGshl, stepMnOshl;
+		public static double[] stepGstYield, stepALFAizv;
+
+		// Дисбалансы уравнений.
+		public static double[] DisbalCaO, DisbalSHL, DisbalTepl, DisbalMat, DisbalO2, DisbalMnO, DisbalSiO2;
+		
+		// Временные переменные для лома.
+		// Низкоуглеродистый лом.
+		public static double Clowsmall, Silowsmall, Mnlowsmall, Plowsmall, Slowsmall;
+		public static double Clowmed, Silowmed, Mnlowmed, Plowmed, Slowmed;
+		public static double Clowbig, Silowbig, Mnlowbig, Plowbig, Slowbig;
+
+		// Среднеуглеродистый лом.
+		public static double Cmidsmall, Simidsmall, Mnmidsmall, Pmidsmall, Smidsmall;
+		public static double Cmidmed, Simidmed, Mnmidmed, Pmidmed, Smidmed;
+		public static double Cmidbig, Simidbig, Mnmidbig, Pmidbig, Smidbig;
+
+		// Высокоуглеродистый лом.
+		public static double Chighsmall, Sihighsmall, Mnhighsmall, Phighsmall, Shighsmall;
+		public static double Chighmed, Sihighmed, Mnhighmed, Phighmed, Shighmed;
+		public static double Chighbig, Sihighbig, Mnhighbig, Phighbig, Shighbig;
+
+		//Переменные для хранения коэффициентов регрессионных уравнений
 
 		//FeO шлака 
 		public static readonly double a0, a1, a2, a3, a4, a5, a6;
 
-		//Mn стали 
+		//Mn стали
 		public static readonly double c0, c1, c2, c3, c4, c5;
 
 		//Lp фосфора 
 		public static readonly double b0, b1, b2, b3, b4;
 
-		private double NeededLp, IterTimes;
+		private double NeededLp;
+		private int IterTimes;
 		private string MOVINGSide;
 
-		private void Prepare1_REGRESSLOAD() 
+		// Переменная, характеризующая рассогласование балансовых уравнений и буферная переменная.
+		public static double MistakeTOTAL, Compare, SumDisbal;
+
+		private void Run()
+		{
+			Tube.Сталь.Si = 0.005;
+			Prepare1_REGRESSLOAD();
+
+			if (Tube.Шлакообразующий == Materials.Известь)
+			{
+				Tube.Известь.G = maximumGizv;
+			}
+			if (Tube.Шлакообразующий == Materials.Известняк)
+			{
+				Tube.Известь.G = maximumGizk;
+			}
+
+			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2.0;
+			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2.0;
+			Tube.Лом.G = (minimumGlom + maximumGlom) / 2.0;
+			Tube.Сталь.P = Tube.Сталь.PMAX;
+			Params.Tog = Tube.Сталь.T;
+
+			Calculate_P2O5shl_Bal_P();
+
+			NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
+
+			for (Tube.Шлак.B = Tube.Шлак.Bmin; Tube.Шлак.B < Tube.Шлак.Bmax; Tube.Шлак.B += 0.05)
+			{
+				CALCULATE_REGRESSFeOMnO();
+				CALCULATE_RegressLp();
+				if (Params.Lp > NeededLp)
+					break;
+			}
+
+			CALCULATE_TEPLCONSTANTS();
+
+			IterTimes = 0;
+
+			do
+			{
+				CALCULATE_REGRESSFeOMnO();
+				CALCULATE_RegressLp();
+				Estimate();
+
+			} while (++IterTimes < 2);
+
+			//Рассчет концентрации серы в стали
+			Tube.Сталь.S = 0.8 *
+						   (Tube.Чугун.G * Tube.Чугун.S + Tube.Лом.G * Tube.Лом.S + Tube.Pack.ALFA * Tube.Pack.S * Tube.Pack.G) /
+						   (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss));
+
+			SumDisbal = DisbalCaO[Params.Round - 1] + DisbalMat[Params.Round - 1] + DisbalSHL[Params.Round - 1] +
+			            DisbalTepl[Params.Round - 1] + DisbalO2[Params.Round - 1] + DisbalMnO[Params.Round - 1];
+
+			if (SumDisbal * 100 > 5)
+			{
+				const string Msg = "Возможно, результаты данного расчета некорректны.\r\nСуммарное расхождение балансовых уравнений составляет ";
+				MessageBox.Show(string.Format("{0} '{1}'", Msg, SumDisbal * 100), "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+
+			if (Tube.Сталь.P > Tube.Сталь.PMAX)
+			{
+				const string Msg = "При заданных условиях требуемая дефосфорация не может быть достигнута.\r\n" + 
+				                   "Попробуйте увеличить допустимую основность шлака";
+				MessageBox.Show(Msg, "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+
+			if (Tube.Известь.G < 0 || Tube.Известняк.G < 0 || Tube.ВлажныйДоломит.G < 0 || Tube.Доломит.G < 0 || Tube.Имф.G < 0 || Tube.Шпат.G < 0)
+			{
+				Params.LessThanZero = true;
+			}
+			else
+			{
+				Params.LessThanZero = false;
+			}
+
+			// TODO: Перейти на результаты.
+		}
+
+		private void Estimate()
+		{
+			Params.OkPst = false;
+			do
+			{
+				Compare = 1;
+				if (IterTimes == 0)
+				{
+					minGizv[0] = minimumGizv;
+					maxGizv[0] = maximumGizv;
+
+					minGizk[0] = minimumGizk;
+					maxGizk[0] = maximumGizk;
+
+					minGdol[0] = minimumGdol;
+					maxGdol[0] = maximumGdol;
+
+					minGvldol[0] = minimumGvldol;
+					maxGvldol[0] = maximumGvldol;
+
+					minGimf[0] = minimumGimf;
+					maxGimf[0] = maximumGimf;
+
+					minGshp[0] = minimumGshp;
+					maxGshp[0] = maximumGshp;
+
+					minGizv[0] = minimumGizv;
+					maxGizv[0] = maximumGizv;
+
+					minGchug[0] = minimumGchug;
+					maxGchug[0] = maximumGchug;
+
+					minGlom[0] = minimumGlom;
+					maxGlom[0] = maximumGlom;
+
+					minVdut[0] = minimumVdut;
+					maxVdut[0] = maximumVdut;
+
+					minGshl[0] = minimumGshl;
+					maxGshl[0] = maximumGshl;
+
+					minMnOshl[0] = minimumMnOshl;
+					maxMnOshl[0] = maximumMnOshl;
+				}
+
+				if (IterTimes >= 1)
+				{ }
+
+			} while (!Params.OkPst);
+		}
+
+		private void Prepare1_REGRESSLOAD()
 		{ 
 			//Загрузка коэффициентов регрессионных уравнений по (FeO), [Mn], Lp
 		}
 
-		// TODO: Проверить первые 2 уравнения.
-		private double CALCULATE_TEPLCONSTANTS()
+		public static void CALCULATE_TEPLCONSTANTS()
 		{
 			Cp.izv = 4.1868 * 1000 * (11.86 + 0.00108 * (Params.AirTemp + 273) - 166000.0 / Math.Pow((Params.AirTemp + 273), 2) / 44.0);
 			Cp.izk = 4.1868 * 1000 * (24.98 + 0.00524 * (Params.AirTemp + 273) - 620000.0 / Math.Pow((Params.AirTemp + 273),2) / 100.0);
@@ -99,25 +261,22 @@ namespace MeltCalc.Chemistry
 			Hp.dHostshl = Math.Abs(4.1868 * 1000 * (0.289 * (Tube.Сталь.T - 20 * Params.TAUprostREAL) + 50));
 
 			Hp.dHchug = 4.1868 * 1000 * (14.8 + 0.21 * Tube.Чугун.T);
-			Hp.dHlom = (0.0003 * Params.AirTemp + 0.4288) * (Params.AirTemp + 273) * 1000;
-
-			// TODO: 
-			throw new Exception();
+			Hp.dHlom = (0.0003 * Params.AirTemp + 0.4288) * (Params.AirTemp + 273) * 1000.0;
 		}
 
 		private void CALCULATE_REGRESSFeOMnO()
 		{
-			Tube.Шлак.FeO = 0.701145 * TOTALFeOshl - 0.586142;
-			Tube.Шлак.Fe2O3 = TOTALFeOshl - Tube.Шлак.FeO;
+			Tube.Шлак.FeO = 0.701145 * Tube.Шлак.TOTALFeO - 0.586142;
+			Tube.Шлак.Fe2O3 = Tube.Шлак.TOTALFeO - Tube.Шлак.FeO;
 
 			//[Mn]ст = c0 + c1 * B + c2 * (FeO) + c3 / [C] + c4 * T + c5 * VarBlow
-			Tube.Сталь.Mn = c0 + c1 * Tube.Шлак.B + c2 * TOTALFeOshl + c3 / Tube.Сталь.C + c4 * Tube.Сталь.T + c5 * AdaptationData.VArBlow;
+			Tube.Сталь.Mn = c0 + c1 * Tube.Шлак.B + c2 * Tube.Шлак.TOTALFeO + c3 / Tube.Сталь.C + c4 * Tube.Сталь.T + c5 * AdaptationData.VArBlow;
 		}
 
 		private void CALCULATE_RegressLp()
 		{
-			//Lp = b0 + b1 * B + b2 * (FeO) + b3 * T + b4 *VarBlow 
-			Params.Lp = b0 + b1 * Tube.Шлак.B + b2 * TOTALFeOshl + b3 * Tube.Сталь.T + b4 * AdaptationData.VArBlow;
+			//Lp = b0 + b1 * B + b2 * (FeO) + b3 * T + b4 *VarBlow
+			Params.Lp = b0 + b1 * Tube.Шлак.B + b2 * Tube.Шлак.TOTALFeO + b3 * Tube.Сталь.T + b4 * AdaptationData.VArBlow;
 		}
 
 		private double Calculate_P2O5shl_Bal_P()

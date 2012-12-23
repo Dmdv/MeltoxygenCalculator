@@ -10,7 +10,7 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Adaptation
 	{
-		private AdaptationModel _model = new AdaptationModel();
+		private readonly AdaptationModel _model = new AdaptationModel();
 
 		public Adaptation()
 		{
@@ -115,7 +115,12 @@ namespace MeltCalc.Pages
 			Tube.Лом.S = _chkS.SelectedValue.ToString().ToFloat();
 			Tube.Лом.Si = _chkSi.SelectedValue.ToString().ToFloat();
 
-			_model.Run(_sypuchType.SelectedValue.ToString().ToInt());
+			_model.Run(SypuchType);
+		}
+
+		private int SypuchType
+		{
+			get { return _sypuchType.SelectedValue.ToString().ToInt() - 1; }
 		}
 
 		private void PrevCanPrevious(object sender, CanExecuteRoutedEventArgs e)

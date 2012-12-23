@@ -32,6 +32,7 @@ namespace MeltCalc.Chemistry
 			Доломит = new Доломит(_registry);
 			ВлажныйДоломит = new ВлажныйДоломит(_registry);
 			Pack = new Packets();
+			Шлакообразующий = 0;
 		}
 
 		public static Известняк Известняк { get; set; }
@@ -56,6 +57,7 @@ namespace MeltCalc.Chemistry
 		public static Доломит Доломит { get; set; }
 		public static ВлажныйДоломит ВлажныйДоломит { get; set; }
 		public static Packets Pack { get; set; }
+		public static Materials Шлакообразующий { get; set; }
 
 		/// <summary>
 		/// Находит игредиент по его типу.

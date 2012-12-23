@@ -30,6 +30,7 @@ namespace MeltCalc.Pages
 		{
 			_selectedMaterials = selectedMaterials;
 			_shlak = shlak;
+			Tube.Шлакообразующий = shlak;
 			InitializeComponent();
 			Loaded += OnLoaded;
 		}
