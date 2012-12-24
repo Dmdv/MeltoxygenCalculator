@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Data;
 using System.Windows;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
 
 namespace MeltCalc.Chemistry
 {
+	// TODO: Проверить соответствие массивов их размеру.
 	public class Estimation
 	{
 		static Estimation()
@@ -30,13 +30,6 @@ namespace MeltCalc.Chemistry
 			Params.Tog = Tube.Сталь.T;
 
 			DisbalCaO = DisbalSHL = DisbalTepl = DisbalMat = DisbalO2 = DisbalMnO = DisbalSiO2 = new double[6];
-
-			double NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
-
-			
-			//(FeO)шл = a0 + a1 * B + a2 / [C] + a3 / [Mn] + a4 / [P] + a5 * T + a6 * VarBlow
-			double TOTALFeOshl = a0 + a1 * Tube.Шлак.B + a2 / Tube.Сталь.C + a4 / Tube.Сталь.P + a5 * Tube.Сталь.T + a6 * AdaptationData.VArBlow;
-
 		}
 
 		// Специальные переменные
@@ -93,6 +86,15 @@ namespace MeltCalc.Chemistry
 		private double NeededLp;
 		private int IterTimes;
 		private string MOVINGSide;
+
+		private double LeftCaO_po_B, RightCaO_po_B;
+		private double LeftCaOiMgO, RightCaOiMgO;
+		private double LeftSHL, RightSHL;
+		private double LeftTEPL, RightTEPL;
+		private double LeftO2, RightO2;
+		private double LeftMAT, RightMAT;
+		private double LeftMn, RightMn;
+		private double LeftSi, RightSi;
 
 		// Переменная, характеризующая рассогласование балансовых уравнений и буферная переменная.
 		public static double MistakeTOTAL, Compare, SumDisbal;
@@ -429,10 +431,73 @@ namespace MeltCalc.Chemistry
 
 		private void Other6Circles()
 		{
-			throw new NotImplementedException();
+			do
+			{
+				do
+				{
+					do
+					{
+						do
+						{
+							do
+							{
+								Balances_Calc();
+								MistakeTOTAL = Math.Abs((LeftCaO_po_B - RightCaO_po_B) / RightCaO_po_B) +
+											   Math.Abs((LeftSHL - RightSHL) / RightSHL) + 2 * Math.Abs((LeftTEPL - RightTEPL) / RightTEPL) +
+											   Math.Abs((LeftO2 - RightO2) / RightO2) + 2 * Math.Abs((LeftMAT - RightMAT) / RightMAT) +
+											   Math.Abs((LeftMn - RightMn) / RightMn);
+
+								if (MistakeTOTAL <= Compare)
+								{
+									Compare = MistakeTOTAL;
+									GizvSAVE[Params.Round] = Tube.Известь.G;
+									GizkSAVE[Params.Round] = Tube.Известняк.G;
+									GdolSAVE[Params.Round] = Tube.Доломит.G;
+									GvldolSAVE[Params.Round] = Tube.ВлажныйДоломит.G;
+									GimfSAVE[Params.Round] = Tube.Имф.G;
+									GshpSAVE[Params.Round] = Tube.Шпат.G;
+									GchugSAVE[Params.Round] = Tube.Чугун.G;
+									GlomSAVE[Params.Round] = Tube.Лом.G;
+									VdutSAVE[Params.Round] = Tube.Дутье.V;
+									GshlSAVE[Params.Round] = Tube.Шлак.G;
+									MnOshlSAVE[Params.Round] = Tube.Шлак.MnO;
+
+									DisbalCaO[Params.Round] = Math.Abs((LeftCaO_po_B - RightCaO_po_B) / RightCaO_po_B);
+									DisbalSHL[Params.Round] = Math.Abs((LeftSHL - RightSHL) / RightSHL);
+									DisbalTepl[Params.Round] = Math.Abs((LeftTEPL - RightTEPL) / RightTEPL);
+									DisbalO2[Params.Round] = Math.Abs((LeftO2 - RightO2) / RightO2);
+									DisbalMat[Params.Round] = Math.Abs((LeftMAT - RightMAT) / RightMAT);
+									DisbalMnO[Params.Round] = Math.Abs((LeftMn - RightMn) / RightMn);
+								}
+
+								Tube.Шлак.MnO += stepMnOshl[Params.Round];
+
+							} while (Tube.Шлак.MnO < maxMnOshl[Params.Round]);
+
+							Tube.Шлак.MnO = minMnOshl[Params.Round];
+							Tube.Шлак.G += stepGshl[Params.Round];
+
+						} while (Tube.Шлак.G < maxGshl[Params.Round]);
+
+						Tube.Шлак.G = minGshl[Params.Round];
+						Tube.Дутье.V += stepVdut[Params.Round];
+
+					} while (Tube.Дутье.V < maxVdut[Params.Round]);
+
+					Tube.Дутье.V = minVdut[Params.Round];
+					Tube.Лом.G += stepGlom[Params.Round];
+
+				} while (Tube.Лом.G < maxGlom[Params.Round]);
+
+				Tube.Лом.G = minGlom[Params.Round];
+				Tube.Чугун.G += stepGchug[Params.Round];
+
+			} while (Tube.Чугун.G < maxGchug[Params.Round]);
+
+			Tube.Чугун.G = minGchug[Params.Round];
 		}
 
-		public static void Prepare1_REGRESSLOAD()
+		private static void Prepare1_REGRESSLOAD()
 		{ 
 			var paramsMdb = new ParamsMdb();
 			var table = paramsMdb.Reader.FetchTable("regressions");
@@ -520,18 +585,18 @@ namespace MeltCalc.Chemistry
 			Hp.dHlom = (0.0003 * Params.AirTemp + 0.4288) * (Params.AirTemp + 273) * 1000.0;
 		}
 
-		private void CALCULATE_REGRESSFeOMnO()
+		private static void CALCULATE_REGRESSFeOMnO()
 		{
+			Tube.Шлак.TOTALFeO = a0 + a1 * Tube.Шлак.B + a2 / Tube.Сталь.C + a4 / Tube.Сталь.P + a5 * Tube.Сталь.T +
+			                     a6 * AdaptationData.VArBlow;
 			Tube.Шлак.FeO = 0.701145 * Tube.Шлак.TOTALFeO - 0.586142;
 			Tube.Шлак.Fe2O3 = Tube.Шлак.TOTALFeO - Tube.Шлак.FeO;
-
-			//[Mn]ст = c0 + c1 * B + c2 * (FeO) + c3 / [C] + c4 * T + c5 * VarBlow
-			Tube.Сталь.Mn = c0 + c1 * Tube.Шлак.B + c2 * Tube.Шлак.TOTALFeO + c3 / Tube.Сталь.C + c4 * Tube.Сталь.T + c5 * AdaptationData.VArBlow;
+			Tube.Сталь.Mn = c0 + c1 * Tube.Шлак.B + c2 * Tube.Шлак.TOTALFeO + c3 / Tube.Сталь.C + c4 * Tube.Сталь.T +
+			                c5 * AdaptationData.VArBlow;
 		}
 
 		private void CALCULATE_RegressLp()
 		{
-			//Lp = b0 + b1 * B + b2 * (FeO) + b3 * T + b4 *VarBlow
 			Params.Lp = b0 + b1 * Tube.Шлак.B + b2 * Tube.Шлак.TOTALFeO + b3 * Tube.Сталь.T + b4 * AdaptationData.VArBlow;
 		}
 
@@ -758,6 +823,5 @@ namespace MeltCalc.Chemistry
 			double RightSi =
 				(Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si + Tube.Шлак.G * Tube.Шлак.SiO2 * 28.0 / 60.0;
 		}
-
 	}
 }
