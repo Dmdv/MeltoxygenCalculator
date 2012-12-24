@@ -115,7 +115,11 @@ namespace MeltCalc.Pages
 			Tube.Лом.S = _chkS.SelectedValue.ToString().ToFloat();
 			Tube.Лом.Si = _chkSi.SelectedValue.ToString().ToFloat();
 
-			_model.Run(SypuchType);
+			var fixedMass = _adaptFixedMass.IsChecked.HasValue && _adaptFixedMass.IsChecked.Value;
+
+			_model.Run(SypuchType, fixedMass);
+
+			// TODO: Step 11.
 		}
 
 		private int SypuchType

@@ -18,18 +18,20 @@ namespace MeltCalc.Chemistry
 			minimumGchug = maximumGchug = minimumGlom = maximumGlom = minimumVdut = maximumVdut = minimumGshl = maximumGshl = minimumMnOshl = maximumMnOshl = minimumPst = maximumPst = new double();
 			minimumGizv = maximumGizv = minimumGizk = maximumGizk = minimumGdol = maximumGdol = minimumGvldol = maximumGvldol = minimumGimf = maximumGimf = minimumGpes = maximumGpes = minimumGkoks = maximumGkoks = minimumGokal = maximumGokal = minimumGruda = maximumGruda = minimumGokat = maximumGokat = minimumGagl = maximumGagl = minimumGshp = maximumGshp = new double();
 			minimumGstYield = maximumGstYield = minimumAlfaIzv = new double();
+
+			minGchug = maxGchug = minGlom = maxGlom = minVdut = maxVdut = minGshl = maxGshl = minMnOshl = maxMnOshl = new double[7];
+			minGizv = maxGizv = minGizk = maxGizk = minGdol = maxGdol = minGvldol = maxGvldol = minGimf = maxGimf = minGpes = maxGpes = minGkoks = maxGkoks = minGokal = maxGokal = minGruda = maxGruda = minGokat = maxGokat = minGagl = maxGagl = minGshp = maxGshp = new double[7];
+			minGstYield = maxGstYield = minALFAizv = maxALFAizv = new double[7];
+
+			DisbalCaO = DisbalSHL = DisbalTepl = DisbalMat = DisbalO2 = DisbalMnO = DisbalSiO2 = new double[6];
 			
-			//Концентрация кремния в стали
 			Tube.Сталь.Si = 0.005;
 
 			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2.0;
 			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2.0; 
 			Tube.Лом.G = (minimumGlom + maximumGlom) / 2.0; 
-			
 			Tube.Сталь.P = Tube.Сталь.PMAX;
 			Params.Tog = Tube.Сталь.T;
-
-			DisbalCaO = DisbalSHL = DisbalTepl = DisbalMat = DisbalO2 = DisbalMnO = DisbalSiO2 = new double[6];
 		}
 
 		// Специальные переменные
@@ -42,11 +44,11 @@ namespace MeltCalc.Chemistry
 		public static double minimumGstYield, maximumGstYield, minimumAlfaIzv, maximumAlfaIzv;
 
 		// Рассчитываемые, на 1 больше, чем РАУНДов- для расчета шагов. для расчета шихты и адаптации
-		public double[] minGchug, maxGchug, minGlom, maxGlom, minVdut, maxVdut, minGshl, maxGshl, minMnOshl, maxMnOshl;
-		public double[] minGizv, maxGizv, minGizk, maxGizk, minGdol, maxGdol, minGvldol, maxGvldol, minGimf, maxGimf, minGpes, maxGpes, minGkoks, maxGkoks, minGokal, maxGokal, minGruda, maxGruda, minGokat, maxGokat, minGagl, maxGagl, minGshp, maxGshp;
+		public static double[] minGchug, maxGchug, minGlom, maxGlom, minVdut, maxVdut, minGshl, maxGshl, minMnOshl, maxMnOshl;
+		public static double[] minGizv, maxGizv, minGizk, maxGizk, minGdol, maxGdol, minGvldol, maxGvldol, minGimf, maxGimf, minGpes, maxGpes, minGkoks, maxGkoks, minGokal, maxGokal, minGruda, maxGruda, minGokat, maxGokat, minGagl, maxGagl, minGshp, maxGshp;
 
 		// То же для адаптации по второму варианту
-		public double[] minGstYield, maxGstYield, minALFAizv, maxALFAizv;
+		public static double[] minGstYield, maxGstYield, minALFAizv, maxALFAizv;
 	
 		// Шаги переменных
 		public static double[] stepGizv, stepGizk, stepGdol, stepGvldol, stepGimf, stepGshp;
@@ -57,6 +59,7 @@ namespace MeltCalc.Chemistry
 		public static double[] DisbalCaO, DisbalSHL, DisbalTepl, DisbalMat, DisbalO2, DisbalMnO, DisbalSiO2;
 		
 		// Временные переменные для лома.
+
 		// Низкоуглеродистый лом.
 		public static double Clowsmall, Silowsmall, Mnlowsmall, Plowsmall, Slowsmall;
 		public static double Clowmed, Silowmed, Mnlowmed, Plowmed, Slowmed;
@@ -87,14 +90,14 @@ namespace MeltCalc.Chemistry
 		private int IterTimes;
 		private string MOVINGSide;
 
-		private double LeftCaO_po_B, RightCaO_po_B;
-		private double LeftCaOiMgO, RightCaOiMgO;
-		private double LeftSHL, RightSHL;
-		private double LeftTEPL, RightTEPL;
-		private double LeftO2, RightO2;
-		private double LeftMAT, RightMAT;
-		private double LeftMn, RightMn;
-		private double LeftSi, RightSi;
+		public static double LeftCaO_po_B, RightCaO_po_B;
+		public static double LeftCaOiMgO, RightCaOiMgO;
+		public static double LeftSHL, RightSHL;
+		public static double LeftTEPL, RightTEPL;
+		public static double LeftO2, RightO2;
+		public static double LeftMAT, RightMAT;
+		public static double LeftMn, RightMn;
+		public static double LeftSi, RightSi;
 
 		// Переменная, характеризующая рассогласование балансовых уравнений и буферная переменная.
 		public static double MistakeTOTAL, Compare, SumDisbal;
@@ -472,27 +475,27 @@ namespace MeltCalc.Chemistry
 
 								Tube.Шлак.MnO += stepMnOshl[Params.Round];
 
-							} while (Tube.Шлак.MnO < maxMnOshl[Params.Round]);
+							} while (Tube.Шлак.MnO <= maxMnOshl[Params.Round]);
 
 							Tube.Шлак.MnO = minMnOshl[Params.Round];
 							Tube.Шлак.G += stepGshl[Params.Round];
 
-						} while (Tube.Шлак.G < maxGshl[Params.Round]);
+						} while (Tube.Шлак.G <= maxGshl[Params.Round]);
 
 						Tube.Шлак.G = minGshl[Params.Round];
 						Tube.Дутье.V += stepVdut[Params.Round];
 
-					} while (Tube.Дутье.V < maxVdut[Params.Round]);
+					} while (Tube.Дутье.V <= maxVdut[Params.Round]);
 
 					Tube.Дутье.V = minVdut[Params.Round];
 					Tube.Лом.G += stepGlom[Params.Round];
 
-				} while (Tube.Лом.G < maxGlom[Params.Round]);
+				} while (Tube.Лом.G <= maxGlom[Params.Round]);
 
 				Tube.Лом.G = minGlom[Params.Round];
 				Tube.Чугун.G += stepGchug[Params.Round];
 
-			} while (Tube.Чугун.G < maxGchug[Params.Round]);
+			} while (Tube.Чугун.G <= maxGchug[Params.Round]);
 
 			Tube.Чугун.G = minGchug[Params.Round];
 		}
@@ -623,7 +626,7 @@ namespace MeltCalc.Chemistry
 				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P) / ((Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) + GshlSAVE[round - 1] * Params.Lp * 62.0 / 142.0);
 		}
 
-		private void Balances_Calc()
+		public static void Balances_Calc()
 		{
 			//Баланс CaO по заданной основности
 
