@@ -56,7 +56,7 @@ namespace MeltCalc.Pages
 			InitTemperature();
 		}
 
-		private void InitializeParams()
+		private void InitializeParamsAndRedirect()
 		{
 			Params.IsDuplex = _isDuplex.IsChecked.HasValue && _isDuplex.IsChecked.Value;
 			Params.InputForm = _isManual.IsChecked.HasValue && _isManual.IsChecked.Value ? "manual" : "auto";
@@ -224,7 +224,7 @@ namespace MeltCalc.Pages
 		{
 			try
 			{
-				InitializeParams();
+				InitializeParamsAndRedirect();
 			}
 			catch (Exception ex)
 			{

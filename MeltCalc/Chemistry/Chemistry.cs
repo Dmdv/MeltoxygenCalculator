@@ -405,6 +405,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
+		public double GTotal { get; set; }
 	}
 
 	public class Дутье : Навеска

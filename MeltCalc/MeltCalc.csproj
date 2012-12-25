@@ -90,6 +90,7 @@
     <Compile Include="Pages\AlloyAndDensingInput.xaml.cs">
       <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ParamsLoad.cs" />
     <Compile Include="Pages\Step15.xaml.cs">
       <DependentUpon>Step15.xaml</DependentUpon>
     </Compile>
