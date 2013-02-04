@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MeltCalc.Chemistry;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
 
@@ -12,9 +15,34 @@ namespace MeltCalc.Pages
 	/// </summary>
 	public partial class Step12
 	{
+		private List<CheckBox> _checkBoxes;
+
 		public Step12()
 		{
 			InitializeComponent();
+			Loaded +=OnLoaded;
+		}
+
+		private void OnLoaded(object sender, RoutedEventArgs e)
+		{
+			_checkBoxes = _grid.FindVisualChild<CheckBox>().ToList();
+
+			if (Params.IsDuplex)
+			{
+				_checkBoxes.Single(x => x.Material() == Materials.Песок).IsEnabled = false;
+				_checkBoxes.Single(x => x.Material() == Materials.Окатыши).IsChecked = true;
+				_checkBoxes.Single(x => x.Material() == Materials.Окатыши).IsEnabled = false;
+				_checkBoxes.Single(x => x.Material() == Materials.Окалина).IsChecked = true;
+				_checkBoxes.Single(x => x.Material() == Materials.Окалина).IsEnabled = false;
+			}
+			else
+			{
+				_checkBoxes.Single(x => x.Material() == Materials.Песок).IsEnabled = true;
+				_checkBoxes.Single(x => x.Material() == Materials.Окатыши).IsChecked = false;
+				_checkBoxes.Single(x => x.Material() == Materials.Окатыши).IsEnabled = true;
+				_checkBoxes.Single(x => x.Material() == Materials.Окалина).IsChecked = false;
+				_checkBoxes.Single(x => x.Material() == Materials.Окалина).IsEnabled = true;				
+			}
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)

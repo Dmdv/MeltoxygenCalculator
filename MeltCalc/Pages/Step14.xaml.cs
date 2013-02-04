@@ -13,7 +13,8 @@ using MeltCalc.ViewModel;
 namespace MeltCalc.Pages
 {
 	/// <summary>
-	/// Interaction logic for Step14.xaml
+	/// Инициализация ячеек происходит в Presenter. Сканируются значения в mdb таблицах, 
+	/// и в binding происходит присваивание свойств.
 	/// </summary>
 	public partial class Step14
 	{

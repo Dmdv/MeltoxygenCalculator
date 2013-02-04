@@ -201,7 +201,7 @@
 						</Grid.ColumnDefinitions>
 						<TextBlock TextWrapping="Wrap" Text="Град, С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
 						<TextBlock TextWrapping="Wrap" Text="Тонн" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
-						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
+						<ComboBox x:Name="_tSt" Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
 						<xctk:DoubleUpDown x:Name="_stalMass" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,5,0"
 										   Value="{Binding Сталь.GYield, Mode=OneWayToSource, Converter={StaticResource DoubleConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 					</Grid>
@@ -218,8 +218,8 @@
 						</Grid.ColumnDefinitions>
 						<TextBlock TextWrapping="Wrap" Text="С" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16"/>
 						<TextBlock TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="16" Text="P max"/>
-						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
-						<ComboBox Grid.Row="1" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
+						<ComboBox x:Name="_cSt" Grid.Row="1" VerticalAlignment="Center" Margin="5,0"/>
+						<ComboBox x:Name="_pSt" Grid.Row="1" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
 					</Grid>
 				</GroupBox>
 			</Grid>

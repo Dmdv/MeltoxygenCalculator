@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
@@ -18,6 +19,7 @@ namespace MeltCalc.Pages
 		private const string StAndChugLists = "StAndChugLists";
 		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
 		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
+		private const double Epsilon = 0.00001;
 
 		public Step15()
 		{
@@ -25,7 +27,7 @@ namespace MeltCalc.Pages
 			Loaded += OnLoaded;
 		}
 
-		private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
 			// Во избежание определения INotifyPropertyChanges в каждом компоненте придется инициализировать
 			// поля из свойств вручную.
@@ -174,10 +176,38 @@ namespace MeltCalc.Pages
 			return new Tuple<float, float, float, float>(tempParams[2], tempParams[3], tempParams[4], tempParams[5]);
 		}
 
-		private float ToFloat(string text)
+		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			var convertBack = _converter.ConvertBack(text, typeof (float), null, null);
-			return Convert.ToSingle(convertBack);
+			var gYield = Tube.Сталь.GYield;
+
+			if (Math.Abs(
+				_chugTemp.GetDoubleValue() *
+				_chugC.GetDoubleValue() *
+				_chugSi.GetDoubleValue() *
+				_chugMn.GetDoubleValue() *
+				_chugP.GetDoubleValue() *
+				_tSt.GetDoubleValue() * 
+				_cSt.GetDoubleValue() *
+				_pSt.GetDoubleValue() - 0) < Epsilon || string.IsNullOrWhiteSpace(_lomC.Text))
+			{
+				MessageBox.Show("Рассчёт невозможен", "Введенные данные неверны или неполны", MessageBoxButton.OK);
+				return;
+			}
+
+			if (Params.BottomBlowUse)
+			{
+				// TODO: Доделать
+				AdaptationData.VArBlow = Params.BlowingTime *
+				                         InputWindow.ReadDouble("Введите МИНУТНЫЙ РАСХОД ИНЕРТНОГО ГАЗА донной продувки, м3/мин");
+			}
+			else
+			{
+				AdaptationData.VArBlow = 0.0;
+			}
+		}
+
+		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
 		}
 
 		private void NextCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -189,14 +219,10 @@ namespace MeltCalc.Pages
 		{
 		}
 
-		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
+		private float ToFloat(string text)
 		{
-			double gYield = Tube.Сталь.GYield;
-			// TODO;
-		}
-
-		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
-		{
+			var convertBack = _converter.ConvertBack(text, typeof (float), null, null);
+			return Convert.ToSingle(convertBack);
 		}
 
 		private enum Row

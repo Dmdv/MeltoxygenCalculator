@@ -61,6 +61,8 @@ namespace MeltCalc.Chemistry
 				.SelectAllRows(CpTable)
 				.ToDictionary(row => row[0], row => row[1]);
 
+			// CpChugSolid, CpMetRZ - не используется!
+
 			ChugLiquid	= SafeValue("CpChugLiquid", rows);
 			LomSolid	= SafeValue("CpLomSolid", rows);
 			Met			= SafeValue("CpMet", rows);

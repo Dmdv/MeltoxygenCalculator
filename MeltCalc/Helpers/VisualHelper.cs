@@ -1,13 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using MeltCalc.Converters;
 using MeltCalc.Model;
 
 namespace MeltCalc.Helpers
 {
 	public static class VisualHelper
 	{
+		public static double GetDoubleValue(this ComboBox comboBox)
+		{
+			var converter = new StringToDoubleConverter();
+			return (double) converter.ConvertBack(comboBox.SelectedValue, typeof (double), null, CultureInfo.InvariantCulture);
+		}
+
+		public static double GetDoubleValue(this TextBox comboBox)
+		{
+			var converter = new StringToDoubleConverter();
+			return (double)converter.ConvertBack(comboBox.Text, typeof(double), null, CultureInfo.InvariantCulture);
+		}
+
 		public static T FindButton<T>(IEnumerable<T> coll, Materials material) where T : ContentControl
 		{
 			return coll.Single(x => x.Tag is Materials && (Materials) x.Tag == material);
