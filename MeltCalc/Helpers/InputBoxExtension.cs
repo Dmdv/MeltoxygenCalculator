@@ -20,7 +20,7 @@ namespace MeltCalc.Helpers
 		public string ReadValue()
 		{
 			var showDialog = _dialog.ShowDialog();
-			return showDialog.HasValue && showDialog.Value ? string.Empty : _dialog.ResponseText;
+			return showDialog.HasValue && showDialog.Value ? _dialog.ResponseText : string.Empty;
 		}
 
 		public static string ReadValue(string title)

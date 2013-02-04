@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MeltCalc.Converters;
 using MeltCalc.Model;
+using Xceed.Wpf.Toolkit;
 
 namespace MeltCalc.Helpers
 {
@@ -17,6 +18,12 @@ namespace MeltCalc.Helpers
 		}
 
 		public static double GetDoubleValue(this TextBox comboBox)
+		{
+			var converter = new StringToDoubleConverter();
+			return (double)converter.ConvertBack(comboBox.Text, typeof(double), null, CultureInfo.InvariantCulture);
+		}
+
+		public static double GetDoubleValue(this DoubleUpDown comboBox)
 		{
 			var converter = new StringToDoubleConverter();
 			return (double)converter.ConvertBack(comboBox.Text, typeof(double), null, CultureInfo.InvariantCulture);

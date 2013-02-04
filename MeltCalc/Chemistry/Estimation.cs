@@ -102,7 +102,7 @@ namespace MeltCalc.Chemistry
 		// Переменная, характеризующая рассогласование балансовых уравнений и буферная переменная.
 		public static double MistakeTOTAL, Compare, SumDisbal;
 
-		private void Run()
+		public void Run()
 		{
 			Tube.Сталь.Si = 0.005;
 			Prepare1_REGRESSLOAD();

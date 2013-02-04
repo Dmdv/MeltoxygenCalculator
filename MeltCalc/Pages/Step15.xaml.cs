@@ -20,6 +20,7 @@ namespace MeltCalc.Pages
 		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
 		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
 		private const double Epsilon = 0.00001;
+		private double _stStep;
 
 		public Step15()
 		{
@@ -29,8 +30,8 @@ namespace MeltCalc.Pages
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			// Во избежание определения INotifyPropertyChanges в каждом компоненте придется инициализировать
-			// поля из свойств вручную.
+			// TODO:
+			// If ROUND = 0 Then cmdLastEstimate.Enabled = False Else cmdLastEstimate.Enabled = True
 
 			InitializeFromGlobals();
 			LomChem_Load();
@@ -52,11 +53,14 @@ namespace MeltCalc.Pages
 			{
 				_stalMass.IsEnabled = true;
 				_stalMass.AllowSpin = true;
+				// TODO: Использовать step.
+				_stStep = Tube.Сталь.GYieldmemo / 100.0;
 			}
 			else
 			{
 				_stalMass.IsEnabled = false;
 				_stalMass.AllowSpin = false;
+				_stStep = 0.0;
 			}
 		}
 
@@ -178,17 +182,15 @@ namespace MeltCalc.Pages
 
 		private void NextExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			var gYield = Tube.Сталь.GYield;
-
 			if (Math.Abs(
 				_chugTemp.GetDoubleValue() *
 				_chugC.GetDoubleValue() *
 				_chugSi.GetDoubleValue() *
 				_chugMn.GetDoubleValue() *
 				_chugP.GetDoubleValue() *
-				_tSt.GetDoubleValue() * 
+				_tSt.GetDoubleValue() *
 				_cSt.GetDoubleValue() *
-				_pSt.GetDoubleValue() - 0) < Epsilon || string.IsNullOrWhiteSpace(_lomC.Text))
+				_pSt.GetDoubleValue() - 0) < Epsilon && string.IsNullOrWhiteSpace(_lomC.Text))
 			{
 				MessageBox.Show("Рассчёт невозможен", "Введенные данные неверны или неполны", MessageBoxButton.OK);
 				return;
@@ -196,7 +198,6 @@ namespace MeltCalc.Pages
 
 			if (Params.BottomBlowUse)
 			{
-				// TODO: Доделать
 				AdaptationData.VArBlow = Params.BlowingTime *
 				                         InputWindow.ReadDouble("Введите МИНУТНЫЙ РАСХОД ИНЕРТНОГО ГАЗА донной продувки, м3/мин");
 			}
@@ -204,6 +205,53 @@ namespace MeltCalc.Pages
 			{
 				AdaptationData.VArBlow = 0.0;
 			}
+
+			if (!_leftShlak.IsChecked.HasValue || !_leftShlak.IsChecked.Value)
+			{
+				Tube.ОставленныйШлак.G = 0;
+			}
+
+			// присвоение основным переменным значений
+			Texts_To_Vars();
+
+			if (Params.IsDuplex)
+			{
+				SaveLastLomType();
+			}
+
+			SaveLastListIndexes();
+
+			// Расчет доли легковесного лома
+			if (Params.IsDuplex)
+			{
+				Tube.Лом.DolyaLegkovesa =
+					(float) ((_highSmall.GetDoubleValue() +
+					          _midSmall.GetDoubleValue() +
+					          _lowSmall.GetDoubleValue() +
+					          (_highMiddle.GetDoubleValue() +
+					           _midMiddle.GetDoubleValue() +
+					           _lowMiddle.GetDoubleValue()) * 0.5) / 100.0);
+			}
+
+			var estimation = new Estimation();
+			estimation.Run();
+
+			// TODO: Реализация функций и расчет лома в левом вехнем углу.
+		}
+
+		private void SaveLastListIndexes()
+		{
+			// TODO
+		}
+
+		private void SaveLastLomType()
+		{
+			// TODO
+		}
+
+		private void Texts_To_Vars()
+		{
+			// TODO
 		}
 
 		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
