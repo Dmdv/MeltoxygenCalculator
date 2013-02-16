@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using System.Windows;
@@ -37,6 +38,13 @@ namespace MeltCalc.Pages
 			LomChem_Load();
 			LomChemTotalCount();
 			Lists_Load();
+			InitProstoi();
+		}
+
+		private void InitProstoi()
+		{
+			InitCombobox(_prostoi, Enumerable.Range(7, 54));
+			InitCombobox(_sliv, Enumerable.Range(2, 7));
 		}
 
 		private void InitializeFromGlobals()
@@ -157,11 +165,52 @@ namespace MeltCalc.Pages
 			InitCombobox(_chugSi, Row.SiChug);
 			InitCombobox(_chugP, Row.PChug);
 			InitCombobox(_chugMn, Row.MnChug);
+
+			// Нижний ряд комбобоксов.
+			InitCombobox(_steelTemp, Row.TempSteel);
+			InitComboboxCSteel();
+			InitCombobox(_steelP, Row.PSteel);
+			InitCombobox(_bMin, Row.Bmin);
+			InitCombobox(_bMax, Row.Bmax);
+			InitCombobox(_gostshl, Row.Gostshl);
 		}
 
-		private void InitCombobox(Selector chugTemp, Row tempChug)
+		private void InitComboboxCSteel()
 		{
-			var boundaries = SelectBoundaries(tempChug);
+			var boundaries = SelectBoundaries(Row.CSteel);
+			var step = boundaries.Item3;
+
+			for (var idx = boundaries.Item1; idx < boundaries.Item2; idx += step)
+			{
+				if (idx > 0.099 && idx < 0.11)
+				{
+					step *= 2.0f;
+				}
+
+				if (idx > 0.299 && idx < 0.311)
+				{
+					step *= 2.0f;
+				}
+
+				_steelC.Items.Add(string.Format("{0:0.###}", idx));
+			}
+
+			_steelC.SelectedIndex = Convert.ToInt32(boundaries.Item4);
+		}
+
+		private void InitCombobox<T>(Selector combobox, IEnumerable<T> values)
+		{
+			foreach (var value in values)
+			{
+				combobox.Items.Add(value);
+			}
+
+			combobox.SelectedIndex = 0;
+		}
+
+		private void InitCombobox(Selector chugTemp, Row row)
+		{
+			var boundaries = SelectBoundaries(row);
 
 			for (var idx = boundaries.Item1; idx < boundaries.Item2; idx += boundaries.Item3)
 			{
@@ -188,9 +237,9 @@ namespace MeltCalc.Pages
 				_chugSi.GetDoubleValue() *
 				_chugMn.GetDoubleValue() *
 				_chugP.GetDoubleValue() *
-				_tSt.GetDoubleValue() *
-				_cSt.GetDoubleValue() *
-				_pSt.GetDoubleValue() - 0) < Epsilon && string.IsNullOrWhiteSpace(_lomC.Text))
+				_steelTemp.GetDoubleValue() *
+				_steelC.GetDoubleValue() *
+				_steelP.GetDoubleValue() - 0) < Epsilon && string.IsNullOrWhiteSpace(_lomC.Text))
 			{
 				MessageBox.Show("Рассчёт невозможен", "Введенные данные неверны или неполны", MessageBoxButton.OK);
 				return;
@@ -251,7 +300,29 @@ namespace MeltCalc.Pages
 
 		private void Texts_To_Vars()
 		{
-			// TODO
+			Params.TAUprostREAL = ToFloat(_prostoi.Text);
+			Params.TAPtime = ToFloat(_sliv.Text);
+
+			Tube.Чугун.T = ToDouble(_chugTemp.Text);
+			Tube.Чугун.C = ToDouble(_chugC.Text);
+			Tube.Чугун.Mn = ToDouble(_chugMn.Text);
+			Tube.Чугун.P = ToDouble(_chugP.Text);
+			Tube.Чугун.S = ToDouble(_chugS.Text);
+			Tube.Чугун.Si = ToDouble(_chugSi.Text);
+
+			Tube.Сталь.T = ToDouble(_steelTemp.Text);
+			Tube.Сталь.C = ToDouble(_steelC.Text);
+			Tube.Сталь.P = ToDouble(_steelP.Text);
+
+			if (Params.IsDuplex)
+			{
+				Tube.Шлак.Bmin = ToDouble(_bMin.Text);
+				Tube.Шлак.Bmax = ToDouble(_bMax.Text);
+			}
+			else
+			{
+				//Tube.Шлак.V2O5 = ToDouble(_)		
+			}
 		}
 
 		private void PreviousExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -273,6 +344,11 @@ namespace MeltCalc.Pages
 			return Convert.ToSingle(convertBack);
 		}
 
+		private double ToDouble(string text)
+		{
+			return (double) _converter.ConvertBack(text, typeof(double), null, null);
+		}
+
 		private enum Row
 		{
 			TempChug = 0,
@@ -284,6 +360,9 @@ namespace MeltCalc.Pages
 			TempSteel = 6,
 			CSteel = 7,
 			PSteel = 8,
+			Bmin = 9,
+			Bmax = 10,
+			Gostshl = 11
 		}
 	}
 }
