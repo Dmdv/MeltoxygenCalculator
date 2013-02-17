@@ -49,7 +49,7 @@ namespace MeltCalc.Pages
 
 		private void InitializeFromGlobals()
 		{
-			_stalMass.Value = Tube.Сталь.GYield;
+			_steelMass.Value = Tube.Сталь.GYield;
 
 			if (Params.IsDuplex)
 			{
@@ -59,15 +59,15 @@ namespace MeltCalc.Pages
 
 			if (Params.InputForm == "auto")
 			{
-				_stalMass.IsEnabled = true;
-				_stalMass.AllowSpin = true;
+				_steelMass.IsEnabled = true;
+				_steelMass.AllowSpin = true;
 				// TODO: Использовать step.
 				_stStep = Tube.Сталь.GYieldmemo / 100.0;
 			}
 			else
 			{
-				_stalMass.IsEnabled = false;
-				_stalMass.AllowSpin = false;
+				_steelMass.IsEnabled = false;
+				_steelMass.AllowSpin = false;
 				_stStep = 0.0;
 			}
 		}

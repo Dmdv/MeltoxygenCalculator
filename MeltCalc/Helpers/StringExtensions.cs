@@ -24,6 +24,16 @@ namespace MeltCalc.Helpers
 			return outValue;
 		}
 
+		public static double ToDoubleOrDefault(this string value)
+		{
+			double outValue;
+			if (string.IsNullOrWhiteSpace(value) || !double.TryParse(value, out outValue))
+			{
+				return 0.0d;
+			}
+			return outValue;
+		}
+
 		public static float ToFloat(this string value)
 		{
 			float outValue;

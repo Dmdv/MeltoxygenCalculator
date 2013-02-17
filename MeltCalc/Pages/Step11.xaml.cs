@@ -136,6 +136,9 @@ namespace MeltCalc.Pages
 
 		private void GoToStep12()
 		{
+			var paramsLoad = new ParamsLoad();
+			paramsLoad.Run();
+
 			if (NavigationService != null)
 			{
 				NavigationService.Navigate(new Uri(@"Pages\Step12.xaml", UriKind.Relative));
