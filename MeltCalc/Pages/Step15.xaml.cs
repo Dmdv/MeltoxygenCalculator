@@ -54,7 +54,7 @@ namespace MeltCalc.Pages
 			if (Params.IsDuplex)
 			{
 				_shlak.IsEnabled = false;
-				_leftShlak.IsChecked = false;
+				_chkLeftShlak.IsChecked = false;
 			}
 
 			if (Params.InputForm == "auto")
@@ -255,7 +255,7 @@ namespace MeltCalc.Pages
 				AdaptationData.VArBlow = 0.0;
 			}
 
-			if (!_leftShlak.IsChecked.HasValue || !_leftShlak.IsChecked.Value)
+			if (!_chkLeftShlak.IsChecked.HasValue || !_chkLeftShlak.IsChecked.Value)
 			{
 				Tube.ОставленныйШлак.G = 0;
 			}
@@ -321,7 +321,16 @@ namespace MeltCalc.Pages
 			}
 			else
 			{
-				//Tube.Шлак.V2O5 = ToDouble(_)		
+				Tube.Шлак.V2O5 = ToDouble(_shlakV2O5.Text);
+			}
+
+			if (_chkLeftShlak.IsChecked.HasValue && _chkLeftShlak.IsChecked.Value)
+			{
+				Tube.ОставленныйШлак.G = ToDouble(_gostshl.Text);
+			}
+			else
+			{
+				Tube.ОставленныйШлак.G = 0;
 			}
 		}
 

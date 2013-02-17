@@ -252,11 +252,13 @@
 					</StackPanel>
 					<TextBlock TextWrapping="Wrap" Text=")" VerticalAlignment="Center" FontSize="24"/>
 				</StackPanel>
-				<CheckBox x:Name="_leftShlak" Content="" d:LayoutOverrides="Width" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="2,0,0,0"/>
+				<CheckBox x:Name="_chkLeftShlak" Content="" d:LayoutOverrides="Width" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="2,0,0,0"/>
 				<TextBlock TextWrapping="Wrap" Text="Присутствует оставленный шлак, т" VerticalAlignment="Center" d:LayoutOverrides="Width" Grid.Row="3" Margin="20,0,1,0" Grid.ColumnSpan="2"/>
 			</Grid>
 		</GroupBox>
 	</Grid>
 	<Button Grid.Column="0" Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32" VerticalAlignment="Center" d:LayoutOverrides="HorizontalAlignment" Grid.Row="3" Margin="10,0,0,0" />
-	<Button Grid.Column="0" Content="Вперед..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.NextPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,10,0" /></Grid>
+	<Button Grid.Column="0" Content="Вперед..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.NextPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,10,0" />
+	<TextBox x:Name="_shlakV2O5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Grid.Row="3"/>
+	<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="V2O5 шл" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,110,0"/></Grid>
 </Page>
