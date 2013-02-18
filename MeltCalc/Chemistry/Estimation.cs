@@ -6,32 +6,102 @@ using MeltCalc.Helpers;
 
 namespace MeltCalc.Chemistry
 {
-	// TODO: Проверить соответствие массивов их размеру.
 	public class Estimation
 	{
 		static Estimation()
 		{
-			GizvSAVE = GizkSAVE = GdolSAVE = GvldolSAVE = GimfSAVE = new double[6];
-			GchugSAVE = GlomSAVE = VdutSAVE = GshlSAVE = MnOshlSAVE = GstYieldSAVE = ALFAizvSAVE = new double[6];
+			#region Initialization
 
-			//Минимальные и максимальные пределы по рассчитываемым переменным
-			minimumGchug = maximumGchug = minimumGlom = maximumGlom = minimumVdut = maximumVdut = minimumGshl = maximumGshl = minimumMnOshl = maximumMnOshl = minimumPst = maximumPst = new double();
-			minimumGizv = maximumGizv = minimumGizk = maximumGizk = minimumGdol = maximumGdol = minimumGvldol = maximumGvldol = minimumGimf = maximumGimf = minimumGpes = maximumGpes = minimumGkoks = maximumGkoks = minimumGokal = maximumGokal = minimumGruda = maximumGruda = minimumGokat = maximumGokat = minimumGagl = maximumGagl = minimumGshp = maximumGshp = new double();
-			minimumGstYield = maximumGstYield = minimumAlfaIzv = new double();
+			GizvSAVE = new double[6];
+			GizkSAVE = new double[6];
+			GdolSAVE = new double[6];
+			GvldolSAVE = new double[6];
+			GimfSAVE = new double[6];
+			GshpSAVE = new double[6];
 
-			minGchug = maxGchug = minGlom = maxGlom = minVdut = maxVdut = minGshl = maxGshl = minMnOshl = maxMnOshl = new double[7];
-			minGizv = maxGizv = minGizk = maxGizk = minGdol = maxGdol = minGvldol = maxGvldol = minGimf = maxGimf = minGpes = maxGpes = minGkoks = maxGkoks = minGokal = maxGokal = minGruda = maxGruda = minGokat = maxGokat = minGagl = maxGagl = minGshp = maxGshp = new double[7];
-			minGstYield = maxGstYield = minALFAizv = maxALFAizv = new double[7];
+			GchugSAVE = new double[6];
+			GlomSAVE = new double[6];
+			VdutSAVE = new double[6];
+			GshlSAVE = new double[6];
+			MnOshlSAVE = new double[6];
+			GstYieldSAVE = new double[6];
+			ALFAizvSAVE = new double[6];
 
-			DisbalCaO = DisbalSHL = DisbalTepl = DisbalMat = DisbalO2 = DisbalMnO = DisbalSiO2 = new double[6];
-			
+			minGchug = new double[7];
+			maxGchug = new double[7];
+			minGlom = new double[7];
+			maxGlom = new double[7];
+			minVdut = new double[7];
+			maxVdut = new double[7];
+			minGshl = new double[7];
+			maxGshl = new double[7];
+			minMnOshl = new double[7];
+			maxMnOshl = new double[7];
+
+			minGizv = new double[7];
+			maxGizv = new double[7];
+			minGizk = new double[7];
+			maxGizk = new double[7];
+			minGdol = new double[7];
+			maxGdol = new double[7];
+			minGvldol = new double[7];
+			maxGvldol = new double[7];
+			minGimf = new double[7];
+			maxGimf = new double[7];
+			minGpes = new double[7];
+			maxGpes = new double[7];
+			minGkoks = new double[7];
+			maxGkoks = new double[7];
+			minGokal = new double[7];
+			maxGokal = new double[7];
+			minGruda = new double[7];
+			maxGruda = new double[7];
+			minGokat = new double[7];
+			maxGokat = new double[7];
+			minGagl = new double[7];
+			maxGagl = new double[7];
+			minGshp = new double[7];
+			maxGshp = new double[7];
+
+			minGstYield = new double[7];
+			maxGstYield = new double[7];
+			minALFAizv = new double[7];
+			maxALFAizv = new double[7];
+
+			DisbalCaO = new double[6];
+			DisbalSHL = new double[6];
+			DisbalTepl = new double[6];
+			DisbalMat = new double[6];
+			DisbalO2 = new double[6];
+			DisbalMnO = new double[6];
+			DisbalSiO2 = new double[6];
+
 			Tube.Сталь.Si = 0.005;
 
-			Tube.Шлак.G = (minimumGshl + maximumGshl) / 2.0;
-			Tube.Чугун.G = (minimumGchug + maximumGchug) / 2.0; 
-			Tube.Лом.G = (minimumGlom + maximumGlom) / 2.0; 
+			Tube.Шлак.G = (minimumGshl + maximumGshl)/2.0;
+			Tube.Чугун.G = (minimumGchug + maximumGchug)/2.0;
+			Tube.Лом.G = (minimumGlom + maximumGlom)/2.0;
 			Tube.Сталь.P = Tube.Сталь.PMAX;
 			Params.Tog = Tube.Сталь.T;
+
+			// Шаги переменных
+			stepGizv = new double[6];
+			stepGizk = new double[6];
+			stepGdol = new double[6];
+			stepGvldol = new double[6];
+			stepGimf = new double[6];
+			stepGshp = new double[6];
+
+			stepGchug = new double[6];
+			stepGlom = new double[6];
+			stepVdut = new double[6];
+			stepGshl = new double[6];
+			stepMnOshl = new double[6];
+
+			stepGstYield = new double[6];
+			stepALFAizv = new double[6];
+
+			#endregion
 		}
 
 		// Специальные переменные
@@ -389,6 +459,7 @@ namespace MeltCalc.Chemistry
 					maxMnOshl[Params.Round + 1] = MnOshlSAVE[Params.Round] + stepMnOshl[Params.Round];
 				}
 
+				// TODO: А чему она присваивается-то?
 				Calculate_Pst_Bal_P(Params.Round);
 
 				// Проверка, прошли ли по P.
@@ -602,6 +673,8 @@ namespace MeltCalc.Chemistry
 		{
 			Params.Lp = b0 + b1 * Tube.Шлак.B + b2 * Tube.Шлак.TOTALFeO + b3 * Tube.Сталь.T + b4 * AdaptationData.VArBlow;
 		}
+
+		// TODO: Проверить все функции, которые что-то возвращают, но ничего не присваивают.
 
 		private double Calculate_P2O5shl_Bal_P()
 		{
