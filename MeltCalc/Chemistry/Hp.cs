@@ -111,6 +111,12 @@ namespace MeltCalc.Chemistry
 			dSc_mno_mol = rows["c_mno_mol"].Item2.ToDoubleOrZero();
 
 			dHfe_fe2o3_o2_mol = rows["fe_fe2o3_o2_mol"].Item1.ToDoubleOrZero();
+
+			dHchugPlavl = rows["dHchugPlavl"].Item1.ToDoubleOrZero();
+			dHlomPlavl = rows["dHlomPlavl"].Item1.ToDoubleOrZero();
+			dHizkPlavl = rows["dHizkPlavl"].Item1.ToDoubleOrZero();
+			dHsio2_2caosio2 = rows["dHsio2_2caosio2"].Item1.ToDoubleOrZero();
+			dHp2o5_3caop2o5 = rows["dHp2o5_3caop2o5"].Item1.ToDoubleOrZero();
 		}
 	}
 }
