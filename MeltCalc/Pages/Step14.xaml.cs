@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -41,6 +42,19 @@ namespace MeltCalc.Pages
 			Loaded -= OnLoaded;
 			// TODO: Сделать инициализацию из диспатчера.
 			InitializeGroupContainers();
+
+			Tube.Известь.Load();
+			Tube.Известняк.Load();
+			Tube.Доломит.Load();
+			Tube.ВлажныйДоломит.Load();
+			Tube.Имф.Load();
+			Tube.Песок.Load();
+			Tube.Кокс.Load();
+			Tube.Окатыши.Load();
+			Tube.Руда.Load();
+			Tube.Окалина.Load();
+			Tube.Агломерат.Load();
+			Tube.Шпат.Load();
 		}
 
 		private void InitializeGroupContainers()

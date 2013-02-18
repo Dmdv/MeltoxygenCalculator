@@ -43,8 +43,10 @@ namespace MeltCalc.Pages
 
 		private void InitProstoi()
 		{
-			InitCombobox(_prostoi, Enumerable.Range(7, 54));
+			InitCombobox(_prostoi, Enumerable.Range((int) (Params.TAUprost - 2), 54));
+			_prostoi.SelectedIndex = 2;
 			InitCombobox(_sliv, Enumerable.Range(2, 7));
+			_sliv.SelectedIndex = 4;
 		}
 
 		private void InitializeFromGlobals()
@@ -263,7 +265,7 @@ namespace MeltCalc.Pages
 			// присвоение основным переменным значений
 			Texts_To_Vars();
 
-			if (Params.IsDuplex)
+			if (!Params.IsDuplex)
 			{
 				SaveLastLomType();
 			}
@@ -271,7 +273,7 @@ namespace MeltCalc.Pages
 			SaveLastListIndexes();
 
 			// Расчет доли легковесного лома
-			if (Params.IsDuplex)
+			if (!Params.IsDuplex)
 			{
 				Tube.Лом.DolyaLegkovesa =
 					(float) ((_highSmall.GetDoubleValue() +
@@ -312,9 +314,9 @@ namespace MeltCalc.Pages
 
 			Tube.Сталь.T = ToDouble(_steelTemp.Text);
 			Tube.Сталь.C = ToDouble(_steelC.Text);
-			Tube.Сталь.P = ToDouble(_steelP.Text);
+			Tube.Сталь.PMAX = ToDouble(_steelP.Text);
 
-			if (Params.IsDuplex)
+			if (!Params.IsDuplex)
 			{
 				Tube.Шлак.Bmin = ToDouble(_bMin.Text);
 				Tube.Шлак.Bmax = ToDouble(_bMax.Text);

@@ -122,7 +122,7 @@ namespace MeltCalc.Chemistry
 			Tube.Сталь.P = Tube.Сталь.PMAX;
 			Params.Tog = Tube.Сталь.T;
 
-			Calculate_P2O5shl_Bal_P();
+			Tube.Шлак.P2O5 = Calculate_P2O5shl_Bal_P();
 
 			NeededLp = Tube.Шлак.P2O5 / Tube.Сталь.P;
 
@@ -148,7 +148,7 @@ namespace MeltCalc.Chemistry
 
 			//Рассчет концентрации серы в стали
 			Tube.Сталь.S = 0.8 *
-						   (Tube.Чугун.G * Tube.Чугун.S + Tube.Лом.G * Tube.Лом.S + Tube.Pack.ALFA * Tube.Pack.S * Tube.Pack.G) /
+						   (Tube.Чугун.G * Tube.Чугун.S + Tube.Лом.G * Tube.Лом.S + Tube.Пакеты.ALFA * Tube.Пакеты.S * Tube.Пакеты.G) /
 						   (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss));
 
 			SumDisbal = DisbalCaO[Params.Round - 1] + DisbalMat[Params.Round - 1] + DisbalSHL[Params.Round - 1] +
@@ -505,7 +505,7 @@ namespace MeltCalc.Chemistry
 			var paramsMdb = new ParamsMdb();
 			var table = paramsMdb.Reader.FetchTable("regressions");
 
-			if (Params.IsDuplex)
+			if (!Params.IsDuplex)
 			{
 				var range = table.SelectRowRange(0).RangeInclusive(2, 8).Select(x => x.ToDouble()).ToArray();
 				a0 = range[0];
@@ -519,7 +519,7 @@ namespace MeltCalc.Chemistry
 				range = table.SelectRowRange(1).RangeInclusive(2, 7).Select(x => x.ToDouble()).ToArray();
 				c0 = range[0];
 				c1 = range[1];
-				c2 = range[3];
+				c2 = range[2];
 				c3 = range[3];
 				c4 = range[4];
 				c5 = range[5];
@@ -527,7 +527,7 @@ namespace MeltCalc.Chemistry
 				range = table.SelectRowRange(2).RangeInclusive(2, 6).Select(x => x.ToDouble()).ToArray();
 				b0 = range[0];
 				b1 = range[1];
-				b2 = range[3];
+				b2 = range[2];
 				b3 = range[3];
 				b4 = range[4];
 			}
@@ -545,7 +545,7 @@ namespace MeltCalc.Chemistry
 				range = table.SelectRowRange(6).RangeInclusive(2, 7).Select(x => x.ToDouble()).ToArray();
 				c0 = range[0];
 				c1 = range[1];
-				c2 = range[3];
+				c2 = range[2];
 				c3 = range[3];
 				c4 = range[4];
 				c5 = range[5];
@@ -554,8 +554,8 @@ namespace MeltCalc.Chemistry
 
 		public static void CALCULATE_TEPLCONSTANTS()
 		{
-			Cp.izv = 4.1868 * 1000 * (11.86 + 0.00108 * (Params.AirTemp + 273) - 166000.0 / Math.Pow((Params.AirTemp + 273), 2) / 44.0);
-			Cp.izk = 4.1868 * 1000 * (24.98 + 0.00524 * (Params.AirTemp + 273) - 620000.0 / Math.Pow((Params.AirTemp + 273),2) / 100.0);
+			Cp.izv = 4.1868 * 1000 * (11.86 + 0.00108 * (Params.AirTemp + 273) - 166000.0 / Math.Pow((Params.AirTemp + 273), 2)) / 44.0;
+			Cp.izk = 4.1868 * 1000 * (24.98 + 0.00524 * (Params.AirTemp + 273) - 620000.0 / Math.Pow((Params.AirTemp + 273),2)) / 100.0;
 			Cp.ruda = 4.1868 * 1000 * (31.7 + 0.00176 * (Params.AirTemp + 273)) * 1 / 160;
 			Cp.shp = 4.1868 * 1000 * (25.81 + 0.0025 * (Params.AirTemp + 273)) * 1 / 78;
 			Cp.okal = 4.1868 * 1000 * 48 * 1 / 232;
@@ -578,7 +578,7 @@ namespace MeltCalc.Chemistry
 			Cp.Fe = 770;
 
 			//Теплоемкость дутья (продувка металла воздухом, содержащим Ar, N2 и O2)
-			Cp.DUT = (Cp.Ar * Tube.Дутье.Ar + (1000 * (0.0000829 * (-150 + 273) + 1.0136983)) * Tube.Дутье.N2 + (1000 * (0.0000698 * (-150 + 273) + 0.9478846)) * Tube.Дутье.O2) * 1 / 100;
+			Cp.DUT = (Cp.Ar * Tube.Дутье.Ar + (1000 * (0.0000829 * (-150 + 273) + 1.0136983)) * Tube.Дутье.N2 + (1000 * (0.0000698 * (-150 + 273) + 0.9478846)) * Tube.Дутье.O2) * 1 / 100.0;
 
 			Hp.dHshl = 4.1868 * 1000 * (0.289 * Tube.Сталь.T + 50);
 			Hp.dHmshl = (0.117 * Tube.Чугун.T + 1.015 * Math.Pow(Tube.Чугун.T, 2) / 1000) * 1000;
@@ -609,9 +609,9 @@ namespace MeltCalc.Chemistry
 				(Tube.Чугун.G * Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P
 				+ Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.P2O5 * 62.0 / 142.0 + Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.P2O5 * 62.0 / 142.0
 				+ Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.P + Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.P
-				+ Tube.Футеровка.P2O5 * 62.0 / 142.0
-				+ Tube.ОставленныйШлак.P2O5 * 62.0 / 142.0 + Tube.МиксерныйШлак.P2O5 * 62.0 / 142.0
-				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P
+				+ Tube.Футеровка.G * Tube.Футеровка.P2O5 * 62.0 / 142.0
+				+ Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.P2O5 * 62.0 / 142.0 + Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.P2O5 * 62.0 / 142.0
+				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P
 				- (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) / (Tube.Шлак.G * 62.0 / 142.0);
 		}
 
@@ -621,7 +621,7 @@ namespace MeltCalc.Chemistry
 				(GchugSAVE[round - 1] * Tube.Чугун.P + GlomSAVE[round - 1] * Tube.Лом.P
 				+ Tube.Известняк.ALFA * GizvSAVE[round - 1] * Tube.Известь.P2O5 * 62.0 / 142.0 + Tube.Известняк.ALFA * Tube.Известняк.P2O5 * 62.0 / 142.0
 				+ Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.P + Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.P
-				+ Tube.Футеровка.G * Tube.Футеровка.P2O5 * 62.0 / 142.0 + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.P
+				+ Tube.Футеровка.G * Tube.Футеровка.P2O5 * 62.0 / 142.0 + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P
 				+ Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.P2O5 * 62.0 / 142.0 + Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.P2O5 * 62.0 / 142.0
 				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P) / ((Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) + GshlSAVE[round - 1] * Params.Lp * 62.0 / 142.0);
 		}
@@ -636,7 +636,7 @@ namespace MeltCalc.Chemistry
 				+ Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * (Tube.ВлажныйДоломит.CaO + Tube.ВлажныйДоломит.MgO) + +Tube.Имф.ALFA * Tube.Имф.G * (Tube.Имф.CaO + Tube.Имф.MgO)
 				+ Tube.Футеровка.G * (Tube.Футеровка.CaO + Tube.Футеровка.MgO) + Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.CaO + Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.CaO
 				+ Tube.ОставленныйШлак.G * (Tube.ОставленныйШлак.CaO + Tube.ОставленныйШлак.MgO) + Tube.МиксерныйШлак.G * (Tube.МиксерныйШлак.CaO + Tube.МиксерныйШлак.MgO)
-				+ Tube.Pack.ALFA * Tube.Pack.G * (Tube.Pack.CaO + Tube.Pack.MgO);
+				+ Tube.Пакеты.ALFA * Tube.Пакеты.G * (Tube.Пакеты.CaO + Tube.Пакеты.MgO);
 
 			double RightCaO_po_B =
 				Tube.Шлак.B * (60.0 / 28.0) *
@@ -645,7 +645,7 @@ namespace MeltCalc.Chemistry
 				 (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si)
 				+ Tube.Шлак.B * Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.SiO2 +
 				Tube.Шлак.B * Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.SiO2 +
-				Tube.Шлак.B * Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.SiO2
+				Tube.Шлак.B * Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.SiO2
 				+
 				Tube.Шлак.B *
 				(Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.SiO2 +
@@ -671,7 +671,7 @@ namespace MeltCalc.Chemistry
 				+ Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * (Tube.ВлажныйДоломит.CaO + Tube.ВлажныйДоломит.MgO) + Tube.Имф.ALFA * Tube.Имф.G * (Tube.Имф.CaO + Tube.Имф.MgO)
 				+ Tube.Футеровка.G * (Tube.Футеровка.CaO + Tube.Футеровка.MgO) + Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.CaO + Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.CaO
 				+ Tube.ОставленныйШлак.G * (Tube.ОставленныйШлак.CaO + Tube.ОставленныйШлак.MgO) + Tube.МиксерныйШлак.G * (Tube.МиксерныйШлак.CaO + Tube.МиксерныйШлак.MgO)
-				+ Tube.Pack.ALFA * Tube.Pack.G * (Tube.Pack.CaO + Tube.Pack.MgO);
+				+ Tube.Пакеты.ALFA * Tube.Пакеты.G * (Tube.Пакеты.CaO + Tube.Пакеты.MgO);
 
 			double RightCaOiMgO = 
 				Tube.Шлак.G * (Tube.Шлак.CaO + Tube.Шлак.MgO);
@@ -682,17 +682,17 @@ namespace MeltCalc.Chemistry
 				Tube.Шлак.G + Tube.МиксерныйШлак.G + Tube.ОставленныйШлак.G
 				+ (60.0/28.0)*(Tube.Чугун.G*Tube.Чугун.Si + Tube.Лом.G * Tube.Лом.Si + Tube.Ферросплав.ALFA*Tube.Ферросплав.G*Tube.Ферросплав.Si - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si) * 1/100
 				+ (71.0/55.0)*(Tube.Чугун.G*Tube.Чугун.Mn + Tube.Лом.G * Tube.Лом.Mn + Tube.Ферросплав.ALFA*Tube.Ферросплав.G*Tube.Ферросплав.Mn - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Mn) * 1/100
-				+ (142.0/62.0)*(Tube.Чугун.G*Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Ферросплав.ALFA*Tube.Ферросплав.G*Tube.Ферросплав.P + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.P - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Mn) * 1/100
-				+ (Tube.Шлак.G * Tube.Шлак.FeO - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.FeO - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO - Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.FeO
+				+ (142.0/62.0)*(Tube.Чугун.G*Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Ферросплав.ALFA*Tube.Ферросплав.G*Tube.Ферросплав.P + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Mn) * 1/100
+				+ (Tube.Шлак.G * Tube.Шлак.FeO - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.FeO - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO - Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.FeO
 				- Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.FeO - Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.Fe3O4 * (72.0/232.0) - Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.FeO) * 1/100
-				+ (Tube.Шлак.G * Tube.Шлак.Fe2O3 - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.Fe2O3 - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.Fe2O3 - Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.Fe2O3
+				+ (Tube.Шлак.G * Tube.Шлак.Fe2O3 - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.Fe2O3 - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.Fe2O3 - Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.Fe2O3
 				- Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.Fe2O3 - Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.Fe2O3 - Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.Fe2O3
 				- Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.Fe2O3 - Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.Fe3O4 * (160.0/232.0) - Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.Fe2O3 - Tube.Имф.ALFA * Tube.Имф.G * Tube.Имф.Fe2O3) * 1/100
 				+ Tube.Известь.ALFA * Tube.Известь.G * (Tube.Известь.CaO + Tube.Известь.SiO2 + Tube.Известь.MgO + Tube.Известь.P2O5 + Tube.Известь.Al2O3) * 1/100
 				+ Tube.Известняк.ALFA * Tube.Известняк.G * ((56.0/100.0)*Tube.Известняк.CaCO3 + Tube.Известняк.SiO2 + Tube.Известняк.P2O5) * 1/100
 				+ Tube.Доломит.ALFA * Tube.Доломит.G *(Tube.Доломит.CaO + Tube.Доломит.SiO2 + Tube.Доломит.MgO + Tube.Доломит.Fe2O3 + Tube.Доломит.Al2O3) * 1/100
 				+ Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G *(Tube.ВлажныйДоломит.CaO + Tube.ВлажныйДоломит.SiO2 + Tube.ВлажныйДоломит.MgO + Tube.ВлажныйДоломит.Fe2O3 + Tube.ВлажныйДоломит.Al2O3) * 1/100
-				+ Tube.Pack.ALFA * Tube.Pack.G * (Tube.Pack.CaO + Tube.Pack.SiO2 + Tube.Pack.MnO + Tube.Pack.MgO + Tube.Pack.P2O5 + Tube.Pack.FeO + Tube.Pack.Fe2O3 + Tube.Pack.Al2O3) * 1 / 100
+				+ Tube.Пакеты.ALFA * Tube.Пакеты.G * (Tube.Пакеты.CaO + Tube.Пакеты.SiO2 + Tube.Пакеты.MnO + Tube.Пакеты.MgO + Tube.Пакеты.P2O5 + Tube.Пакеты.FeO + Tube.Пакеты.Fe2O3 + Tube.Пакеты.Al2O3) * 1 / 100
 				+ Tube.Имф.ALFA * Tube.Имф.G * (Tube.Имф.CaO + Tube.Имф.SiO2 + Tube.Имф.MgO + Tube.Имф.Fe2O3) * 1/100
 				+ Tube.Окатыши.ALFA * Tube.Окатыши.G * (Tube.Окатыши.SiO2 + Tube.Окатыши.FeO + Tube.Окатыши.Fe2O3) * 1/100
 				+ Tube.Руда.ALFA * Tube.Руда.G * (Tube.Руда.CaO + Tube.Руда.SiO2 + Tube.Руда.Al2O3 + Tube.Руда.Fe2O3) * 1/100
@@ -707,7 +707,7 @@ namespace MeltCalc.Chemistry
 			//Тепловой баланс
 
 			double LeftTEPL =
-			Cp.ChugLiquid * 1000 * (Tube.Чугун.T + 273) * Tube.Чугун.G + Cp.LomSolid * 1000 * (Params.AirTemp + 273) * Tube.Лом.G + Tube.Pack.dH * Tube.Pack.ALFA * Tube.Pack.G + Hp.dHmshl * Tube.МиксерныйШлак.G + Hp.dHostshl * Tube.ОставленныйШлак.G
+			Cp.ChugLiquid * 1000 * (Tube.Чугун.T + 273) * Tube.Чугун.G + Cp.LomSolid * 1000 * (Params.AirTemp + 273) * Tube.Лом.G + Tube.Пакеты.dH * Tube.Пакеты.ALFA * Tube.Пакеты.G + Hp.dHmshl * Tube.МиксерныйШлак.G + Hp.dHostshl * Tube.ОставленныйШлак.G
 			+ Tube.Дутье.V * (-150.0 + 273.0) * (1.43 / 1000 * Cp.DUT) + AdaptationData.VArBlow * 1.784 / 1000 * Cp.Ar * (Params.AirTemp + 273)
 			+ Tube.Известь.ALFA * Tube.Известь.G * Cp.izv * (Params.AirTemp + 273) + Tube.Известняк.ALFA * Tube.Известняк.G * Cp.izk + Tube.Доломит.ALFA * Tube.Доломит.G * Cp.dol * (Params.AirTemp + 273) + Tube.Кокс.ALFA * Tube.Кокс.G * Cp.koks * (Params.AirTemp + 273)
 			+ Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Cp.vldol * (Params.AirTemp + 273) + Tube.Имф.ALFA * Tube.Имф.G * Cp.IMF * (Params.AirTemp + 273)
@@ -715,38 +715,38 @@ namespace MeltCalc.Chemistry
 			+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Cp.Alloy * (Params.AirTemp + 273) + Tube.Известь.ALFA * AdaptationData.GDensing * Cp.Densing * (Params.AirTemp + 273)
 			+ Tube.Агломерат.ALFA * Tube.Агломерат.G * Cp.agl * (Params.AirTemp + 273) + Tube.Шпат.ALFA * Tube.Шпат.G * Cp.shp * (Params.AirTemp + 273) + Tube.Песок.ALFA * Tube.Песок.G * Cp.pes * (Params.AirTemp + 273)
 			+ -Hp.dHsio2_2caosio2 * 1000 * 60.0 / 28.0 * (Tube.Чугун.G * Tube.Чугун.Si + Tube.Лом.G * Tube.Лом.Si + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Si - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si) * 1 / 100
-			+ -Hp.dHsio2_2caosio2 * 1000 * (Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.SiO2 + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.SiO2 + Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.SiO2 + Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.SiO2
+			+ -Hp.dHsio2_2caosio2 * 1000 * (Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.SiO2 + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.SiO2 + Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.SiO2 + Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.SiO2
 			+ Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.SiO2 + Tube.Имф.ALFA * Tube.Имф.G * Tube.Имф.SiO2 + Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.SiO2
 			+ Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.SiO2 + Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.SiO2 + Tube.Шпат.ALFA * Tube.Шпат.G * Tube.Шпат.SiO2 + Tube.Песок.ALFA * Tube.Песок.G * Tube.Песок.SiO2) * 1 / 100
-			+ -Hp.dHp2o5_3caop2o5 * 1000 * (142 / 62 * Tube.Чугун.G * Tube.Чугун.P + 142 / 62 * Tube.Лом.G * Tube.Лом.P + 142 / 62 * Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.P + 142 / 62 * Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P + Tube.Футеровка.G * Tube.Футеровка.P2O5
+			+ -Hp.dHp2o5_3caop2o5 * 1000 * (142 / 62 * Tube.Чугун.G * Tube.Чугун.P + 142 / 62 * Tube.Лом.G * Tube.Лом.P + 142 / 62 * Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P + 142 / 62 * Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P + Tube.Футеровка.G * Tube.Футеровка.P2O5
 			+ 142 / 62 * (Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.P + Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.P) + Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.P2O5 + Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.P2O5
 			+ Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.P2O5 + Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.P2O5 - 142 / 62 * (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) * 1 / 100
 			+ -Hp.dHsi_O2_mol / 28 * 1000 * (Tube.Чугун.G * Tube.Чугун.Si + Tube.Лом.G * Tube.Лом.Si + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Si - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si) * 1 / 100
 			+ -Hp.dHmn_O2_mol / 55 * 1000 * (Tube.Чугун.G * Tube.Чугун.Mn + Tube.Лом.G * Tube.Лом.Mn + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Mn - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Mn) * 1 / 100
-			+ -Hp.dHmn_O2_mol / 31 * 1000 * (Tube.Чугун.G * Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.P + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) * 1 / 100
+			+ -Hp.dHmn_O2_mol / 31 * 1000 * (Tube.Чугун.G * Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) * 1 / 100
 			+ -Hp.dHfe_O2_mol / 56 * 1000 * 56 / 72 * (Tube.Шлак.G * Tube.Шлак.FeO - Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.FeO - Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.FeO
-			- Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.FeO - Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.FeO - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.FeO) * 1 / 100
+			- Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.FeO - Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.FeO - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO - Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.FeO) * 1 / 100
 			+ -Hp.dHfe_fe2o3_o2_mol / 56 * 1000 * 112 / 160 * (Tube.Шлак.G * Tube.Шлак.Fe2O3 - Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.Fe2O3 - Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.Fe2O3
-			- Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.Fe2O3 - Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.Fe2O3 - Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.Fe2O3 - Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.Fe2O3
+			- Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.Fe2O3 - Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.Fe2O3 - Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.Fe2O3 - Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.Fe2O3
 			- Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.Fe2O3 - Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.Fe2O3 - Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.Fe2O3 - Tube.Имф.ALFA * Tube.Имф.G * Tube.Имф.Fe2O3) * 1 / 100
-			+ -Hp.dHc_O2_mol / 12 * 1000 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Футеровка.G * Tube.Футеровка.C + Tube.Кокс.ALFA * Tube.Кокс.G * Tube.Кокс.C + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.C) * 1 / 100
+			+ -Hp.dHc_O2_mol / 12 * 1000 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Футеровка.G * Tube.Футеровка.C + Tube.Кокс.ALFA * Tube.Кокс.G * Tube.Кокс.C + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.C) * 1 / 100
 			+ -Hp.dHco_co2_mol / 16 * Tube.Дутье.V * Params.L * 1.43;
 
 			double RightTEPL = 
 				Cp.Met * 1000 * (Tube.Сталь.T + 273) * (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) + Hp.dHshl * Tube.Шлак.G + Hp.dHizkPlavl * 1000 * (Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.CaCO3 + 100 / 56 * Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.CaO) * 1 / 100 
-				+ -Hp.dHfe_O2_mol * 1000 / 72 * (Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO + Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.FeO + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.FeO
+				+ -Hp.dHfe_O2_mol * 1000 / 72 * (Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.FeO + Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.FeO + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.FeO
 				+ Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.FeO + Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.FeO + Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.FeO) * 1 / 100
 				+ -2 * Hp.dHfe_fe2o3_o2_mol * 1000 / 160 * (Tube.Доломит.ALFA * Tube.Доломит.G * Tube.Доломит.Fe2O3 + Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.Fe2O3 + Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.Fe2O3
 				+ Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.Fe2O3 + Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.Fe2O3 + Tube.Агломерат.ALFA * Tube.Агломерат.G * Tube.Агломерат.Fe2O3
-				+ Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.Fe2O3 + Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.Fe2O3 + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.Fe2O3 + Tube.Имф.ALFA * Tube.Имф.G * Tube.Имф.Fe2O3) * 1 / 100
+				+ Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.Fe2O3 + Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.Fe2O3 + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.Fe2O3 + Tube.Имф.ALFA * Tube.Имф.G * Tube.Имф.Fe2O3) * 1 / 100
 				+ Tube.Известь.ALFA * AdaptationData.GDensing * Cp.Densing * (Tube.Сталь.T + 273)
-				+ Cp.CO * (Params.Tog + 273) * 28 / 12 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Кокс.ALFA * Tube.Кокс.G * Tube.Кокс.C + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C + Tube.Футеровка.G * Tube.Футеровка.C - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * (Tube.Сталь.C) - 12 / 16 * Tube.Дутье.V  * Params.L * 1.43 / 1000 * 100) * 1 / 100 
+				+ Cp.CO * (Params.Tog + 273) * 28 / 12 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Кокс.ALFA * Tube.Кокс.G * Tube.Кокс.C + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C + Tube.Футеровка.G * Tube.Футеровка.C - (Tube.Сталь.GYield/(1 - Params.alfaFe - Params.StAndShlLoss)) * (Tube.Сталь.C) - 12 / 16 * Tube.Дутье.V  * Params.L * 1.43 / 1000 * 100) * 1 / 100 
 				+ Cp.CO2 * (Params.Tog + 273) * 44 / 16 * Tube.Дутье.V  * Params.L * 1.43 / 1000 + AdaptationData.VArBlow * 1.784 / 1000 * Cp.Ar * (Params.Tog + 273) 
 				+ Cp.H2O * (Params.Tog + 273) * (Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.H2O + Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.H2O +  Tube.Песок.ALFA * Tube.Песок.G * Tube.Песок.H2O + Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.H2O) * 1 / 100 
 				+ Cp.CO2 * (Params.Tog + 273) * (Tube.Известняк.ALFA * Tube.Известняк.G * 44 / 100 * Tube.Известняк.CaCO3 + Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.CO2) * 1 / 100 
 				+ Params.TeplFutLoss * (Params.TAUprostREAL + Params.TAPtime + Params.BlowingTime) / (Params.TAUprost + Params.TAPtime + Params.BlowingTime) 
 				+ Hp.dHlomPlavl * 1000 * Tube.Лом.G 
-				+ Params.alfaFe * (Tube.Чугун.G * (100 - Tube.Чугун.C - Tube.Чугун.Si - Tube.Чугун.Mn - Tube.Чугун.P - Tube.Чугун.S) + Tube.Лом.G  * (100 - Tube.Лом.C - Tube.Лом.Si - Tube.Лом.Mn - Tube.Лом.P - Tube.Лом.S) + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.Fe) 
+				+ Params.alfaFe * (Tube.Чугун.G * (100 - Tube.Чугун.C - Tube.Чугун.Si - Tube.Чугун.Mn - Tube.Чугун.P - Tube.Чугун.S) + Tube.Лом.G  * (100 - Tube.Лом.C - Tube.Лом.Si - Tube.Лом.Mn - Tube.Лом.P - Tube.Лом.S) + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.Fe) 
 				* (0.7 * 72 / 56 * Cp.FeO * (Params.Tog + 273) + 0.3 * Cp.Fe * (Params.Tog + 273)) * 1 / 100;
 
 			//Баланс кислорода
@@ -759,14 +759,14 @@ namespace MeltCalc.Chemistry
 				+ Tube.МиксерныйШлак.G * (16.0/72.0 * Tube.МиксерныйШлак.FeO + 48.0/160.0 * Tube.МиксерныйШлак.Fe2O3 + 16.0/71.0 * Tube.МиксерныйШлак.MnO) * 1/100 + Tube.Песок.ALFA * Tube.Песок.G * Tube.Песок.H2O * 16.0/18.0 * 1/100
 				+ Tube.ОставленныйШлак.G * (16.0/72.0 * Tube.ОставленныйШлак.FeO + 48.0/160.0 * Tube.ОставленныйШлак.Fe2O3 + 16.0/71.0 * Tube.ОставленныйШлак.MnO) * 1/100
 				+ Tube.Имф.ALFA * Tube.Имф.G * 48.0/160.0 * Tube.Имф.Fe2O3 / 100
-				+ Tube.Pack.ALFA * Tube.Pack.G * (16 / 71 * Tube.Pack.MnO + 16 / 72 * Tube.Pack.FeO + 48 / 160 * Tube.Pack.Fe2O3) * 1 / 100;
+				+ Tube.Пакеты.ALFA * Tube.Пакеты.G * (16 / 71 * Tube.Пакеты.MnO + 16 / 72 * Tube.Пакеты.FeO + 48 / 160 * Tube.Пакеты.Fe2O3) * 1 / 100;
 
 			double RightO2 = 
 				(Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * (0.0038 * Tube.Сталь.C) * 1 / 100
 				+ Tube.Шлак.G * (16.0/72.0 * Tube.Шлак.FeO + 48.0/160.0 * Tube.Шлак.Fe2O3 + 16.0/71.0 * Tube.Шлак.MnO) * 1/100
 				+ 32.0 / 28.0 * (Tube.Чугун.G * Tube.Чугун.Si + Tube.Лом.G * Tube.Лом.Si + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Si - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Si) * 1/100
-				+ 80.0 / 62.0 * (Tube.Чугун.G * Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.P + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) * 1/100
-				+ 16.0 / 12.0 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.C * Tube.Лом.P + Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C + Tube.Футеровка.G * Tube.Футеровка.C - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.C) * 1/100
+				+ 80.0 / 62.0 * (Tube.Чугун.G * Tube.Чугун.P + Tube.Лом.G * Tube.Лом.P + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.P + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.P - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.P) * 1/100
+				+ 16.0 / 12.0 * (Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.C * Tube.Лом.P + Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C + Tube.Футеровка.G * Tube.Футеровка.C - (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.C) * 1/100
 				+ Tube.Дутье.V * Params.L * 1.43 / 1000
 				+ Params.alfaFe * 0.7 * 16 / 56 * (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss))
 				+ 48.0 / 54.0 * Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Al;
@@ -779,12 +779,12 @@ namespace MeltCalc.Chemistry
 				+ Tube.Окатыши.ALFA * Tube.Окатыши.G  + Tube.Руда.ALFA * Tube.Руда.G + Tube.Окалина.ALFA * Tube.Окалина.G + Tube.Агломерат.ALFA * Tube.Агломерат.G + Tube.Шпат.ALFA * Tube.Шпат.G + Tube.Песок.ALFA * Tube.Песок.G
 				+ Tube.МиксерныйШлак.G + Tube.ОставленныйШлак.G + Tube.Футеровка.G
 				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G
-				+ Tube.Pack.ALFA * Tube.Pack.G;
+				+ Tube.Пакеты.ALFA * Tube.Пакеты.G;
 
 			double RightMAT =
 				(Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) + Tube.Шлак.G +
 				(28.0 / 12.0) *
-				(Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Pack.G * Tube.Pack.C +
+				(Tube.Чугун.G * Tube.Чугун.C + Tube.Лом.G * Tube.Лом.C + Tube.Пакеты.G * Tube.Пакеты.C +
 				 Tube.Кокс.ALFA * Tube.Кокс.G * Tube.Кокс.C + Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.C +
 				 Tube.Футеровка.G * Tube.Футеровка.C -
 				 (Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.C * 1.0 / 100.0
@@ -802,7 +802,7 @@ namespace MeltCalc.Chemistry
 				Tube.Чугун.G * Tube.Чугун.Mn + Tube.Лом.G * Tube.Лом.Mn + Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.MnO * 55.0 / 71.0
 				+ Tube.ОставленныйШлак.G * Tube.ОставленныйШлак.MnO *  55.0 / 71.0 + Tube.МиксерныйШлак.G * Tube.МиксерныйШлак.MnO *  55.0 / 71.0
 				+ Tube.Ферросплав.ALFA * Tube.Ферросплав.G * Tube.Ферросплав.Mn
-				+ 55.0 / 71.0 * Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.MnO;
+				+ 55.0 / 71.0 * Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.MnO;
 
 			double RightMn =
 				(Tube.Сталь.GYield / (1 - Params.alfaFe - Params.StAndShlLoss)) * Tube.Сталь.Mn + Tube.Шлак.G * Tube.Шлак.MnO * 55.0 / 71.0;
@@ -819,7 +819,7 @@ namespace MeltCalc.Chemistry
 				 Tube.Известняк.ALFA * Tube.Известняк.G * Tube.Известняк.SiO2 +
 				 Tube.Известь.ALFA * Tube.Известь.G * Tube.Известь.SiO2
 				 + Tube.Окалина.ALFA * Tube.Окалина.G * Tube.Окалина.SiO2 + Tube.Окатыши.ALFA * Tube.Окатыши.G * Tube.Окатыши.SiO2 +
-				 Tube.Pack.ALFA * Tube.Pack.G * Tube.Pack.SiO2 + Tube.Песок.ALFA * Tube.Песок.G * Tube.Песок.SiO2
+				 Tube.Пакеты.ALFA * Tube.Пакеты.G * Tube.Пакеты.SiO2 + Tube.Песок.ALFA * Tube.Песок.G * Tube.Песок.SiO2
 				 + Tube.Руда.ALFA * Tube.Руда.G * Tube.Руда.SiO2 + Tube.Шпат.ALFA * Tube.Шпат.G * Tube.Шпат.SiO2 +
 				 Tube.ВлажныйДоломит.ALFA * Tube.ВлажныйДоломит.G * Tube.ВлажныйДоломит.SiO2);
 

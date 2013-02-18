@@ -39,7 +39,7 @@ namespace MeltCalc.Pages
 
 			Tube.Сталь.GYield = range[++idx];
 			Tube.Сталь.GYieldmemo = Tube.Сталь.GYield;
-			Tube.Ферросплав.ALFA = range[++idx];
+			Params.alfaFe = range[++idx];
 			++idx;
 			Params.L = range[++idx];
 			Estimation.minimumGchug = range[++idx];

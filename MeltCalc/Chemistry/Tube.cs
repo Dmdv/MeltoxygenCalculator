@@ -31,7 +31,7 @@ namespace MeltCalc.Chemistry
 			Агломерат = new Агломерат(_registry);
 			Доломит = new Доломит(_registry);
 			ВлажныйДоломит = new ВлажныйДоломит(_registry);
-			Pack = new Packets();
+			Пакеты = new Packets();
 			Шлакообразующий = 0;
 		}
 
@@ -56,7 +56,7 @@ namespace MeltCalc.Chemistry
 		public static Агломерат Агломерат { get; set; }
 		public static Доломит Доломит { get; set; }
 		public static ВлажныйДоломит ВлажныйДоломит { get; set; }
-		public static Packets Pack { get; set; }
+		public static Packets Пакеты { get; set; }
 		public static Materials Шлакообразующий { get; set; }
 
 		/// <summary>

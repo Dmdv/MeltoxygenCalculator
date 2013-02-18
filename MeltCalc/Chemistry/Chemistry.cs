@@ -6,6 +6,7 @@ using MeltCalc.Converters;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
 using MeltCalc.Providers;
+using System.Linq;
 
 namespace MeltCalc.Chemistry
 {
@@ -41,6 +42,11 @@ namespace MeltCalc.Chemistry
 		/// </summary>
 		public Materials Material { get; protected set; }
 
+		public void Load()
+		{
+			Load(GetSavedSelection(SavedColumnIndex) - 1);
+		}
+
 		/// <summary>
 		/// Загрузка материала из БД
 		/// </summary>
@@ -61,6 +67,14 @@ namespace MeltCalc.Chemistry
 		protected virtual TableCacheReader Reader
 		{
 			get { return _looseMdb.Reader; }
+		}
+
+		/// <summary>
+		/// Возвращает сохраненный индекс из "save" таблицы базы loose.mdb
+		/// </summary>
+		protected virtual int SavedColumnIndex
+		{
+			get { return -1; }
 		}
 
 		/// <summary>
@@ -89,6 +103,25 @@ namespace MeltCalc.Chemistry
 			return _looseMdb.Reader.SelectRowRange(TableName, rowindex);
 		}
 
+		/// <summary>
+		/// Возвращает сохраненный индекс из "save" таблицы базы loose.mdb
+		/// Нужно передать номер колонки.
+		/// </summary>
+		private int GetSavedSelection(int columnNumber)
+		{
+			var idxs = _looseMdb.Reader.SelectRowRange("save", 0).Select(x=>x.ToInt()).ToArray();
+			if (columnNumber < 0)
+			{
+				throw new InvalidOperationException(
+					string.Format("This kind of operation is not supported for '{0}'", Material));
+			}
+			if (columnNumber >= idxs.Length)
+			{
+				throw new ArgumentException(string.Format("Column number = '{0}' exceeds array lenght ", columnNumber));
+			}
+			return idxs[columnNumber];
+		}
+
 		private Dictionary<string, string> LoadRowDictionary(int rowindex)
 		{
 			if (string.IsNullOrWhiteSpace(TableName))
@@ -114,6 +147,11 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 1; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
@@ -141,6 +179,11 @@ namespace MeltCalc.Chemistry
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 2; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaCO3 = map["CaCO3"].ToDouble();
@@ -166,6 +209,11 @@ namespace MeltCalc.Chemistry
 		public double P { get; set; }
 		public double SiO2 { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 10; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Fe3O4 = map["Fe3O4"].ToDouble();
@@ -187,6 +235,11 @@ namespace MeltCalc.Chemistry
 		public double CaF2 { get; set; }
 		public double CaO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 12; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
@@ -429,6 +482,11 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 5; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			CaO = map["CaO"].ToDouble();
@@ -447,6 +505,11 @@ namespace MeltCalc.Chemistry
 
 		public double C { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 6; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			C = map["C"].ToDouble();
@@ -463,6 +526,11 @@ namespace MeltCalc.Chemistry
 
 		public double H2O { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 7; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
@@ -484,6 +552,11 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double P { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 9; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
@@ -507,6 +580,11 @@ namespace MeltCalc.Chemistry
 		public double FeO { get; set; }
 		public double SiO2 { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 8; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Fe2O3 = map["Fe2O3"].ToDouble();
@@ -526,6 +604,11 @@ namespace MeltCalc.Chemistry
 		public double CaO { get; set; }
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 11; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
@@ -570,6 +653,11 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
+		protected override int SavedColumnIndex
+		{
+			get { return 4; }
+		}
+
 		protected override void PropertyLoad(Map<string, string> map)
 		{
 			Al2O3 = map["Al2O3"].ToDouble();
@@ -595,6 +683,11 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
+
+		protected override int SavedColumnIndex
+		{
+			get { return 3; }
+		}
 
 		protected override void PropertyLoad(Map<string, string> map)
 		{
