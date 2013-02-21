@@ -62,6 +62,9 @@
     <Compile Include="Chemistry\AdaptationData.cs" />
     <Compile Include="Chemistry\Cp.cs" />
     <Compile Include="Chemistry\Chemistry.cs" />
+    <Compile Include="Controls\ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ArrayExtension.cs" />
     <Compile Include="Helpers\InputBoxExtension.cs" />
     <Compile Include="Helpers\Map.cs" />
@@ -106,6 +109,10 @@
     <Compile Include="ViewModel\AlloyAndDensingPresenter.cs" />
     <Compile Include="ViewModel\BasePresenter.cs" />
     <Compile Include="ViewModel\Step14Presenter.cs" />
+    <Page Include="Controls\ProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
