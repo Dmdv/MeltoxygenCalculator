@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using MeltCalc.Chemistry;
+using MeltCalc.Controls;
 using MeltCalc.Converters;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
@@ -284,8 +285,9 @@ namespace MeltCalc.Pages
 					           _lowMiddle.GetDoubleValue()) * 0.5) / 100.0);
 			}
 
-			var estimation = new Estimation();
-			estimation.Run();
+
+			var longOperation = new ProgressWindow();
+			longOperation.Run(new Estimation());
 
 			// TODO: Реализация функций и расчет лома в левом вехнем углу.
 		}

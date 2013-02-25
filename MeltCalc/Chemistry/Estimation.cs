@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using MeltCalc.Controls.Internals;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
 
 namespace MeltCalc.Chemistry
 {
-	public class Estimation
+	public class Estimation : IRunner
 	{
+		private Action<object> _callback;
+
 		static Estimation()
 		{
 			#region Initialization
@@ -236,8 +239,10 @@ namespace MeltCalc.Chemistry
 
 		#endregion
 
-		public void Run()
+		public void Run(Action<object> callback)
 		{
+			_callback = callback;
+
 			Tube.Сталь.Si = 0.005;
 			Prepare1_REGRESSLOAD();
 
@@ -660,8 +665,10 @@ namespace MeltCalc.Chemistry
 					stepMnOshl[i] = stepMnOshl[i - 1] / 2.0;
 				}
 
-				for (Params.Round = 0; Params.Round < 6; Params.Round++)
+				for (Params.Round = 0; Params.Round < Params.IterationNumber; Params.Round++)
 				{
+					CallCallback(Params.Round);
+
 					Tube.Чугун.G = minGchug[Params.Round];
 					Tube.Лом.G = minGlom[Params.Round];
 					Tube.Дутье.V = minVdut[Params.Round];
@@ -805,6 +812,12 @@ namespace MeltCalc.Chemistry
 				}
 
 			} while (!Params.OkPst);
+		}
+
+		private void CallCallback(int value)
+		{
+			if (_callback != null)
+				_callback(value);
 		}
 
 		private static void Other6Circles()

@@ -62,6 +62,8 @@
     <Compile Include="Chemistry\AdaptationData.cs" />
     <Compile Include="Chemistry\Cp.cs" />
     <Compile Include="Chemistry\Chemistry.cs" />
+    <Compile Include="Controls\Internals\IRunner.cs" />
+    <Compile Include="Controls\Internals\IUpdater.cs" />
     <Compile Include="Controls\ProgressWindow.xaml.cs">
       <DependentUpon>ProgressWindow.xaml</DependentUpon>
     </Compile>

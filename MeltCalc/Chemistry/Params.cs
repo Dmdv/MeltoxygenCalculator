@@ -2,6 +2,8 @@ namespace MeltCalc.Chemistry
 {
 	public static class Params
 	{
+		public const int IterationNumber = 6;
+
 		public static double alfaFe;
 		public static double L;
 		public static double StAndShlLoss;

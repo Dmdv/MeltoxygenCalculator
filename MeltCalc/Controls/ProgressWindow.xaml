@@ -10,6 +10,5 @@
     	</Grid.RowDefinitions>
     	<ProgressBar x:Name="_progress" VerticalAlignment="Center" Height="68" Margin="10,0" Grid.Row="1"/>
     	<TextBlock x:Name="_text" TextWrapping="Wrap" Text="Идёт расчет..." VerticalAlignment="Center" Margin="10,0"/>
-        
     </Grid>
 </Window>

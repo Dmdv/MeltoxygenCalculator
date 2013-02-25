@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using MeltCalc.Providers;
 
 namespace MeltCalc
@@ -12,6 +13,12 @@ namespace MeltCalc
 		{
 			InitializeDatabases();
 			InitializeComponent();
+			var asyncOp = AsyncOperationManager.CreateOperation(null);
+			asyncOp.Post(OnOperationCompleted, null);
+		}
+
+		private void OnOperationCompleted(object state)
+		{
 		}
 
 		private static void InitializeDatabases()
