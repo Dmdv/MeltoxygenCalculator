@@ -97,6 +97,9 @@
       <DependentUpon>AlloyAndDensingInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ParamsLoad.cs" />
+    <Compile Include="Pages\Results.xaml.cs">
+      <DependentUpon>Results.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Step15.xaml.cs">
       <DependentUpon>Step15.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AlloyAndDensingInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Results.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
