@@ -71,7 +71,9 @@ namespace MeltCalc.Pages
 		private void PrevExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (NavigationService != null)
+			{
 				NavigationService.Navigate(new Uri(@"Pages\Step11.xaml", UriKind.Relative));
+			}
 		}
 	}
 }

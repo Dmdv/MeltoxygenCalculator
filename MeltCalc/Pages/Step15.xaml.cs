@@ -42,6 +42,14 @@ namespace MeltCalc.Pages
 			InitProstoi();
 		}
 
+		private void GoToResults()
+		{
+			if (NavigationService != null)
+			{
+				NavigationService.Navigate(new Uri(@"Pages\Results.xaml", UriKind.Relative));
+			}
+		}
+
 		private void InitProstoi()
 		{
 			InitCombobox(_prostoi, Enumerable.Range((int) (Params.TAUprost - 2), 54));
@@ -288,6 +296,8 @@ namespace MeltCalc.Pages
 
 			var longOperation = new ProgressWindow();
 			longOperation.Run(new Estimation());
+
+			GoToResults();
 
 			// TODO: Реализация функций и расчет лома в левом вехнем углу.
 		}
