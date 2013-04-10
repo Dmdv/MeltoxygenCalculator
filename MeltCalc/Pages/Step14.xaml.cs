@@ -167,7 +167,7 @@ namespace MeltCalc.Pages
 			}
 
 			var substance = Tube.FindSubstance<Навеска>(material);
-			substance.G = mass;
+			substance.G = mass / 1000.0;
 		}
 
 		private static void Calculations()

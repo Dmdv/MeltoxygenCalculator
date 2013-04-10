@@ -62,12 +62,12 @@ namespace MeltCalc.Pages
 
 			// Строка Gfut = GfutTOTAL / FutDurability не выполняется никогда.
 
-			// Эта строка в оригинале не выполняется никогда.
+			// TODO: Эта строка в оригинале не выполняется никогда.
 
-			if (Params.IsDuplex)
-			{
-				Estimation.maximumGokat = range[39];
-			}
+			//if (Params.IsDuplex)
+			//{
+			//    Estimation.maximumGokat = range[39];
+			//}
 		}
 
 		private void Load_ChemOfOstShl()
@@ -139,13 +139,15 @@ namespace MeltCalc.Pages
 			Estimation.minimumGokat = range[++idx];
 			Estimation.maximumGokat = range[++idx];
 			Estimation.minimumGruda = range[++idx];
-			Estimation.maximumGruda = range[++idx];
-			Estimation.minimumGokal = range[++idx];
-			Estimation.maximumGokal = range[++idx];
-			Estimation.minimumGagl = range[++idx];
-			Estimation.maximumGagl = range[++idx];
-			Estimation.minimumGshp = range[++idx];
-			Estimation.maximumGshp = range[++idx];
+			
+			// TODO: Не используется
+			//Estimation.maximumGruda = range[++idx];
+			//Estimation.minimumGokal = range[++idx];
+			//Estimation.maximumGokal = range[++idx];
+			//Estimation.minimumGagl = range[++idx];
+			//Estimation.maximumGagl = range[++idx];
+			//Estimation.minimumGshp = range[++idx];
+			//Estimation.maximumGshp = range[++idx];
 		}
 	}
 }
