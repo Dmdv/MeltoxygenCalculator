@@ -11,6 +11,9 @@ namespace MeltCalc.Chemistry
 	{
 		private Action<object> _callback;
 
+		public static void DirtyHack()
+		{}
+
 		static Estimation()
 		{
 			#region Initialization

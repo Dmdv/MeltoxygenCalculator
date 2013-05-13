@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
+using MeltCalc.Chemistry;
 using MeltCalc.Providers;
 
 namespace MeltCalc
@@ -13,6 +14,7 @@ namespace MeltCalc
 		{
 			InitializeDatabases();
 			InitializeComponent();
+			Estimation.DirtyHack();
 			var asyncOp = AsyncOperationManager.CreateOperation(null);
 			asyncOp.Post(OnOperationCompleted, null);
 		}

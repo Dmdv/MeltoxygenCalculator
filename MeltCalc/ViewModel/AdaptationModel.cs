@@ -10,8 +10,19 @@ namespace MeltCalc.ViewModel
 	public class AdaptationModel : BasePresenter
 	{
 		private static int NumberOfAdaptedMelt, adaptROUND, BaseLenth, GoodMeltsQuant;
-		private static double[] minL, maxL, minalfaFe, maxalfaFe, minTeplFutLoss, maxTeplFutLoss = new double[7];
-		private static double[] stepL, stepalfaFe, stepTeplFutLoss, GshlSAVE, LSAVE, alfaFeSAVE, TeplFutLossSAVE = new double[6];
+		private static double[] minL = new double[7];
+		private static double[]	maxL = new double[7];
+		private static double[]	minalfaFe = new double[7];
+		private static double[]	maxalfaFe = new double[7];
+		private static double[]	minTeplFutLoss = new double[7];
+		private static double[] maxTeplFutLoss = new double[7];
+		private static double[] stepL = new double[6];
+		private static double[]	stepalfaFe = new double[6];
+		private static double[]	stepTeplFutLoss = new double[6];
+		private static double[]	GshlSAVE = new double[6];
+		private static double[]	LSAVE = new double[6];
+		private static double[]	alfaFeSAVE = new double[6];
+		private static double[]	TeplFutLossSAVE = new double[6];
 		private static double CheckNoNull, adaptMistakeTOTAL, adaptCOMPAIR, TempLeft, TempRight;
 		private static double SummGshl, ExpectGshl, SummL, ExpectL, SummAlfaFe, ExpectAlfaFe, SummTeplFutLoss, ExpectTeplFutLoss;
 
@@ -25,6 +36,7 @@ namespace MeltCalc.ViewModel
 		public void Run(int sypuchIndex, bool fixedMass)
 		{
 			_isFixedMass = fixedMass;
+			_isFixedMass = true;
 			GoodMeltsQuant = 0;
 
 			try
@@ -43,7 +55,7 @@ namespace MeltCalc.ViewModel
 
 		private void InternalRun()
 		{
-			for (NumberOfAdaptedMelt = 0; NumberOfAdaptedMelt <= BaseLenth; NumberOfAdaptedMelt++)
+			for (NumberOfAdaptedMelt = 0; NumberOfAdaptedMelt < BaseLenth; NumberOfAdaptedMelt++)
 			{
 				LoadMeltData(NumberOfAdaptedMelt);
 				Params.Tog = Tube.Сталь.T;

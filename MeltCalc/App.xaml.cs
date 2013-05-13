@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace MeltCalc
+﻿namespace MeltCalc
 {
 	/// <summary>
 	/// Interaction logic for App.xaml
