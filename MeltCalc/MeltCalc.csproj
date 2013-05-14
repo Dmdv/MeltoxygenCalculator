@@ -105,11 +105,13 @@
     </Compile>
     <Compile Include="Providers\Key.cs" />
     <Compile Include="Providers\MdbReader.cs" />
+    <Compile Include="Providers\MdbTable.cs" />
     <Compile Include="Providers\TableCache.cs" />
     <Compile Include="Providers\TableCacheReader.cs" />
     <Compile Include="Model\LooseMdb.cs" />
     <Compile Include="Providers\TableReader.cs" />
     <Compile Include="Providers\TablesSchema.cs" />
+    <Compile Include="Providers\TableWriter.cs" />
     <Compile Include="ViewModel\AdaptationModel.cs" />
     <Compile Include="ViewModel\AlloyAndDensingPresenter.cs" />
     <Compile Include="ViewModel\BasePresenter.cs" />

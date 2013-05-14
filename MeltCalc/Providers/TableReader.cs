@@ -1,33 +1,23 @@
 using System;
 using System.Data;
 using System.Data.OleDb;
-using System.IO;
 
 namespace MeltCalc.Providers
 {
-	public class TableReader
+	public class TableReader : MdbTable
 	{
-		private const string ConnStr = "Provider=Microsoft.JET.OLEDB.4.0;data source={0};";
-		private readonly string _file;
-
-		public TableReader(string file)
+		public TableReader(string file) : 
+			base(file)
 		{
-			_file = file;
-			if (!File.Exists(_file))
-			{
-				throw new FileNotFoundException(string.Format("File not found: '{0}'", _file));
-			}
-
-			SubKey = Path.GetFileName(_file);
 		}
 
 		public virtual DataTable FetchTable(string table)
 		{
-			using (var conn = new OleDbConnection(string.Format(ConnStr, _file)))
+			using (var conn = CreateConnection())
 			{
 				conn.Open();
 
-				using (var cmd = new OleDbCommand(string.Format("select * from {0}", table)) { Connection = conn })
+				using (var cmd = new OleDbCommand(string.Format("select * from {0}", table)) {Connection = conn})
 				{
 					using (var oleDbDataReader = cmd.ExecuteReader())
 					{
@@ -45,7 +35,5 @@ namespace MeltCalc.Providers
 				}
 			}
 		}
-
-		protected string SubKey { get; private set; }
 	}
 }

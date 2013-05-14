@@ -1,6 +1,3 @@
-using System.IO;
-using MeltCalc.Properties;
-
 namespace MeltCalc.Providers
 {
 	public abstract class MdbReader
@@ -9,8 +6,6 @@ namespace MeltCalc.Providers
 
 		protected MdbReader(string path)
 		{
-			path = Path.Combine(System.Environment.CurrentDirectory, Settings.Default.DatabaseRelativePath, path);
-			ValidatePath(path);
 			_cacheReader = new TableCacheReader(path);
 		}
 
@@ -22,14 +17,6 @@ namespace MeltCalc.Providers
 		public int RowCount(string table)
 		{
 			return Reader.FetchTable(table).Rows.Count;
-		}
-
-		private static void ValidatePath(string path)
-		{
-			if (!File.Exists(path))
-			{
-				throw new FileNotFoundException(path);
-			}
 		}
 	}
 }

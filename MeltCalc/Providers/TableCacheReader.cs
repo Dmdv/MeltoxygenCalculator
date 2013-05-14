@@ -7,7 +7,8 @@ namespace MeltCalc.Providers
 {
 	public class TableCacheReader : TableReader
 	{
-		public TableCacheReader(string file) : base(file)
+		public TableCacheReader(string file) : 
+			base(file)
 		{
 		}
 

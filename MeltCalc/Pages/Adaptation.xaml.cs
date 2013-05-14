@@ -119,7 +119,10 @@ namespace MeltCalc.Pages
 
 			_model.Run(SypuchType, fixedMass);
 
-			// TODO: Step 11.
+			if (NavigationService != null)
+			{
+				NavigationService.Navigate(new Step11());
+			}
 		}
 
 		private int SypuchType

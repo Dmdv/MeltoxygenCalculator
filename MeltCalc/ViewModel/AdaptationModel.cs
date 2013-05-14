@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using MeltCalc.Chemistry;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
+using MeltCalc.Properties;
+using MeltCalc.Providers;
 
 namespace MeltCalc.ViewModel
 {
@@ -41,6 +44,7 @@ namespace MeltCalc.ViewModel
 
 			try
 			{
+				// TODO: Params.SelectedPlant должно начинаться с 1.
 				LoadFromCountData(Params.SelectedPlant);
 				LoadFromLoose(sypuchIndex);
 				LoadMixAndOstShl();
@@ -354,15 +358,38 @@ namespace MeltCalc.ViewModel
 
 		private void AdaptResultsSave()
 		{
-			// TODO
+			// TODO: В оригинальной программе неправильные данные.
 		}
 
 		private void SaveMeltResults()
 		{
-			// TODO
+			var list = new List<Tuple<string, double>>
+			{
+			    new Tuple<string, double>(@"G шлака, т", GshlSAVE[adaptROUND - 1]),
+				new Tuple<string, double>(@"L СО_СО2, м3", LSAVE[adaptROUND - 1]),
+				new Tuple<string, double>(@"Теплопотери, кДж", TeplFutLossSAVE[adaptROUND - 1]),
+				new Tuple<string, double>(@"Р2О5 шл", Tube.Шлак.P2O5),
+				new Tuple<string, double>(@"Сумм расх-ие балансов, %", adaptCOMPAIR * 100)
+			};
+
+			if (_isFixedMass)
+			{
+				list.Add(new Tuple<string, double>(@"alfa Fe, доли", alfaFeSAVE[adaptROUND - 1]));
+				list.Add(new Tuple<string, double>(@"В", Tube.Шлак.B));
+			}
+			else
+			{
+				list.Add(new Tuple<string, double>(@"alfa Fe, доли", Params.alfaFe));
+				list.Add(new Tuple<string, double>(@"В", (Tube.Шлак.CaO + Tube.Шлак.MgO) / Tube.Шлак.SiO2));
+				list.Add(new Tuple<string, double>(@"Gст, т", Estimation.GstYieldSAVE[adaptROUND - 1]));
+				list.Add(new Tuple<string, double>(@"alfa Изв, доли", Estimation.ALFAizvSAVE[adaptROUND - 1]));
+			}
+
+			var write = new TableWriter(Settings.Default.MelpMdb);
+			write.Write("adaptationdata", list, NumberOfAdaptedMelt + 1);
 		}
 
-		private void LoadMixAndOstShl()
+		private static void LoadMixAndOstShl()
 		{
 			Tube.ОставленныйШлак.Load();
 			Tube.МиксерныйШлак.Load();
