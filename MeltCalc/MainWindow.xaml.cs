@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using MeltCalc.Chemistry;
 using MeltCalc.Providers;
 
@@ -14,6 +16,12 @@ namespace MeltCalc
 			InitializeDatabases();
 			InitializeComponent();
 			Estimation.DirtyHack();
+		}
+
+		internal void StartupMainWindow(object sender, EventArgs e)
+		{
+			Application.Current.MainWindow = this;
+			Show();
 		}
 
 		private static void InitializeDatabases()

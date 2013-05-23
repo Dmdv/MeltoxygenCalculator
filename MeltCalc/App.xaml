@@ -3,7 +3,8 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Chemistry="clr-namespace:MeltCalc.Chemistry" xmlns:Converters="clr-namespace:MeltCalc.Converters"
-             mc:Ignorable="d" x:Class="MeltCalc.App" StartupUri="MainWindow.xaml">
+             mc:Ignorable="d" x:Class="MeltCalc.App"
+             Startup="Application_Startup">
   <Application.Resources>
 
     <!-- Глобальные переменные процесса -->
