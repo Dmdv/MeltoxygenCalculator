@@ -3,7 +3,7 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="MeltCalc.Pages.Step15"
-	  mc:Ignorable="d" d:DesignHeight="529.5" d:DesignWidth="1155.5" Title="Step15" 
+	  mc:Ignorable="d" d:DesignHeight="529.5" d:DesignWidth="1155.5" Title="Step15" WindowTitle="Step 5" 
 	  DataContext="{Binding Source={StaticResource Tube}}" Width="900" Height="500">
 	  
 	<Page.Resources>

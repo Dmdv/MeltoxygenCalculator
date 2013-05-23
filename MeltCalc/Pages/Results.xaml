@@ -5,7 +5,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  mc:Ignorable="d" 
 	  d:DesignHeight="650.5" d:DesignWidth="1008.35"
-	Title="Results" Width="800">
+	Title="Results" WindowTitle="Результаты" Width="800">
 
 	<Grid Margin="5">
 		<Grid.RowDefinitions>
