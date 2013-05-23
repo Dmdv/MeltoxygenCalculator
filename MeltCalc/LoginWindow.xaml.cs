@@ -9,8 +9,9 @@ namespace MeltCalc
 	/// </summary>
 	public partial class LoginWindow
 	{
-		private string _mail;
+		private string _login;
 		private string _password;
+		private readonly Autorization _autorization = new Autorization();
 
 		internal event EventHandler LoginSuccessful;
 
@@ -21,29 +22,18 @@ namespace MeltCalc
 
 		private void signInButton_Click(object sender, RoutedEventArgs e)
 		{
-			_mail = signInMailBox.Text;
+			_login = signInMailBox.Text;
 			_password = signInPasswordBox.Password;
 
-			if (true /* Appropriate Login Check Here*/)
+			if (_autorization.IsValidUser(_login, _password))
 			{
 				LoginSuccessful(this, null);
 				Close();
 			}
 			else
 			{
-				// Alert the user that login failed
+				MessageBox.Show("Пользователь с таким именем не существует", "Авторизация");
 			}
-
-			//Проверяем нажимал ли пользователь кнопку - запомнить меня.
-			//if (Authentification.RememberMe)
-			//{
-			//    //Если нажимал, то записываем все в файл. Это делает процедура класса Authentification
-			//    //которая называется rememberLog и принимает в качестве параметров наш мейл и пароль;
-			//    Authentification.rememberLog(_mail, _password);
-			//}
-
-			//MessageBox.Show(WorkWithDatabase.IsUserInDb(_mail, _password));
-			// UnshowAllLogInForm();
 		}
 
 		private void enterMailLabel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -76,36 +66,10 @@ namespace MeltCalc
 
 		private void rememberMeDeselectButton_Click(object sender, RoutedEventArgs e)
 		{
-			// Authentification.RememberMe = true;
 		}
 
-		//Нажали на кнопку с галочкой - false
 		private void rememberMeSelectButton_Click(object sender, RoutedEventArgs e)
 		{
-			// Authentification.RememberMe = false;
 		}
-
-		//private void UnshowAllLogInForm()
-		//{
-		//    //Прячем кнопку "Войти"
-		//    signInButton.Visibility = Visibility.Hidden;
-		//    signInButtonImage.Visibility = Visibility.Hidden;
-
-		//    //Прячем надпись "забыли пароль" и кнопку которая за нее отвечает
-		//    forgotPassword.Visibility = Visibility.Hidden;
-		//    forgotPasswordButton.Visibility = Visibility.Hidden;
-
-		//    //Прячем окошко и темную штуку которая все делает неактивным
-		//    signInBackground.Visibility = Visibility.Hidden;
-
-		//    //Прячем боксы для ввода логина и пароля
-		//    signInMailBox.Visibility = Visibility.Hidden;
-		//    signInPasswordBox.Visibility = Visibility.Hidden;
-
-		//    //Прячем надпись "запомнить меня"
-		//    remeberMeText.Visibility = Visibility.Hidden;
-
-		//    enterMailLabel.Visibility = Visibility.Hidden;
-		//}
 	}
 }

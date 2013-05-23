@@ -41,6 +41,9 @@
     <Reference Include="BCrypt.Net">
       <HintPath>Vendors\BCrypt.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Vendors\Newtonsoft.Json.5.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -62,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Autorization.cs" />
     <Compile Include="Chemistry\AdaptationData.cs" />
     <Compile Include="Chemistry\Cp.cs" />
     <Compile Include="Chemistry\Chemistry.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="Helpers\MdbHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TableExtension.cs" />
+    <Compile Include="HttpVerb.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -118,6 +123,7 @@
     <Compile Include="Providers\TableReader.cs" />
     <Compile Include="Providers\TablesSchema.cs" />
     <Compile Include="Providers\TableWriter.cs" />
+    <Compile Include="RestClient.cs" />
     <Compile Include="ViewModel\AdaptationModel.cs" />
     <Compile Include="ViewModel\AlloyAndDensingPresenter.cs" />
     <Compile Include="ViewModel\BasePresenter.cs" />
