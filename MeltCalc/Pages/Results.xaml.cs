@@ -35,7 +35,7 @@ namespace MeltCalc.Pages
 
 		private void SaveResults()
 		{
-			var text = new StringBuilder()
+			var text = new StringBuilder("-- New calculation --\r\n")
 
 				.Append(ResultsRow("C чугуна", Tube.Чугун.C))
 				.Append(ResultsRow("Si чугуна", Tube.Чугун.Si))
@@ -104,7 +104,7 @@ namespace MeltCalc.Pages
 
 			try
 			{
-				File.WriteAllText("Results.txt", text);
+				File.AppendAllText("Results.txt", text);
 			}
 			catch (Exception ex)
 			{
