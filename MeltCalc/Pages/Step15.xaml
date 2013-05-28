@@ -4,7 +4,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="MeltCalc.Pages.Step15"
 	  mc:Ignorable="d" d:DesignHeight="529.5" d:DesignWidth="1155.5" Title="Step15" WindowTitle="Step 5"
-	  DataContext="{Binding Source={StaticResource Tube}}" Width="900" Height="500">
+	  DataContext="{Binding Source={StaticResource Tube}}" Width="900" Height="560">
 	  
 	<Page.Resources>
 		<Thickness x:Key="GroupBoxMargin">3,-1,3,0</Thickness>
@@ -22,10 +22,10 @@
 
   <Grid>
 	<Grid.RowDefinitions>
-		<RowDefinition Height="Auto" MinHeight="214.5"/>
-		<RowDefinition Height="Auto" MinHeight="65.237"/>
-		<RowDefinition Height="Auto" MinHeight="63.446"/>
-		<RowDefinition Height="Auto" MinHeight="56.523"/>
+		<RowDefinition Height="263*"/>
+		<RowDefinition Height="124*"/>
+		<RowDefinition Height="130*"/>
+		<RowDefinition Height="Auto" MinHeight="43.243"/>
 	</Grid.RowDefinitions>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -55,6 +55,7 @@
 							<RowDefinition/>
 							<RowDefinition Height="0.8*"/>
 							<RowDefinition/>
+							<RowDefinition/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition/>
@@ -72,7 +73,10 @@
 							<TextBlock Text="Низкоуглеродистый лом" Grid.ColumnSpan="3" Grid.Row="4" Margin="0,0,0,3"/>
 							<xctk:DoubleUpDown x:Name="_lowSmall" Grid.Row="5" Margin="0,0,3,0" Style="{StaticResource myStyle}" ValueChanged="OnValueChanged"/>
 							<xctk:DoubleUpDown x:Name="_lowMiddle" Grid.Row="5" Grid.Column="1" Margin="0,0,3,0" Style="{StaticResource myStyle}" ValueChanged="OnValueChanged"/>
-							<xctk:DoubleUpDown x:Name="_lowLarge" Grid.Row="5" Grid.Column="2" Margin="0,0,3,0" Style="{StaticResource myStyle}" ValueChanged="OnValueChanged"/>		
+							<xctk:DoubleUpDown x:Name="_lowLarge" Grid.Row="5" Grid.Column="2" Margin="0,0,3,0" Style="{StaticResource myStyle}" ValueChanged="OnValueChanged"/>
+							<Rectangle Grid.Row="7" Margin="0,8,3,13.7119351426499" Fill="#FFFFDBBE" Stroke="#FF616161" UseLayoutRounding="True"/>
+							<Rectangle Grid.Row="6" Margin="0,8,3,7.7119351426499" Fill="#FFFFC594" Grid.Column="1" Stroke="#FF444444" UseLayoutRounding="True"/>
+							<Rectangle Grid.Row="6" Margin="0,8,3,0" Fill="#FFFF9B48" Grid.Column="2" Stroke="#FF444444" UseLayoutRounding="True"/>
 					</Grid>
 				</GroupBox>
 				<GroupBox Header="Результирующий х/с" d:LayoutOverrides="Height" Grid.Column="1" Margin="3,-2,3,3">
@@ -140,7 +144,7 @@
 			</GroupBox>
 		</Grid>
 	</Grid>
-	<GroupBox Header="Чугун" Grid.Row="1" Margin="{DynamicResource GroupBoxMargin}">
+	<GroupBox Header="Чугун" Margin="3,1.5,3,0" Grid.Row="1">
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
@@ -262,8 +266,8 @@
 			</Grid>
 		</GroupBox>
 	</Grid>
-	<Button Grid.Column="0" Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32" VerticalAlignment="Center" d:LayoutOverrides="HorizontalAlignment" Grid.Row="3" Margin="10,0,0,0" />
-	<Button Grid.Column="0" Content="Вперед..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.NextPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,10,0" />
-	<TextBox x:Name="_shlakV2O5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Grid.Row="3"/>
-	<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="V2O5 шл" VerticalAlignment="Center" Grid.Row="3" Margin="0,0,110,0"/></Grid>
+	<Button Grid.Column="0" Content="Назад ..." HorizontalAlignment="Left" Width="200" Command="NavigationCommands.PreviousPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="10,5.621,0,5.622" />
+	<Button Grid.Column="0" Content="Вперед..." HorizontalAlignment="Right" Width="200" Command="NavigationCommands.NextPage" Height="32" VerticalAlignment="Center" Grid.Row="3" Margin="0,5.621,10,5.622" />
+	<TextBox x:Name="_shlakV2O5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Grid.Row="3" Height="21.96" Margin="424.223,10.641,424.223,10.642" Width="51.554"/>
+	<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="V2O5 шл" VerticalAlignment="Center" Grid.Row="3" Margin="370.677,13.641,480.677,13.642" Height="15.96" Width="48.646"/></Grid>
 </Page>
