@@ -10,6 +10,8 @@ using MeltCalc.Controls;
 using MeltCalc.Converters;
 using MeltCalc.Helpers;
 using MeltCalc.Model;
+using Xceed.Wpf.Toolkit;
+using MessageBox = System.Windows.MessageBox;
 
 namespace MeltCalc.Pages
 {
@@ -22,7 +24,6 @@ namespace MeltCalc.Pages
 		private readonly StringToDoubleConverter _converter = new StringToDoubleConverter();
 		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
 		private const double Epsilon = 0.00001;
-		private double _stStep;
 
 		public Step15()
 		{
@@ -73,13 +74,11 @@ namespace MeltCalc.Pages
 				_steelMass.IsEnabled = true;
 				_steelMass.AllowSpin = true;
 				// TODO: Использовать step.
-				_stStep = Tube.Сталь.GYieldmemo / 100.0;
 			}
 			else
 			{
 				_steelMass.IsEnabled = false;
 				_steelMass.AllowSpin = false;
-				_stStep = 0.0;
 			}
 		}
 
@@ -161,7 +160,7 @@ namespace MeltCalc.Pages
 			Tube.Лом.Si /= 100;
 			Tube.Лом.Mn /= 100;
 
-			_lomC.Text = Tube.Лом.C .ToString(CultureInfo.InvariantCulture);
+			_lomC.Text = Tube.Лом.C.ToString(CultureInfo.InvariantCulture);
 			_lomSi.Text = Tube.Лом.Si.ToString(CultureInfo.InvariantCulture);
 			_lomMn.Text = Tube.Лом.Mn.ToString(CultureInfo.InvariantCulture);
 			_lomP.Text = Tube.Лом.P.ToString(CultureInfo.InvariantCulture);
@@ -386,6 +385,60 @@ namespace MeltCalc.Pages
 			Bmin = 9,
 			Bmax = 10,
 			Gostshl = 11
+		}
+
+		private float SumCount()
+		{
+			if (NotValid())
+				return 0.0f;
+
+			return
+				ToFloat(_lowSmall.Text) +
+				ToFloat(_lowLarge.Text) +
+				ToFloat(_lowMiddle.Text) +
+				ToFloat(_midSmall.Text) +
+				ToFloat(_midLarge.Text) +
+				ToFloat(_midMiddle.Text) +
+				ToFloat(_highSmall.Text) +
+				ToFloat(_highLarge.Text) +
+				ToFloat(_highMiddle.Text);
+		}
+
+		private bool NotValid()
+		{
+			return _lowSmall == null ||
+			       _lowLarge == null ||
+			       _lowMiddle == null ||
+			       _midSmall == null ||
+			       _midLarge == null ||
+			       _midMiddle == null ||
+			       _highSmall == null ||
+			       _highLarge == null ||
+			       _highMiddle == null;
+		}
+
+		private void OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		{
+			if (NotValid())
+			{
+				return;
+			}
+
+			if (SumCount() <= 100.0f)
+			{
+				LomChemTotalCount();
+				return;
+			}
+
+			CorrectValue(sender, e);
+		}
+
+		private static void CorrectValue(object sender, RoutedPropertyChangedEventArgs<object> e)
+		{
+			var ddd = (DoubleUpDown) sender;
+			var oldValue = (double) e.OldValue;
+			ddd.Value = oldValue;
+			ddd.Text = string.Format("{0:0.##}", oldValue);
 		}
 	}
 }
