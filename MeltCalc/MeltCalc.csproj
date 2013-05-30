@@ -259,12 +259,13 @@
       <All>True</All>
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
-    <Resource Include="Pages\startpage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Description.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\startpage.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\signIn\forgot\forgotPassword.png" />
     <Resource Include="Images\signIn\remember\deselectedRemember.png" />
