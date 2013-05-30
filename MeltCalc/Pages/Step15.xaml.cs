@@ -294,7 +294,7 @@ namespace MeltCalc.Pages
 
 
 			var longOperation = new ProgressWindow();
-			longOperation.Run(new Estimation());
+			longOperation.Run(new Estimation(), Params.IterationNumber);
 
 			GoToResults();
 

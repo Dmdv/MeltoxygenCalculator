@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using MeltCalc.Chemistry;
 using MeltCalc.Controls.Internals;
 
 namespace MeltCalc.Controls
@@ -20,16 +19,15 @@ namespace MeltCalc.Controls
 			ShowInTaskbar = false;
 		}
 
-		public void Run(IRunner runner)
+		public void Run(IRunner runner, int iterations)
 		{
 			_runner = runner;
 			_progress.Minimum = 0;
-			// TODO: Maximum must be inited in more generic way.
-			_progress.Maximum = Params.IterationNumber;
+			_progress.Maximum = iterations;
 			_progress.Value = 0;
 
-			var ao = AsyncOperationManager.CreateOperation(null);
-			Task.Factory.StartNew(InternalRun, ao);
+			var asyncOperation = AsyncOperationManager.CreateOperation(null);
+			Task.Factory.StartNew(InternalRun, asyncOperation);
 
 			ShowDialog();
 			Close();
@@ -47,11 +45,11 @@ namespace MeltCalc.Controls
 
 		private void InternalRun(object state)
 		{
-			var ao = (AsyncOperation)state;
+			var asyncOperation = (AsyncOperation)state;
 
-			_runner.Run(x => ao.Post(DoProgress, x));
-			ao.Post(Close, null);
-			ao.OperationCompleted();
+			_runner.Run(x => asyncOperation.Post(DoProgress, x));
+			asyncOperation.Post(Close, null);
+			asyncOperation.OperationCompleted();
 		}
 	}
 }

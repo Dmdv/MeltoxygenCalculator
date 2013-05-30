@@ -50,7 +50,7 @@
   				<ColumnDefinition/>
   				<ColumnDefinition/>
   			</Grid.ColumnDefinitions>
-  			<RadioButton x:Name="_adaptFixedMass" Content="Адаптация с фиксированной массой жидкого" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+  			<RadioButton x:Name="_adaptFixedMass" IsChecked="True" Content="Адаптация с фиксированной массой жидкого" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
   			<RadioButton x:Name="_adaptWithCalc" Content="Адаптация с расчетом массы полупродукта" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Column="1"/>
   		</Grid>
   	</GroupBox>

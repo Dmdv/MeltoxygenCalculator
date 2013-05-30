@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace MeltCalc.Providers
 {
@@ -29,6 +30,7 @@ namespace MeltCalc.Providers
 			{
 				using (Command)
 				{
+					// Command.CommandText = "update [countdata] set [гур№ Fe т фћь] = @par where Index = 1";
 					conn.Open();
 					Command.Connection = conn;
 					Command.ExecuteNonQuery();
@@ -49,18 +51,39 @@ namespace MeltCalc.Providers
 		private static IEnumerable<OleDbParameter> CreateCommandParameters(IEnumerable<Tuple<string, double>> parameters)
 		{
 			return parameters
-				.Select(tuple => new OleDbParameter(string.Format("@{0}", tuple.Item1), tuple.Item2));
+				.Select(tuple => new OleDbParameter(
+					string.Format("@{0}", tuple.Item1),
+					tuple.Item2));
 		}
 
 		private static string CreateCommandText(string tablename, IEnumerable<Tuple<string, double>> parameters, int row)
 		{
-			var text = string.Format("update {0} set", tablename);
+			var text = string.Format("update [{0}] set", tablename);
 
 			var paramsText = parameters
-				.Select(tuple => string.Format("[{0}] = @{0}", tuple.Item1))
+				.Select(tuple => string.Format("[{0}] = @{1}", tuple.Item1, NormalizeString(tuple.Item1)))
 				.Aggregate((acc, next) => string.Join(", ", acc, next));
 
 			return string.Format("{0} {1} where Index = {2}", text, paramsText, row);
+		}
+
+		private static string NormalizeString(string str)
+		{
+			var rgx = new Regex("[^a-zA-Z0-9р-џР-п]");
+			return rgx.Replace(str, string.Empty).ToLowerInvariant();
+
+			//return 
+			//    str
+			//    .Replace(" ", string.Empty)
+			//    .Replace("(", string.Empty)
+			//    .Replace(")", string.Empty)
+			//    .Replace(",", string.Empty)
+			//    .Replace(".", string.Empty)
+			//    .Replace("-", string.Empty)
+			//    .Replace("_", string.Empty)
+			//    .Replace("%", string.Empty)
+			//        .Trim()
+			//        .ToLowerInvariant();
 		}
 	}
 }

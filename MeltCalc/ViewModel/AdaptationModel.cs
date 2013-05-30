@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using MeltCalc.Chemistry;
+using MeltCalc.Controls;
+using MeltCalc.Controls.Internals;
 using MeltCalc.Model;
 using MeltCalc.Helpers;
 using MeltCalc.Properties;
@@ -10,7 +12,7 @@ using MeltCalc.Providers;
 
 namespace MeltCalc.ViewModel
 {
-	public class AdaptationModel : BasePresenter
+	public class AdaptationModel : BasePresenter, IRunner
 	{
 		private static int NumberOfAdaptedMelt, adaptROUND, BaseLenth, GoodMeltsQuant;
 		private static double[] minL = new double[7];
@@ -33,13 +35,14 @@ namespace MeltCalc.ViewModel
 
 		private readonly ParamsMdb _paramsMdb = new ParamsMdb();
 		private readonly MeltMdb _meltMdb = new MeltMdb();
+
 		// Расчет с фиксированной массой жидкого.
 		private bool _isFixedMass;
+		private Action<object> _callback;
 
 		public void Run(int sypuchIndex, bool fixedMass)
 		{
 			_isFixedMass = fixedMass;
-			_isFixedMass = true;
 			GoodMeltsQuant = 0;
 
 			try
@@ -49,7 +52,23 @@ namespace MeltCalc.ViewModel
 				LoadFromLoose(sypuchIndex);
 				LoadMixAndOstShl();
 				DetectBaseLenth();
-				InternalRun();
+
+				var longOperation = new ProgressWindow();
+				longOperation.Run(this, BaseLenth);
+
+				if (GoodMeltsQuant >= 10)
+				{
+					AdaptResultsSave();
+					MessageBox.Show(
+						string.Format("Адаптация системы расчета шихты успешно проведена. Использованы данные '{0}' плавок", GoodMeltsQuant),
+						"Адаптация завершена");
+				}
+				else
+				{
+					MessageBox.Show(
+						"Адаптация системы НЕ ПРОВЕДЕНА из-за неполноты или некорректности исходных данных. Результаты расчета по плавкам сохранены",
+						"Внимание");
+				}
 			}
 			catch (Exception ex)
 			{
@@ -57,10 +76,23 @@ namespace MeltCalc.ViewModel
 			}
 		}
 
+		public void Run(Action<object> callback)
+		{
+			_callback = callback;
+			InternalRun();
+		}
+
+		private void CallCallback(int value)
+		{
+			if (_callback != null)
+				_callback(value);
+		}
+
 		private void InternalRun()
 		{
 			for (NumberOfAdaptedMelt = 0; NumberOfAdaptedMelt < BaseLenth; NumberOfAdaptedMelt++)
 			{
+				CallCallback(NumberOfAdaptedMelt);
 				LoadMeltData(NumberOfAdaptedMelt);
 				Params.Tog = Tube.Сталь.T;
 				Tube.Сталь.Si = 0.003;
@@ -337,20 +369,6 @@ namespace MeltCalc.ViewModel
 				}
 
 				SaveMeltResults();
-			}
-
-			if (GoodMeltsQuant >= 10)
-			{
-				AdaptResultsSave();
-				MessageBox.Show(
-					string.Format("Адаптация системы расчета шихты успешно проведена. Использованы данные '{0}' плавок", GoodMeltsQuant),
-					"Адаптация завершена");
-			}
-			else
-			{
-				MessageBox.Show(
-					"Адаптация системы НЕ ПРОВЕДЕНА из-за неполноты или некорректности исходных данных. Результаты расчета по плавкам сохранены",
-					"Внимание");
 			}
 
 			// Step11
