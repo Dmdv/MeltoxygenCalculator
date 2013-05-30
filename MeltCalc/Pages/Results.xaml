@@ -139,9 +139,7 @@
 				<ColumnDefinition Width="0.256*"/>
 				<ColumnDefinition Width="0.411*"/>
 			</Grid.ColumnDefinitions>
-			<Button Content="Возврат в главное окно" VerticalAlignment="Center" Height="54" Margin="5,0"/>
-			<Button Content="Справка" VerticalAlignment="Center" Height="54" Margin="5,0" Grid.Column="1"/>
-			<Button Content="Переход к динамической модели OxyRun" VerticalAlignment="Center" Height="54" Margin="5,0" Grid.Column="2" Padding="5,1"/>
+			<Button Content="Возврат в главное окно" VerticalAlignment="Center" Height="54" Margin="5,5,5,0" Click="OnReturnMainWindow"/>
 		</Grid>
 	</Grid>
 </Page>

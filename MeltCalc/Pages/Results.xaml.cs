@@ -184,5 +184,13 @@ namespace MeltCalc.Pages
 							 Tube.МиксерныйШлак.G * (Tube.МиксерныйШлак.MgO) +
 							 Tube.Пакеты.ALFA * Tube.Пакеты.G * (Tube.Пакеты.MgO)) / Tube.Шлак.G;
 		}
+
+		private void OnReturnMainWindow(object sender, RoutedEventArgs e)
+		{
+			if (NavigationService != null)
+			{
+				NavigationService.Navigate(new Step1());
+			}
+		}
 	}
 }

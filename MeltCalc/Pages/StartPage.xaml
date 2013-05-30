@@ -30,7 +30,7 @@
 				<DropShadowEffect Direction="312" BlurRadius="8"/>
 			</TextBlock.Effect>
 		</TextBlock>
-		<Button Content="Электронный учебник по ККП" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="35" Margin="0,0,10,0"/>
+		<Button Content="Электронный учебник по ККП" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="35" Margin="0,0,10,0" Visibility="Hidden"/>
 		<Button Content="Начать моделирование" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="35" Grid.Row="4" Margin="0,6,10,0" Command="NavigationCommands.NextPage" />
 	</Grid>
 </Page>
