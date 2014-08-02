@@ -25,14 +25,17 @@ namespace MeltCalc
 			PostData = postData;
 		}
 
-		public string EndPoint { get; set; }
-		public HttpVerb Method { get; set; }
 		public string ContentType { get; set; }
+
+		public string EndPoint { get; set; }
+
+		public HttpVerb Method { get; set; }
+
 		public string PostData { get; set; }
 
 		public string MakeRequest(string parameters = "")
 		{
-			var request = (HttpWebRequest)WebRequest.Create(EndPoint + parameters);
+			var request = (HttpWebRequest) WebRequest.Create(EndPoint + parameters);
 
 			request.Method = Method.ToString();
 			request.ContentLength = 0;
@@ -50,7 +53,7 @@ namespace MeltCalc
 				}
 			}
 
-			using (var response = (HttpWebResponse)request.GetResponse())
+			using (var response = (HttpWebResponse) request.GetResponse())
 			{
 				var responseValue = string.Empty;
 
@@ -63,10 +66,12 @@ namespace MeltCalc
 				using (var responseStream = response.GetResponseStream())
 				{
 					if (responseStream != null)
+					{
 						using (var reader = new StreamReader(responseStream))
 						{
 							responseValue = reader.ReadToEnd();
 						}
+					}
 				}
 
 				return responseValue;

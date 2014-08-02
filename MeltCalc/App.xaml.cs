@@ -7,16 +7,16 @@ namespace MeltCalc
 	/// </summary>
 	public partial class App
 	{
-		private MainWindow main = new MainWindow();
-		private LoginWindow login = new LoginWindow();
-
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-			Current.MainWindow = login;
+			Current.MainWindow = _login;
 
-			login.LoginSuccessful += main.StartupMainWindow;
-			login.Show();
+			_login.LoginSuccessful += _main.StartupMainWindow;
+			_login.Show();
 		}
+
+		private readonly LoginWindow _login = new LoginWindow();
+		private readonly MainWindow _main = new MainWindow();
 	}
 }

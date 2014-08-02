@@ -9,31 +9,9 @@ namespace MeltCalc
 	/// </summary>
 	public partial class LoginWindow
 	{
-		private string _login;
-		private string _password;
-		private readonly Autorization _autorization = new Autorization();
-
-		internal event EventHandler LoginSuccessful;
-
 		public LoginWindow()
 		{
 			InitializeComponent();
-		}
-
-		private void signInButton_Click(object sender, RoutedEventArgs e)
-		{
-			_login = signInMailBox.Text;
-			_password = signInPasswordBox.Password;
-
-			if (_autorization.IsValidUser(_login, _password))
-			{
-				LoginSuccessful(this, null);
-				Close();
-			}
-			else
-			{
-				MessageBox.Show("Пользователь с таким именем не существует", "Авторизация");
-			}
 		}
 
 		private void enterMailLabel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -48,9 +26,29 @@ namespace MeltCalc
 			Keyboard.Focus(signInPasswordBox);
 		}
 
+		private void rememberMeSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void signInButton_Click(object sender, RoutedEventArgs e)
+		{
+			_login = signInMailBox.Text;
+			_password = signInPasswordBox.Password;
+
+			if (Autorization.IsValidUser(_login, _password))
+			{
+				LoginSuccessful(this, null);
+				Close();
+			}
+			else
+			{
+				MessageBox.Show("Пользователь с таким именем не существует", "Авторизация");
+			}
+		}
+
 		private void signInMailBox_LostFocus(object sender, RoutedEventArgs e)
 		{
-			if (signInMailBox.Text == "")
+			if (signInMailBox.Text == string.Empty)
 			{
 				enterMailLabel.Visibility = Visibility.Visible;
 			}
@@ -64,12 +62,9 @@ namespace MeltCalc
 			}
 		}
 
-		private void rememberMeDeselectButton_Click(object sender, RoutedEventArgs e)
-		{
-		}
+		internal event EventHandler LoginSuccessful;
 
-		private void rememberMeSelectButton_Click(object sender, RoutedEventArgs e)
-		{
-		}
+		private string _login;
+		private string _password;
 	}
 }
