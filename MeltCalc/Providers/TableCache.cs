@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Windows;
 using MeltCalc.Properties;
 
 namespace MeltCalc.Providers
@@ -13,20 +14,6 @@ namespace MeltCalc.Providers
 	{
 		private static readonly object _lock = new object();
 		private static readonly Dictionary<string, DataTable> _cache = new Dictionary<string, DataTable>();
-
-		public static void Refresh()
-		{
-			var path = Path.Combine(Environment.CurrentDirectory, Settings.Default.DatabaseRelativePath);
-			foreach (var file in Directory.GetFiles(path, @"*.mdb"))
-			{
-				var reader = new TableReader(file);
-				var schema = new TablesSchema(file);
-				foreach (var tableName in schema.GetTableNames())
-				{
-					Put(new Key(tableName, file), reader.FetchTable(tableName));
-				}
-			}
-		}
 
 		public static DataTable Get(Key key)
 		{
@@ -45,6 +32,27 @@ namespace MeltCalc.Providers
 					throw new Exception(string.Format("{0} doesn't exist", key));
 				}
 				_cache[key.Value] = datatable;
+			}
+		}
+
+		public static void Refresh()
+		{
+			var path = Path.Combine(Environment.CurrentDirectory, Settings.Default.DatabaseRelativePath);
+
+			if (!Directory.Exists(path))
+			{
+				MessageBox.Show(string.Format("Не найдена директория с данными: '{0}'", path));
+				return;
+			}
+
+			foreach (var file in Directory.GetFiles(path, @"*.mdb"))
+			{
+				var reader = new TableReader(file);
+				var schema = new TablesSchema(file);
+				foreach (var tableName in schema.GetTableNames())
+				{
+					Put(new Key(tableName, file), reader.FetchTable(tableName));
+				}
 			}
 		}
 	}

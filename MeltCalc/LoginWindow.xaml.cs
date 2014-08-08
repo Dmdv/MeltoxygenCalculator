@@ -56,7 +56,7 @@ namespace MeltCalc
 
 		private void signInPasswordBox_LostFocus(object sender, RoutedEventArgs e)
 		{
-			if (signInPasswordBox.Password == "")
+			if (signInPasswordBox.Password == string.Empty)
 			{
 				enterPassLabel.Visibility = Visibility.Visible;
 			}
