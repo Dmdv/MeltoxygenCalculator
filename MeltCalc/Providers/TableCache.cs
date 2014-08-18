@@ -15,23 +15,23 @@ namespace MeltCalc.Providers
 		private static readonly object _lock = new object();
 		private static readonly Dictionary<string, DataTable> _cache = new Dictionary<string, DataTable>();
 
-		public static DataTable Get(Key key)
+		public static DataTable Get(TableKey tableKey)
 		{
 			lock (_lock)
 			{
-				return _cache.ContainsKey(key.Value) ? _cache[key.Value] : null;
+				return _cache.ContainsKey(tableKey.Value) ? _cache[tableKey.Value] : null;
 			}
 		}
 
-		public static void Put(Key key, DataTable datatable)
+		public static void Put(TableKey tableKey, DataTable datatable)
 		{
 			lock (_lock)
 			{
-				if (Get(key) != null)
+				if (Get(tableKey) != null)
 				{
-					throw new Exception(string.Format("{0} doesn't exist", key));
+					throw new Exception(string.Format("{0} doesn't exist", tableKey));
 				}
-				_cache[key.Value] = datatable;
+				_cache[tableKey.Value] = datatable;
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace MeltCalc.Providers
 				var schema = new TablesSchema(file);
 				foreach (var tableName in schema.GetTableNames())
 				{
-					Put(new Key(tableName, file), reader.FetchTable(tableName));
+					Put(new TableKey(tableName, file), reader.FetchTable(tableName));
 				}
 			}
 		}

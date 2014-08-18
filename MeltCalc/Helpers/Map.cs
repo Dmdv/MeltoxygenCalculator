@@ -17,7 +17,7 @@ namespace MeltCalc.Helpers
 			{
 				if (!_map.ContainsKey(key))
 				{
-					throw new KeyNotFoundException(string.Format("Key '{0}' not found", key));
+					throw new KeyNotFoundException(string.Format("TableKey '{0}' not found", key));
 				}
 
 				return _map[key];

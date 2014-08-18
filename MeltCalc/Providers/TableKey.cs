@@ -2,9 +2,9 @@ using System.IO;
 
 namespace MeltCalc.Providers
 {
-	public class Key
+	public class TableKey
 	{
-		public Key(string table, string file)
+		public TableKey(string table, string file)
 		{
 			Table = table;
 			_file = Path.GetFileName(file);
