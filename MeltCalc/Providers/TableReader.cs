@@ -6,8 +6,9 @@ namespace MeltCalc.Providers
 {
 	public class TableReader : MdbTable
 	{
-		public TableReader(string file) : 
-			base(file)
+		public TableReader(string file)
+			:
+				base(file)
 		{
 		}
 
@@ -17,7 +18,7 @@ namespace MeltCalc.Providers
 			{
 				conn.Open();
 
-				using (var cmd = new OleDbCommand(string.Format("select * from {0}", table)) {Connection = conn})
+				using (var cmd = new OleDbCommand(string.Format("select * from {0}", table)) { Connection = conn })
 				{
 					using (var oleDbDataReader = cmd.ExecuteReader())
 					{

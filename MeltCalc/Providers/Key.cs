@@ -4,8 +4,6 @@ namespace MeltCalc.Providers
 {
 	public class Key
 	{
-		private readonly string _file;
-
 		public Key(string table, string file)
 		{
 			Table = table;
@@ -23,5 +21,7 @@ namespace MeltCalc.Providers
 		{
 			return Value;
 		}
+
+		private readonly string _file;
 	}
 }

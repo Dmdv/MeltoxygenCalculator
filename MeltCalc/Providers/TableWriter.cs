@@ -1,30 +1,30 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace MeltCalc.Providers
 {
-	public class TableWriter : MdbTable
+	public sealed class TableWriter : MdbTable
 	{
-		public TableWriter(string file) :
-			base(file)
+		public TableWriter(string file)
+			: base(file)
 		{
 		}
 
 		/// <summary>
-		/// 0 row никогда не используем.
+		/// 0 rowIndex никогда не используем.
 		/// В таблицах нумерация только от 1.
 		/// </summary>
-		public void Write(string tablename, IList<Tuple<string, double>> parameters, int row)
+		public void Write(string tablename, IList<Tuple<string, double>> parameters, int rowIndex)
 		{
-			if (row <= 0)
+			if (rowIndex <= 0)
 			{
-				throw new ArgumentException(@"Invalid row", "row");
+				throw new ArgumentException(@"Invalid rowIndex", "rowIndex");
 			}
 
-			InitCommand(tablename, parameters, row);
+			InitCommand(tablename, parameters, rowIndex);
 
 			using (var conn = CreateConnection())
 			{
@@ -38,7 +38,7 @@ namespace MeltCalc.Providers
 			}
 		}
 
-		protected void InitCommand(string tablename, IList<Tuple<string, double>> parameters, int row)
+		private void InitCommand(string tablename, IList<Tuple<string, double>> parameters, int row)
 		{
 			var cmdText = CreateCommandText(tablename, parameters, row);
 			var dbParameters = CreateCommandParameters(parameters);
@@ -51,9 +51,10 @@ namespace MeltCalc.Providers
 		private static IEnumerable<OleDbParameter> CreateCommandParameters(IEnumerable<Tuple<string, double>> parameters)
 		{
 			return parameters
-				.Select(tuple => new OleDbParameter(
-					string.Format("@{0}", tuple.Item1),
-					tuple.Item2));
+				.Select(tuple =>
+					new OleDbParameter(
+						string.Format("@{0}", tuple.Item1),
+						tuple.Item2));
 		}
 
 		private static string CreateCommandText(string tablename, IEnumerable<Tuple<string, double>> parameters, int row)

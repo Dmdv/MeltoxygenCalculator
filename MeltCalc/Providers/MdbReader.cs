@@ -2,13 +2,6 @@ namespace MeltCalc.Providers
 {
 	public abstract class MdbReader
 	{
-		private readonly TableCacheReader _cacheReader;
-
-		protected MdbReader(string path)
-		{
-			_cacheReader = new TableCacheReader(path);
-		}
-
 		public TableCacheReader Reader
 		{
 			get { return _cacheReader; }
@@ -18,5 +11,12 @@ namespace MeltCalc.Providers
 		{
 			return Reader.FetchTable(table).Rows.Count;
 		}
+
+		protected MdbReader(string path)
+		{
+			_cacheReader = new TableCacheReader(path);
+		}
+
+		private readonly TableCacheReader _cacheReader;
 	}
 }

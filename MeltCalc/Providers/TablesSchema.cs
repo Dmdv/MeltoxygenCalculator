@@ -14,8 +14,6 @@ namespace MeltCalc.Providers
 		private const string Pattern = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
 		private static readonly DbProviderFactory _factory = DbProviderFactories.GetFactory("System.Data.OleDb");
 
-		private readonly string _file;
-
 		public TablesSchema(string file)
 		{
 			_file = file;
@@ -28,7 +26,9 @@ namespace MeltCalc.Providers
 			using (var connection = _factory.CreateConnection())
 			{
 				if (connection == null)
+				{
 					throw new ArgumentException("connection");
+				}
 
 				connection.ConnectionString = string.Format(Pattern, _file);
 
@@ -46,5 +46,7 @@ namespace MeltCalc.Providers
 				.Cast<DataRow>()
 				.Select(row => row[2].ToString()).ToList();
 		}
+
+		private readonly string _file;
 	}
 }

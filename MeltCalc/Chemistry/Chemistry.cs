@@ -44,7 +44,7 @@ namespace MeltCalc.Chemistry
 
 		public void Load()
 		{
-			Load(GetSavedSelection(SavedColumnIndex) - 1);
+			Load(GetSavedSelection(ColumnNumberInSaveTable) - 1);
 		}
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace MeltCalc.Chemistry
 		/// <summary>
 		/// Возвращает сохраненный индекс из "save" таблицы базы loose.mdb
 		/// </summary>
-		protected virtual int SavedColumnIndex
+		protected virtual int ColumnNumberInSaveTable
 		{
 			get { return -1; }
 		}
@@ -109,7 +109,11 @@ namespace MeltCalc.Chemistry
 		/// </summary>
 		private int GetSavedSelection(int columnNumber)
 		{
-			var idxs = _looseMdb.Reader.SelectRowRange("save", 0).Select(x=>x.ToInt()).ToArray();
+			var idxs = _looseMdb.Reader
+				.SelectRowRange("save", 0)
+				.Select(x => x.ToInt())
+				.ToArray();
+
 			if (columnNumber < 0)
 			{
 				throw new InvalidOperationException(
@@ -148,7 +152,7 @@ namespace MeltCalc.Chemistry
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 1; }
 		}
@@ -179,7 +183,7 @@ namespace MeltCalc.Chemistry
 		public double P2O5 { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 2; }
 		}
@@ -209,7 +213,7 @@ namespace MeltCalc.Chemistry
 		public double P { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 10; }
 		}
@@ -236,7 +240,7 @@ namespace MeltCalc.Chemistry
 		public double CaO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 12; }
 		}
@@ -482,7 +486,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 5; }
 		}
@@ -505,7 +509,7 @@ namespace MeltCalc.Chemistry
 
 		public double C { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 6; }
 		}
@@ -527,7 +531,7 @@ namespace MeltCalc.Chemistry
 		public double H2O { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 7; }
 		}
@@ -553,7 +557,7 @@ namespace MeltCalc.Chemistry
 		public double P { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 9; }
 		}
@@ -580,7 +584,7 @@ namespace MeltCalc.Chemistry
 		public double FeO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 8; }
 		}
@@ -605,7 +609,7 @@ namespace MeltCalc.Chemistry
 		public double Fe2O3 { get; set; }
 		public double FeO { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 11; }
 		}
@@ -653,7 +657,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 4; }
 		}
@@ -684,7 +688,7 @@ namespace MeltCalc.Chemistry
 		public double MgO { get; set; }
 		public double SiO2 { get; set; }
 
-		protected override int SavedColumnIndex
+		protected override int ColumnNumberInSaveTable
 		{
 			get { return 3; }
 		}
