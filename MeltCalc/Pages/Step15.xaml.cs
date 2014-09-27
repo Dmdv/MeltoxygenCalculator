@@ -293,8 +293,12 @@ namespace MeltCalc.Pages
 			}
 
 
-			var longOperation = new ProgressWindow();
-			longOperation.Run(new Estimation(), Params.IterationNumber);
+			var longOperation = new ProgressWindow
+			{
+				MaximumProgress = Params.IterationNumber
+			};
+
+			longOperation.Run(new Estimation());
 
 			GoToResults();
 

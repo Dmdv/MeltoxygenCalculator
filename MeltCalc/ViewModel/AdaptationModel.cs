@@ -58,8 +58,12 @@ namespace MeltCalc.ViewModel
 				LoadMixAndOstShl();
 				DetectBaseLenth();
 
-				var longOperation = new ProgressWindow();
-				longOperation.Run(this, BaseLenth);
+				var longOperation = new ProgressWindow
+				{
+					MaximumProgress = BaseLenth
+				};
+
+				longOperation.Run(this);
 
 				if (GoodMeltsQuant >= 10)
 				{

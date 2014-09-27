@@ -6,12 +6,10 @@ using MeltCalc.Controls.Internals;
 namespace MeltCalc.Controls
 {
 	/// <summary>
-	/// Interaction logic for ProgressWindow.xaml
+	/// Progress windows, which shows the progress of long running tasks.
 	/// </summary>
 	public partial class ProgressWindow : IUpdater
 	{
-		private IRunner _runner;
-
 		public ProgressWindow()
 		{
 			InitializeComponent();
@@ -19,37 +17,44 @@ namespace MeltCalc.Controls
 			ShowInTaskbar = false;
 		}
 
-		public void Run(IRunner runner, int iterations)
+		void IUpdater.ShowProgress(object value)
+		{
+			_progress.Value = Convert.ToDouble(value);
+		}
+
+		public double? MaximumProgress { get; set; }
+
+		public void Run(IRunner runner)
 		{
 			_runner = runner;
 			_progress.Minimum = 0;
-			_progress.Maximum = iterations;
+			_progress.Maximum = MaximumProgress.HasValue ? MaximumProgress.Value : 0.0;
+			_progress.IsIndeterminate = !MaximumProgress.HasValue;
 			_progress.Value = 0;
 
 			var asyncOperation = AsyncOperationManager.CreateOperation(null);
+
 			Task.Factory.StartNew(InternalRun, asyncOperation);
 
 			ShowDialog();
 			Close();
 		}
 
-		public void DoProgress(object value)
-		{
-			_progress.Value = Convert.ToDouble(value);
-		}
-
-		public void Close(object state)
+		private void Close(object state)
 		{
 			Close();
 		}
 
 		private void InternalRun(object state)
 		{
-			var asyncOperation = (AsyncOperation)state;
+			var asyncOperation = (AsyncOperation) state;
 
-			_runner.Run(x => asyncOperation.Post(DoProgress, x));
+			_runner.Run(x => asyncOperation.Post(((IUpdater) this).ShowProgress, x));
+
 			asyncOperation.Post(Close, null);
 			asyncOperation.OperationCompleted();
 		}
+
+		private IRunner _runner;
 	}
 }
